@@ -1,0 +1,21 @@
+﻿using HotelRapidApi.EntityLayer.Concrete;
+using HotelRapidApi.EntityLayer.Entities;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace HotelRapidApi.DataAccessLayer.Concrete
+{
+    public class AppDbContext(DbContextOptions options):DbContext(options)
+    {
+       public DbSet<Room>Rooms { get; set; }
+       public DbSet<Service>Services { get; set; }
+       public DbSet<Staff>Staffs { get; set; }
+       public DbSet<Subscribe>Subscribes { get; set; }
+       public DbSet<Testimonial>Testimonials { get; set; }
+
+    }
+}
