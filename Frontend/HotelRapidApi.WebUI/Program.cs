@@ -1,9 +1,13 @@
+using HotelRapidApi.DataAccessLayer.Concrete;
+using HotelRapidApi.EntityLayer.Entities;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpClient();
-
+builder.Services.AddDbContext<AppDbContext>();
+builder.Services.AddIdentity<AppUser,AppRole>().AddEntityFrameworkStores<AppDbContext>();
 builder.Services.AddAutoMapper(typeof(Program));
 var app = builder.Build();
 

@@ -1,5 +1,6 @@
 ﻿using HotelRapidApi.EntityLayer.Concrete;
 using HotelRapidApi.EntityLayer.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace HotelRapidApi.DataAccessLayer.Concrete
 {
-    public class AppDbContext(DbContextOptions options):DbContext(options)
+    public class AppDbContext(DbContextOptions options):IdentityDbContext<AppUser,AppRole,int>(options)
     {
        public DbSet<Room>Rooms { get; set; }
        public DbSet<Service>Services { get; set; }
