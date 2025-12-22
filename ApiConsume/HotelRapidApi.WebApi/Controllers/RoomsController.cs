@@ -22,7 +22,7 @@ namespace HotelRapidApi.WebApi.Controllers
             _roomService.TInsert(room);
             return Ok(room);
         }
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult DeleteRoom(int Id)
         {
             var values = _roomService.TGetById(Id);

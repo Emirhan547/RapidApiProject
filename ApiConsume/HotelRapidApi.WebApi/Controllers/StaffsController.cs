@@ -21,7 +21,7 @@ namespace HotelRapidApi.WebApi.Controllers
             _staffService.TInsert(staff);
             return Ok(staff);
         }
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult DeleteStaff(int Id)
         {
             var values=_staffService.TGetById(Id);

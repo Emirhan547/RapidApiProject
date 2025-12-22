@@ -1,0 +1,26 @@
+﻿@using HotelRapidApi.WebUI.DTOs.ServiceDtos
+@model UpdateServiceDto
+@{
+    ViewData["Title"] = "UpdateService";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<form method="post">
+    <input type="hidden"asp-for="Id"/>
+    <input type="text" asp-for="ServiceIcon" class="form-control" />
+    <span asp-validation-for="ServiceIcon" class="text-danger"></span>
+    <br />
+    <label>Hizmet İkonu</label>
+    <label>Hizmet Başlığı</label>
+    <input type="text" asp-for="Title" class="form-control" />
+    <span asp-validation-for="Title" class="text-danger"></span>
+    <br />
+    <label>Açıklama</label>
+    <input type="text" asp-for="Description" class="form-control" />
+    <span asp-validation-for="Description" class="text-danger"></span>
+    <br />
+
+    <button class="btn btn-primary">Hizmeti Güncelle</button>
+</form>
