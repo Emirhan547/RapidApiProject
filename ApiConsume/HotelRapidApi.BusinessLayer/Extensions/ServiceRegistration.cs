@@ -18,6 +18,7 @@ namespace HotelRapidApi.BusinessLayer.Extensions
             services.AddScoped<IStaffService,StaffManager>();
             services.AddScoped<ISubscribeService,SubscribeManager>();
             services.AddScoped<ITestimonialService,TestimonialManager>();
+            services.AddScoped<IAboutService,AboutManager>();
         }
     }
 }
