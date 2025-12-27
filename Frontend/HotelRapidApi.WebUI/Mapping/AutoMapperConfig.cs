@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using HotelRapidApi.EntityLayer.Entities;
 using HotelRapidApi.WebUI.DTOs.AboutDtos;
+using HotelRapidApi.WebUI.DTOs.BookingDtos;
+using HotelRapidApi.WebUI.DTOs.GuestDtos;
 using HotelRapidApi.WebUI.DTOs.LoginDtos;
 using HotelRapidApi.WebUI.DTOs.RegisterDtos;
 using HotelRapidApi.WebUI.DTOs.ServiceDtos;
@@ -27,6 +29,11 @@ namespace HotelRapidApi.WebUI.Mapping
             CreateMap<ResultTestimonialDto, Testimonial>().ReverseMap();
             CreateMap<ResultStaffDto, Staff>().ReverseMap();
             CreateMap<CreateSubscribeDto, Subscribe>().ReverseMap();
+            CreateMap<CreateBookingDto, Booking>().ReverseMap();
+            CreateMap<ApprovedReservationDto, Booking>().ReverseMap();
+            CreateMap<CreateGuestDto, Guest>().ReverseMap();
+            CreateMap<UpdateGuestDto, Guest>().ReverseMap();
         }
     }
 }
+

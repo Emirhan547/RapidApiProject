@@ -20,6 +20,9 @@ namespace HotelRapidApi.DataAccessLayer.Extensions
             services.AddScoped<ISubscribeDal, EfSubscribeDal>();
             services.AddScoped<ITestimonialDal, EfTestimonialDal>();
             services.AddScoped<IAboutDal, EfAboutDal>();
+            services.AddScoped<IBookingDal, EfBookingDal>();
+            services.AddScoped<IContactDal, EfContactDal>();
+            services.AddScoped<IGuestDal, EfGuestDal>();
         }
     }
 }

@@ -1,0 +1,31 @@
+﻿@using HotelRapidApi.WebUI.DTOs.ServiceDtos
+@model List<ResultServiceDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    int count = 0;
+}
+
+<h1>Index</h1>
+
+<table class="table table-bordered">
+    <tr>
+        <th>#</th>
+        <th>Hizmet Başlığı</th>
+        <th>Sil</th>
+        <th>Güncelle</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        count++;
+        <tr>
+            <td>@item.Id</td>
+    
+            <td>@item.Title</td>
+            <td><a href="/Service/DeleteService/@item.Id" class="btn mb-1 btn rounded btn-danger">Sil</a></td>
+            <td><a href="/Service/UpdateService/@item.Id" class="btn mb-1 btn rounded btn-success">Güncelle</a></td>
+
+        </tr>
+    }
+</table>
+<a href="/Staff/AddStaff/" class="btn mb-1 btn rounded btn-outline-info">Yeni Hizmet Girişi</a>

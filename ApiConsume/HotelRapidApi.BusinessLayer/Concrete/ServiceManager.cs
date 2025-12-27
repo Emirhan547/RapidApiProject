@@ -12,6 +12,12 @@ namespace HotelRapidApi.BusinessLayer.Concrete
     public class ServiceManager : IServiceService
     {
         private readonly IServicesDal _servicesDal;
+
+        public ServiceManager(IServicesDal servicesDal)
+        {
+            _servicesDal = servicesDal;
+        }
+
         public void TDelete(Service entity)
         {
             _servicesDal.Delete(entity);

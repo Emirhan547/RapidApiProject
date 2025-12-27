@@ -20,6 +20,7 @@ namespace HotelRapidApi.WebApi.Controllers
             _roomService = roomService;
             _mapper = mapper;
         }
+        [HttpGet]
         public IActionResult Index()
         {
             var values=_roomService.TGetList();
