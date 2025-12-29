@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 
 namespace HotelRapidApi.DataAccessLayer.Abstract
 {
-    public interface IContactDal:IGenericDal<Contact>
+    public interface ISendMessageDal:IGenericDal<SendMessage>
     {
-        public int GetContactCount();
-
     }
 }

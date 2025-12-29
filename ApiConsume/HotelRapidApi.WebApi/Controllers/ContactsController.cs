@@ -10,7 +10,7 @@ namespace HotelRapidApi.WebApi.Controllers
     public class ContactsController(IContactService _contactService) : ControllerBase
     {
         [HttpGet]
-        public  IActionResult Index()
+        public  IActionResult ContactList()
         {
             var values = _contactService.TGetList();
             return Ok(values);

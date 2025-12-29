@@ -2,18 +2,18 @@
 using HotelRapidApi.DataAccessLayer.Concrete;
 using HotelRapidApi.DataAccessLayer.Repositories;
 using HotelRapidApi.EntityLayer.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace HotelRapidApi.DataAccessLayer.EntityFramework
+public class EfContactDal : GenericRepository<Contact>, IContactDal
 {
-    public class EfContactDal : GenericRepository<Contact>, IContactDal
+    private readonly AppDbContext _context;
+
+    public EfContactDal(AppDbContext context) : base(context)
     {
-        public EfContactDal(AppDbContext context) : base(context)
-        {
-        }
+        _context = context;
+    }
+
+    public int GetContactCount()
+    {
+        return _context.Contacts.Count();
     }
 }

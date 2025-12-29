@@ -7,6 +7,7 @@ using System.Text;
 
 namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class AboutController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;

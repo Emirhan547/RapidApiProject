@@ -1,43 +1,66 @@
-using FluentValidation;
+﻿using FluentValidation;
 using FluentValidation.AspNetCore;
 using HotelProject.WebUI.ValidationRules.GuestValidationRules;
 using HotelRapidApi.DataAccessLayer.Concrete;
 using HotelRapidApi.EntityLayer.Entities;
 using HotelRapidApi.WebUI.DTOs.GuestDtos;
-
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddTransient<IValidator<CreateGuestDto>,CreateGuestValidator>();
-builder.Services.AddTransient<IValidator<UpdateGuestDto>,UpdateGuestValidator>();
+// 🔹 MVC
+builder.Services.AddControllersWithViews();
+
+// 🔹 FluentValidation (DOĞRU YER)
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddFluentValidationClientsideAdapters();
+
+// Validator registrations
+builder.Services.AddTransient<IValidator<CreateGuestDto>, CreateGuestValidator>();
+builder.Services.AddTransient<IValidator<UpdateGuestDto>, UpdateGuestValidator>();
+
+// 🔹 HttpClient
 builder.Services.AddHttpClient();
-builder.Services.AddDbContext<AppDbContext>();
-builder.Services.AddIdentity<AppUser,AppRole>().AddEntityFrameworkStores<AppDbContext>();
+
+// 🔹 DbContext
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection"));
+});
+
+// 🔹 Identity
+builder.Services.AddIdentity<AppUser, AppRole>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
+
+// 🔹 AutoMapper
 builder.Services.AddAutoMapper(typeof(Program));
+
+// 🔹 BUILD
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// 🔹 Middleware
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
 }
-app.UseStaticFiles();
 
+app.UseStaticFiles();
 app.UseRouting();
-// Replace the obsolete AddFluentValidation() call with the recommended methods
-builder.Services.AddControllersWithViews();
-builder.Services.AddFluentValidationAutoValidation();
-builder.Services.AddFluentValidationClientsideAdapters();
+
+app.UseAuthentication();
 app.UseAuthorization();
 
-  app.MapControllerRoute(
-      name: "areas",
-      pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-    );
+// 🔹 Routes
+app.MapControllerRoute(
+    name: "areas",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+);
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}"
+);
 
 app.Run();

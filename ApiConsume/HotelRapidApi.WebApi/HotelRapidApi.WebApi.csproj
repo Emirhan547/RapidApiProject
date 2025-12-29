@@ -24,4 +24,9 @@
     <ProjectReference Include="..\HotelRapidApi.DtoLayer\HotelRapidApi.DtoLayer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="images\" />
+    <Folder Include="files\" />
+  </ItemGroup>
+
 </Project>

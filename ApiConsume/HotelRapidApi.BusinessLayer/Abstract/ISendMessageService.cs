@@ -5,11 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HotelRapidApi.DataAccessLayer.Abstract
+namespace HotelRapidApi.BusinessLayer.Abstract
 {
-    public interface IContactDal:IGenericDal<Contact>
+    public interface ISendMessageService:IGenericService<SendMessage>
     {
-        public int GetContactCount();
 
     }
 }

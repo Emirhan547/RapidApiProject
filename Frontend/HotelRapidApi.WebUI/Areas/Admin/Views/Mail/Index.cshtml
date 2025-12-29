@@ -1,0 +1,20 @@
+﻿@using HotelRapidApi.WebUI.Models
+@model MailViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<form method="post">
+    <label>Alıcı Mail Adresi</label>
+    <input type="text" class="form-control" asp-for="ReceiverMail" />
+    <br />
+    <label>Mesaj Konusu</label>
+    <input type="text"class="form-control" asp-for="Subject" />
+    <br />
+    <label>Mesajınız</label>
+    <textarea class="form-control h-150px" rows="6" id="comment" asp-for="Body"></textarea>
+    <br />
+    <button type="submit" class="btn btn-primary">Gönder</button>
+</form>
+
