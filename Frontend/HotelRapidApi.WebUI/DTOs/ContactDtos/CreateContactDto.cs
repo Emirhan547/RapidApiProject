@@ -1,4 +1,6 @@
-﻿namespace HotelRapidApi.WebUI.DTOs.ContactDtos
+﻿using HotelRapidApi.EntityLayer.Entities;
+
+namespace HotelRapidApi.WebUI.DTOs.ContactDtos
 {
     public class CreateContactDto
     {
@@ -7,5 +9,7 @@
         public string Subject { get; set; }
         public string Message { get; set; }
         public DateTime Date { get; set; }
+        public int MessageCategoryId { get; set; }
+
     }
 }

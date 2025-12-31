@@ -5,10 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HotelRapidApi.BusinessLayer.Abstract
+namespace HotelRapidApi.DataAccessLayer.Abstract
 {
-    public interface ISendMessageService:IGenericService<SendMessage>
+    public interface IMessageCategoryDal:IGenericDal<MessageCategory>
     {
-        public int TGetSendMessageCount();
     }
 }

@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace HotelRapidApi.BusinessLayer.Abstract
 {
-    public interface ISendMessageService:IGenericService<SendMessage>
+    public interface IMessageCategoryService:IGenericService<MessageCategory>
     {
-        public int TGetSendMessageCount();
     }
 }

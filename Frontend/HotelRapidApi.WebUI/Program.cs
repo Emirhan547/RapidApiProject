@@ -4,7 +4,9 @@ using HotelProject.WebUI.ValidationRules.GuestValidationRules;
 using HotelRapidApi.DataAccessLayer.Concrete;
 using HotelRapidApi.EntityLayer.Entities;
 using HotelRapidApi.WebUI.DTOs.GuestDtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -36,7 +38,19 @@ builder.Services.AddIdentity<AppUser, AppRole>()
 
 // 🔹 AutoMapper
 builder.Services.AddAutoMapper(typeof(Program));
-
+builder.Services.AddMvc(config=>
+{
+    var policy=new AuthorizationPolicyBuilder()
+    .RequireAuthenticatedUser()
+    .Build();
+    config.Filters.Add(new AuthorizeFilter(policy));
+});
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Cookie.HttpOnly = true;
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+    options.LoginPath = "/Login/Index";
+});
 // 🔹 BUILD
 var app = builder.Build();
 
@@ -45,7 +59,8 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
 }
-
+app.UseStatusCodePagesWithReExecute("/ErrorPage/Error404","?code={0}");
+app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 

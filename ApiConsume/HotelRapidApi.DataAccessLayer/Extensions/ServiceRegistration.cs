@@ -24,6 +24,7 @@ namespace HotelRapidApi.DataAccessLayer.Extensions
             services.AddScoped<IContactDal, EfContactDal>();
             services.AddScoped<IGuestDal, EfGuestDal>();
             services.AddScoped<ISendMessageDal, EfSendMessageDal>();
+            services.AddScoped<IMessageCategoryDal, EfMessageCategoryDal>();
         }
     }
 }

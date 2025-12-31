@@ -10,17 +10,10 @@ using System.Threading.Tasks;
 
 namespace HotelRapidApi.DataAccessLayer.EntityFramework
 {
-    public class EfSendMessageDal : GenericRepository<SendMessage>, ISendMessageDal
+    public class EfMessageCategoryDal : GenericRepository<MessageCategory>, IMessageCategoryDal
     {
-        private readonly AppDbContext _context;
-        public EfSendMessageDal(AppDbContext context) : base(context)
+        public EfMessageCategoryDal(AppDbContext context) : base(context)
         {
-            _context = context;
-        }
-
-        public int GetSendMessageCount()
-        {
-            return _context.Contacts.Count();
         }
     }
 }

@@ -16,7 +16,7 @@ namespace HotelRapidApi.WebApi.Controllers
             return Ok(sendMessage);
         }
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public IActionResult GetSendMessage(int id)
         {
             var sendMessage=_sendMessageService.TGetById(id);
             return Ok(sendMessage);
@@ -39,6 +39,11 @@ namespace HotelRapidApi.WebApi.Controllers
             var message=_sendMessageService.TGetById(id);
             _sendMessageService.TDelete(message);
             return NoContent();
+        }
+        [HttpGet("GetSendMessageCount")]
+        public IActionResult GetSendMessageCount()
+        {
+            return Ok(_sendMessageService.TGetSendMessageCount());
         }
     }
 }

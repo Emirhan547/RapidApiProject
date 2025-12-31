@@ -1,6 +1,7 @@
 ﻿using HotelProject.WebUI.Dtos.MessageCategoryDto;
 using HotelRapidApi.WebUI.DTOs.BookingDtos;
 using HotelRapidApi.WebUI.DTOs.ContactDtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
@@ -9,6 +10,7 @@ using System.Text;
 
 namespace HotelRapidApi.WebUI.Controllers
 {
+    [AllowAnonymous]
     public class ContactController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;

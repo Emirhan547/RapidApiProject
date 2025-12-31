@@ -23,6 +23,7 @@ namespace HotelRapidApi.BusinessLayer.Extensions
             services.AddScoped<IContactService,ContactManager>();
             services.AddScoped<IGuestService,GuestManager>();
             services.AddScoped<ISendMessageService,SendMessageManager>();
+            services.AddScoped<IMessageCategoryService,MessageCategoryManager>();
         }
     }
 }

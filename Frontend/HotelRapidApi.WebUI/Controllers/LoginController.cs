@@ -1,10 +1,12 @@
 ﻿using HotelRapidApi.EntityLayer.Entities;
 using HotelRapidApi.WebUI.DTOs.LoginDtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelRapidApi.WebUI.Controllers
 {
+    [AllowAnonymous]
     public class LoginController : Controller
     {
         private readonly SignInManager<AppUser> _signInManager;

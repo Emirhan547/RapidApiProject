@@ -1,11 +1,13 @@
 ﻿using HotelRapidApi.WebUI.DTOs.ServiceDtos;
 using HotelRapidApi.WebUI.DTOs.SubscribeDtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
 
 namespace HotelRapidApi.WebUI.Controllers
 {
+    [AllowAnonymous]
     public class DefaultController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
