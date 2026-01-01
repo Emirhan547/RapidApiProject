@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using HotelRapidApi.EntityLayer.Entities;
 using HotelRapidApi.WebUI.DTOs.AboutDtos;
+using HotelRapidApi.WebUI.DTOs.AppUserDtos;
 using HotelRapidApi.WebUI.DTOs.BookingDtos;
 using HotelRapidApi.WebUI.DTOs.GuestDtos;
 using HotelRapidApi.WebUI.DTOs.LoginDtos;
@@ -33,6 +34,7 @@ namespace HotelRapidApi.WebUI.Mapping
             CreateMap<ApprovedReservationDto, Booking>().ReverseMap();
             CreateMap<CreateGuestDto, Guest>().ReverseMap();
             CreateMap<UpdateGuestDto, Guest>().ReverseMap();
+            CreateMap<ResultAppUserDto, AppUser>().ReverseMap();
         }
     }
 }

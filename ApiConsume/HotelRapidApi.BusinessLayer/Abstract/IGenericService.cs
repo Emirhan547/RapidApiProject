@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HotelRapidApi.BusinessLayer.Abstract
 {
-    public interface IGenericService<T> where T : BaseEntity
+    public interface IGenericService<T> where T : class
     {
         void TInsert(T entity);
         void TUpdate(T entity);

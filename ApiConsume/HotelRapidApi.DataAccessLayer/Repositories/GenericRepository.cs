@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace HotelRapidApi.DataAccessLayer.Repositories
 {
-    public class GenericRepository<T>: IGenericDal<T> where T : BaseEntity
+    public class GenericRepository<T>: IGenericDal<T> where T : class
     {
         private readonly AppDbContext _context;
 

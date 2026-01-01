@@ -24,6 +24,8 @@ namespace HotelRapidApi.BusinessLayer.Extensions
             services.AddScoped<IGuestService,GuestManager>();
             services.AddScoped<ISendMessageService,SendMessageManager>();
             services.AddScoped<IMessageCategoryService,MessageCategoryManager>();
+            services.AddScoped<IWorkLocationService,WorkLocationManager>();
+            services.AddScoped<IAppUserService,AppUserManager>();
         }
     }
 }
