@@ -9,5 +9,7 @@ namespace HotelRapidApi.BusinessLayer.Abstract
 {
     public interface IBookingService:IGenericService<Booking>
     {
+        int TGetBookingCount();
+        List<Booking> TLast6Bookings();
     }
 }

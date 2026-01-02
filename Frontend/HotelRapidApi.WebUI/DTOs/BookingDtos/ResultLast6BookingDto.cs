@@ -1,14 +1,8 @@
-﻿using HotelRapidApi.EntityLayer.Entities.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HotelRapidApi.EntityLayer.Entities
+﻿namespace HotelRapidApi.WebUI.DTOs.BookingDtos
 {
-    public class Booking:BaseEntity
+    public class ResultLast6BookingDto
     {
+        public int BookingID { get; set; }
         public string Name { get; set; }
         public string Mail { get; set; }
         public DateTime Checkin { get; set; }
@@ -21,7 +15,6 @@ namespace HotelRapidApi.EntityLayer.Entities
         public string Status { get; set; }
         public string City { get; set; }
         public string Country { get; set; }
-
 
     }
 }

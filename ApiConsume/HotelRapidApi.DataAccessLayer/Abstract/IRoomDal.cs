@@ -9,5 +9,6 @@ namespace HotelRapidApi.DataAccessLayer.Abstract
 {
     public interface IRoomDal:IGenericDal<Room>
     {
+        int RoomCount();
     }
 }

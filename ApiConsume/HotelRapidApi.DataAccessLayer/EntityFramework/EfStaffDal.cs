@@ -12,8 +12,22 @@ namespace HotelRapidApi.DataAccessLayer.EntityFramework
 {
     public class EfStaffDal : GenericRepository<Staff>, IStaffDal
     {
-        public EfStaffDal(AppDbContext context) : base(context)
+        private readonly AppDbContext _appDbContext;
+        public EfStaffDal(AppDbContext context, AppDbContext appDbContext) : base(context)
         {
+            _appDbContext = appDbContext;
+        }
+
+        public int GetStaffCount()
+        {
+            var value=_appDbContext.Staffs.Count();
+            return value;
+        }
+
+        public List<Staff> Last4Staff()
+        {
+            var value=_appDbContext.Staffs.OrderByDescending(x=> x.Id).Take(4).ToList();
+            return value;
         }
     }
 }

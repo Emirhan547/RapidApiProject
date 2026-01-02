@@ -11,6 +11,11 @@ namespace HotelRapidApi.BusinessLayer.Concrete
 {
     public class AppUserManager(IAppUserDal _appUserDal) : IAppUserService
     {
+        public int TAppUserCount()
+        {
+            return _appUserDal.AppUserCount();
+        }
+
         public void TDelete(AppUser entity)
         {
             throw new NotImplementedException();
@@ -39,6 +44,11 @@ namespace HotelRapidApi.BusinessLayer.Concrete
         public List<AppUser> TUserListWithWorkLocation()
         {
             return _appUserDal.UserListWithLocation();
+        }
+
+        public List<AppUser> TUsersListWithWorkLocations()
+        {
+          return _appUserDal.UserListWithWorkLocations();
         }
     }
 }

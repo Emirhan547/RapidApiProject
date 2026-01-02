@@ -10,5 +10,7 @@ namespace HotelRapidApi.DataAccessLayer.Abstract
     public interface IAppUserDal :IGenericDal<AppUser>
     {
         List<AppUser> UserListWithLocation();
+        List<AppUser>UserListWithWorkLocations();
+        int AppUserCount();
     }
 }

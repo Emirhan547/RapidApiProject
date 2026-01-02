@@ -9,6 +9,6 @@ namespace HotelRapidApi.BusinessLayer.Abstract
 {
     public interface IRoomService:IGenericService<Room>
     {
-
+        int RoomCount();
     }
 }

@@ -12,8 +12,16 @@ namespace HotelRapidApi.DataAccessLayer.EntityFramework
 {
     public class EfRoomDal : GenericRepository<Room>, IRoomDal
     {
-        public EfRoomDal(AppDbContext context) : base(context)
+        private readonly AppDbContext _appDbContext;
+        public EfRoomDal(AppDbContext context, AppDbContext appDbContext) : base(context)
         {
+            _appDbContext = appDbContext;
+        }
+
+        public int RoomCount()
+        {
+            var value=_appDbContext.Rooms.Count();
+            return value;
         }
     }
 }

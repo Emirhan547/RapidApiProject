@@ -14,13 +14,27 @@ namespace HotelRapidApi.DataAccessLayer.EntityFramework
     public class EfAppUserDal : GenericRepository<AppUser>, IAppUserDal
     {
         private readonly AppDbContext _dbContext;
-        public EfAppUserDal(AppDbContext context) : base(context)
+        public EfAppUserDal(AppDbContext context, AppDbContext dbContext) : base(context)
         {
+            _dbContext = dbContext;
+        }
+
+        public int AppUserCount()
+        {
+            var value=_dbContext.Users.Count();
+            return value; 
         }
 
         public List<AppUser> UserListWithLocation()
         {
             return _dbContext.Users.Include(x => x.WorkLocation).ToList();
         }
+
+        public List<AppUser> UserListWithWorkLocations()
+        {
+           var values=_dbContext.Users.Include(x=>x.WorkLocation).ToList();
+            return values;
+        }
+
     }
 }

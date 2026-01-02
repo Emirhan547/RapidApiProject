@@ -18,6 +18,11 @@ namespace HotelRapidApi.BusinessLayer.Concrete
             _roomDal = roomDal;
         }
 
+        public int RoomCount()
+        {
+            return _roomDal.RoomCount();
+        }
+
         public void TDelete(Room entity)
         {
             _roomDal.Delete(entity);

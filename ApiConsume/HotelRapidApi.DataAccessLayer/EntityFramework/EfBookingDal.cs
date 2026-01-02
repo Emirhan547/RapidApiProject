@@ -12,8 +12,24 @@ namespace HotelRapidApi.DataAccessLayer.EntityFramework
 {
     public class EfBookingDal : GenericRepository<Booking>, IBookingDal
     {
-        public EfBookingDal(AppDbContext context) : base(context)
+        private readonly AppDbContext _appDbContext;
+
+        public EfBookingDal(AppDbContext context, AppDbContext appDbContext) : base(context)
         {
+            _appDbContext = appDbContext;
+        }
+
+        public int GetBookingCount()
+        {
+            var value=_appDbContext.Bookings.Count();
+            return value;
+
+        }
+
+        public List<Booking> Last6Bookings()
+        {
+            var values = _appDbContext.Bookings.OrderByDescending(x => x.Id).Take(6).ToList();
+            return values;
         }
     }
 }
