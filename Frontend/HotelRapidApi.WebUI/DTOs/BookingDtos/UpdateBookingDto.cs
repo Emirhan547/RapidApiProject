@@ -2,7 +2,7 @@
 {
     public class UpdateBookingDto
     {
-        public int BookingId { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Mail { get; set; }
         public DateTime Checkin { get; set; }

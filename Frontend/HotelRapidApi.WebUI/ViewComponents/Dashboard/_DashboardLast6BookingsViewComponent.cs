@@ -14,7 +14,7 @@ namespace HotelRapidApi.WebUI.ViewComponents.Dashboard
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("http://localhost:3523/api/Booking/Last6Booking");
+            var responseMessage = await client.GetAsync("http://localhost:5196/api/Booking/Last6Booking");
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();

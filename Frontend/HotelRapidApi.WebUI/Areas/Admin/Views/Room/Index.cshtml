@@ -1,4 +1,5 @@
-﻿
+﻿@using HotelRapidApi.WebUI.DTOs.RoomDtos
+@model List<ResultRoomDto>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -8,25 +9,22 @@
 <table class="table table-bordered">
     <tr>
         <th>#</th>
-        <th>Personel Adı</th>
-        <th>Personel Ünvan</th>
+        <th>Oda Numarası</th>
+        <th>Başlık</th>
         <th>Sil</th>
         <th>Güncelle</th>
-        <th>Detaylar</th>
     </tr>
     @foreach (var item in Model)
     {
         count++;
         <tr>
-            <td>@item.StaffId</td>
-            <td>@item.Name</td>
+            <th>@count</th>
+            <td>@item.RoomNumber</td>
             <td>@item.Title</td>
-            <td><a href="/Admin/Staff/DeleteStaff/@item.StaffId" class="btn mb-1 btn rounded btn-danger">Sil</a></td>
-            <td><a href="/Admin/Staff/UpdateStaff/@item.StaffId" class="btn mb-1 btn rounded btn-success">Güncelle</a></td>
-            <td><a href="#" class="btn mb-1 btn rounded btn-dark">Detaylar</a></td>
+            <td><a href="/Admin/Room/DeleteRoom/@item.Id" class="btn mb-1 btn-rounded btn-outline-danger">Sil</a></td>
+            <td><a href="/Admin/Room/UpdateRoom/@item.Id" class="btn mb-1 btn-rounded btn-outline-success">Güncelle</a></td>
         </tr>
     }
 </table>
-<a href="/Admin/Staff/AddStaff/" class="btn mb-1 btn rounded btn-outline-info">Yeni Personel Girişi</a>
-
+<a href="/Admin/Room/AddRoom/" class="btn mb-1 btn-rounded btn-outline-info">Yeni Oda Girişi</a>
 

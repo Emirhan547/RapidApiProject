@@ -7,7 +7,7 @@ namespace HotelProject.WebUI.Dtos.ContactDto
 {
     public class GetMessageByIdDto
     {
-        public int SendMessageID { get; set; }
+        public int Id { get; set; }
         public string ReceiverName { get; set; }
         public string ReceiverMail { get; set; }
         public string SenderName { get; set; }
