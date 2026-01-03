@@ -3,6 +3,7 @@ using System.Net.Http.Headers;
 
 namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class FileController : Controller
     {
         public IActionResult Index()

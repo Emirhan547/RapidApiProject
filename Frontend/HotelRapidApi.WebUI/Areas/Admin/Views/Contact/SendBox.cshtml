@@ -3,11 +3,11 @@
 
 @{
     ViewData["Title"] = "Sendbox";
-    Layout = "~/Views/AdminLayout/_AdminLayout.cshtml";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <div class="email-left-box">
-    <a href="/AdminContact/AddSendMessage/" class="btn btn-primary btn-block">Yeni Mesaj Oluştur</a>
+    <a href="/Admin/Contact/AddSendMessage/" class="btn btn-primary btn-block">Yeni Mesaj Oluştur</a>
     @await Html.PartialAsync("SideBarContactPartial")
     <h5 class="mt-5 m-b-10">Kategoriler</h5>
     @await Html.PartialAsync("SideBarContactCategoryPartial")
@@ -24,7 +24,7 @@
         @foreach (var item in Model)
         {
             <div class="message">
-                <a href="/AdminContact/MessageDetailsBySendbox/@item.Id">
+                <a href="/Admin/Contact/MessageDetailsBySendbox/@item.Id">
                     <div class="col-mail col-mail-1">
                         <div class="email-checkbox">
                             <input type="checkbox" id="chk2">

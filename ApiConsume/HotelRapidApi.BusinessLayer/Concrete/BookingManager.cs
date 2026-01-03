@@ -12,29 +12,55 @@ namespace HotelRapidApi.BusinessLayer.Concrete
     public class BookingManager (IBookingDal _bookingDal): IBookingService
     {
 
-        public void TDelete(Booking entity)
+        public void TBookingStatusChangeApproved(Booking booking)
         {
-           _bookingDal.Delete(entity);
+            _bookingDal.BookingStatusChangeApproved(booking);
+        }
+
+        public void TBookingStatusChangeApproved2(int id)
+        {
+            _bookingDal.BookingStatusChangeApproved2(id);
+        }
+
+        public void TBookingStatusChangeApproved3(int id)
+        {
+            _bookingDal.BookingStatusChangeApproved3(id);
+        }
+
+        public void TBookingStatusChangeCancel(int id)
+        {
+            _bookingDal.BookingStatusChangeCancel(id);
+        }
+
+        public void TBookingStatusChangeWait(int id)
+        {
+            _bookingDal.BookingStatusChangeWait(id);
+        }
+
+        public void TDelete(Booking t)
+        {
+            _bookingDal.Delete(t);
         }
 
         public int TGetBookingCount()
         {
-            return _bookingDal.GetBookingCount();     
+            return _bookingDal.GetBookingCount();
         }
 
         public Booking TGetById(int id)
         {
-           return _bookingDal.GetById(id);
+            return _bookingDal.GetById(id);
         }
 
+        
         public List<Booking> TGetList()
         {
             return _bookingDal.GetList();
         }
 
-        public void TInsert(Booking entity)
+        public void TInsert(Booking t)
         {
-            _bookingDal.Insert(entity);
+            _bookingDal.Insert(t);
         }
 
         public List<Booking> TLast6Bookings()
@@ -42,9 +68,12 @@ namespace HotelRapidApi.BusinessLayer.Concrete
             return _bookingDal.Last6Bookings();
         }
 
-        public void TUpdate(Booking entity)
+        public void TUpdate(Booking t)
         {
-            _bookingDal.Update(entity);
+            _bookingDal.Update(t);
         }
+
+
+
     }
 }

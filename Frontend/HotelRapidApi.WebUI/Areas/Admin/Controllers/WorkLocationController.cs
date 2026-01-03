@@ -6,6 +6,7 @@ using System.Text;
 
 namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class WorkLocationController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;

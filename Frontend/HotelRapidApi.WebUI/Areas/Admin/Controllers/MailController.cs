@@ -5,6 +5,7 @@ using MimeKit;
 
 namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class MailController : Controller
     {
         [HttpGet]

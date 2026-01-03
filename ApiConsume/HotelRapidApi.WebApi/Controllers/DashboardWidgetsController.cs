@@ -14,9 +14,12 @@ namespace HotelRapidApi.WebApi.Controllers
 
 
 
-        public DashboardWidgetsController(IStaffService staffService)
+        public DashboardWidgetsController(IStaffService staffService, IBookingService bookingService, IAppUserService appUserService, IRoomService roomService)
         {
             _staffService = staffService;
+            _bookingService = bookingService;
+            _appUserService = appUserService;
+            _roomService = roomService;
         }
         [HttpGet("StaffCount")]
         public IActionResult StaffCount()
@@ -42,7 +45,7 @@ namespace HotelRapidApi.WebApi.Controllers
         [HttpGet("RoomCount")]
         public IActionResult RoomCount()
         {
-            var value = _roomService.TRoomCount();
+            var value = _roomService.RoomCount();
             return Ok(value);
         }
 

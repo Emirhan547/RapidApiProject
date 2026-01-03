@@ -33,6 +33,7 @@ namespace HotelRapidApi.WebUI.Controllers
                 Email = createNewUserDto.Mail,
                 Surname = createNewUserDto.Surname,
                 UserName = createNewUserDto.Username,
+                City = createNewUserDto.City,
                 WorkLocationId=createNewUserDto.WorkLocationId,
             };
             var result=await _userManager.CreateAsync(appUser,createNewUserDto.Password);

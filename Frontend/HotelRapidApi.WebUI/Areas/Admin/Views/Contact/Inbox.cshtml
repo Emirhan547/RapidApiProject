@@ -2,16 +2,16 @@
 @model List<InboxContactDto>
 @{
     ViewData["Title"] = "Inbox";
-    Layout = "~/Views/AdminLayout/_AdminLayout.cshtml";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <div class="email-left-box">
-    <a href="/AdminContact/AddSendMessage/" class="btn btn-primary btn-block">Yeni Mesaj Oluştur</a>
+    <a href="/Admin/Contact/AddSendMessage/" class="btn btn-primary btn-block">Yeni Mesaj Oluştur</a>
 
     <div class="mail-list mt-4">
-        <a href="/AdminContact/Inbox/" class="list-group-item border-0 text-primary p-r-0"><i class="fa fa-inbox font-18 align-middle mr-2"></i> <b>Gelen Kutusu</b> <span class="badge badge-primary badge-sm float-right m-t-5">@ViewBag.contactCount</span> </a>
+        <a href="/Admin/Contact/Inbox/" class="list-group-item border-0 text-primary p-r-0"><i class="fa fa-inbox font-18 align-middle mr-2"></i> <b>Gelen Kutusu</b> <span class="badge badge-primary badge-sm float-right m-t-5">@ViewBag.contactCount</span> </a>
 
-        <a href="/AdminContact/Sendbox/" class="list-group-item border-0 text-info p-r-0"><i class="fa fa-paper-plane font-18 align-middle mr-2"></i><b> Giden Kutusu</b><span class="badge badge-info badge-sm float-right m-t-5">@ViewBag.sendMessageCount</span> </a>
+        <a href="/Admin/Contact/Sendbox/" class="list-group-item border-0 text-info p-r-0"><i class="fa fa-paper-plane font-18 align-middle mr-2"></i><b> Giden Kutusu</b><span class="badge badge-info badge-sm float-right m-t-5">@ViewBag.sendMessageCount</span> </a>
 
         <a href="#" class="list-group-item border-0 text-danger p-r-0"><i class="fa fa-star-o font-18 align-middle mr-2"></i><b> Önemli</b> <span class="badge badge-danger badge-sm float-right m-t-5">50</span> </a>
 
@@ -35,7 +35,7 @@
         @foreach (var item in Model)
         {
             <div class="message">
-                <a href="/AdminContact/MessageDetailsByInbox/@item.Id">
+                <a href="/Admin/Contact/MessageDetailsByInbox/@item.Id">
                     <div class="col-mail col-mail-1">
                         <div class="email-checkbox">
                             <input type="checkbox" id="chk2">

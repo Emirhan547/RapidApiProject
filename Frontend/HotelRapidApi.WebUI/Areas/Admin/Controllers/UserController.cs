@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 
 namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class UserController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;

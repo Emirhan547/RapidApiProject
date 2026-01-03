@@ -9,8 +9,10 @@ namespace HotelRapidApi.WebUI.DTOs.RegisterDtos
         public string Username { get; set; }
         public string Mail { get; set; }
         public string Password { get; set; }
+        public string? City { get; set; }
         public string ConfirmPassword { get; set; }
-        public int WorkLocationId { get; set; }
+        public int? WorkLocationId { get; set; }
+
     }
-    
+
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using HotelRapidApi.DtoLayer.DTOs.NewFolder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelRapidApi.WebApi.Controllers
@@ -8,13 +9,24 @@ namespace HotelRapidApi.WebApi.Controllers
     public class FileProcessController : ControllerBase
     {
         [HttpPost]
-        public async Task<IActionResult> UploadFile([FromForm] IFormFile file)
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> UploadFile([FromForm] FileUploadDto model)
         {
-            var fileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
-            var path = Path.Combine(Directory.GetCurrentDirectory(), "files" + fileName);
-            var stream = new FileStream(path, FileMode.Create);
-            await file.CopyToAsync(stream);
-            return Created("", file);
+            if (model.File == null || model.File.Length == 0)
+                return BadRequest("Dosya seçilmedi");
+
+            var fileName = Guid.NewGuid() + Path.GetExtension(model.File.FileName);
+
+            var path = Path.Combine(
+                Directory.GetCurrentDirectory(),
+                "files",
+                fileName
+            );
+
+            using var stream = new FileStream(path, FileMode.Create);
+            await model.File.CopyToAsync(stream);
+
+            return Created("", fileName);
         }
     }
 }

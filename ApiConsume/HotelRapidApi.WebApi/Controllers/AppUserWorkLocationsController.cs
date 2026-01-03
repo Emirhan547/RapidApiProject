@@ -27,13 +27,13 @@ namespace HotelRapidApi.WebApi.Controllers
             {
                 Name = y.Name,
                 Surname = y.Surname,
-                WorkLocationId = y.WorkLocationId,
+                WorkLocationId = y.WorkLocationId ?? 0,
                 WorkLocationName = y.WorkLocation.WorkLocationName,
                 City = y.City,
                 Country = y.Country,
                 Gender = y.Gender,
                 ImageUrl = y.ImageUrl
-            }).ToList(); 
+            }).ToList();
             return Ok(values);
         }
 
