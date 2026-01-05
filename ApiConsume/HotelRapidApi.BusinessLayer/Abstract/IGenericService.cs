@@ -7,12 +7,15 @@ using System.Threading.Tasks;
 
 namespace HotelRapidApi.BusinessLayer.Abstract
 {
-    public interface IGenericService<T> where T : class
+    public interface IGenericService<TResult, TCreate, TUpdate>
     {
-        void TInsert(T entity);
-        void TUpdate(T entity);
-        void TDelete(T entity);
-        List<T> TGetList();
-        T TGetById(int id);
+        Task CreateAsync(TCreate create);
+        Task UpdateAsync(TUpdate update);
+        Task DeleteAsync(int id);
+        Task<List<TResult>> GetListAsync();
+        Task<TResult> GetByIdAsync(int id);
     }
+
+
 }
+

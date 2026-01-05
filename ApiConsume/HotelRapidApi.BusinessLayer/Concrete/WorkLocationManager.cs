@@ -1,6 +1,8 @@
 ﻿using HotelRapidApi.BusinessLayer.Abstract;
 using HotelRapidApi.DataAccessLayer.Abstract;
+using HotelRapidApi.DtoLayer.DTOs.WorkLocationDtos;
 using HotelRapidApi.EntityLayer.Entities;
+using MapsterMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,31 +11,35 @@ using System.Threading.Tasks;
 
 namespace HotelRapidApi.BusinessLayer.Concrete
 {
-    public class WorkLocationManager(IWorkLocationDal _workLocation) : IWorkLocationService
+    public class WorkLocationManager(IWorkLocationDal _workLocation,IMapper _mapper) : IWorkLocationService
     {
-        public void TDelete(WorkLocation entity)
+        public async Task CreateAsync(CreateWorkLocationDto create)
         {
-            _workLocation.Delete(entity);
+            var workLocation = _mapper.Map<WorkLocation>(create);
+            await _workLocation.CreateAsync(workLocation);
         }
 
-        public WorkLocation TGetById(int id)
+        public async Task DeleteAsync(int id)
         {
-           return _workLocation.GetById(id);
+            await _workLocation.DeleteAsync(id);
         }
 
-        public List<WorkLocation> TGetList()
+        public async Task<ResultWorkLocationDto> GetByIdAsync(int id)
         {
-            return _workLocation.GetList();
+            var workLocations=await _workLocation.GetByIdAsync(id);
+            return _mapper.Map<ResultWorkLocationDto>(workLocations);
         }
 
-        public void TInsert(WorkLocation entity)
+        public async Task<List<ResultWorkLocationDto>> GetListAsync()
         {
-           _workLocation.Insert(entity);
+            var workLocation=await _workLocation.GetListAsync();
+            return _mapper.Map<List<ResultWorkLocationDto>>(workLocation);
         }
 
-        public void TUpdate(WorkLocation entity)
+        public async Task UpdateAsync(UpdateWorkLocationDto update)
         {
-            _workLocation.Update(entity);
+            var workLocations=_mapper.Map<WorkLocation>(update);
+            await _workLocation.UpdateAsync(workLocations);
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using HotelRapidApi.BusinessLayer.Abstract;
 using HotelRapidApi.DataAccessLayer.Abstract;
+using HotelRapidApi.DtoLayer.DTOs.RoomDto;
 using HotelRapidApi.EntityLayer.Concrete;
+using MapsterMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,43 +11,40 @@ using System.Threading.Tasks;
 
 namespace HotelRapidApi.BusinessLayer.Concrete
 {
-    public class RoomManager : IRoomService
+    public class RoomManager(IRoomDal _roomDal, IMapper _mapper) : IRoomService
     {
-        private readonly IRoomDal _roomDal;
-
-        public RoomManager(IRoomDal roomDal)
+        public async Task CreateAsync(CreateRoomDto create)
         {
-            _roomDal = roomDal;
+            var room=_mapper.Map<Room>(create);
+            await _roomDal.CreateAsync(room);
         }
 
-        public int RoomCount()
+        public async Task DeleteAsync(int id)
         {
-            return _roomDal.RoomCount();
+            await _roomDal.DeleteAsync(id);
         }
 
-        public void TDelete(Room entity)
+        public async Task<ResultRoomDto> GetByIdAsync(int id)
         {
-            _roomDal.Delete(entity);
+            var room=await _roomDal.GetByIdAsync(id);
+            return _mapper.Map<ResultRoomDto>(room);
         }
 
-        public Room TGetById(int id)
+        public async Task<List<ResultRoomDto>> GetListAsync()
         {
-            return _roomDal.GetById(id);
+            var room = await _roomDal.GetListAsync();
+            return _mapper.Map<List<ResultRoomDto>>(room);
         }
 
-        public List<Room> TGetList()
+        public async Task<int> RoomCount()
         {
-            return _roomDal.GetList();
+          return  await _roomDal.RoomCount();
         }
 
-        public void TInsert(Room entity)
+        public async Task UpdateAsync(UpdateRoomDto update)
         {
-            _roomDal.Insert(entity);
-        }
-
-        public void TUpdate(Room entity)
-        {
-            _roomDal.Update(entity);
+           var rooms=_mapper.Map<Room>(update);
+            await _roomDal.UpdateAsync(rooms);
         }
     }
 }

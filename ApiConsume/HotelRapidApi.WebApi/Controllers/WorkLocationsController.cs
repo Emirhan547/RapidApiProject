@@ -1,7 +1,9 @@
 ﻿using HotelRapidApi.BusinessLayer.Abstract;
+using HotelRapidApi.DtoLayer.DTOs.WorkLocationDtos;
 using HotelRapidApi.EntityLayer.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace HotelRapidApi.WebApi.Controllers
 {
@@ -10,34 +12,33 @@ namespace HotelRapidApi.WebApi.Controllers
     public class WorkLocationsController(IWorkLocationService _workLocation) : ControllerBase
     {
         [HttpGet]
-        public IActionResult GetWorkLocation()
+        public async Task<IActionResult> GetWorkLocation()
         {
-            var workLocations = _workLocation.TGetList();
+            var workLocations =await _workLocation.GetListAsync();
             return Ok(workLocations);
         }
         [HttpGet("{id}")]
-        public IActionResult GetWorkLocation(int id)
+        public async Task<IActionResult> GetWorkLocationAsync(int id)
         {
-            var workLocations=_workLocation.TGetById(id);
+            var workLocations= await _workLocation.GetByIdAsync(id);
             return Ok(workLocations);
         }
         [HttpPost]
-        public IActionResult CreateWorkLocation(WorkLocation workLocation)
+        public IActionResult CreateWorkLocation(CreateWorkLocationDto workLocation)
         {
-            _workLocation.TInsert(workLocation);
+            _workLocation.CreateAsync(workLocation);
             return Created();
         }
         [HttpPut]
-        public IActionResult UpdateWorkLocation(WorkLocation workLocation)
+        public async Task<IActionResult> UpdateWorkLocation(UpdateWorkLocationDto workLocation)
         {
-            _workLocation.TUpdate(workLocation);
+           await _workLocation.UpdateAsync(workLocation);
             return Ok();
         }
         [HttpDelete("{id}")]
-        public IActionResult DeleteWorkLocation(int id)
+        public async Task<IActionResult> DeleteWorkLocation(int id)
         {
-            var workLocation=_workLocation.TGetById(id);
-            _workLocation.TDelete(workLocation);
+           await _workLocation.DeleteAsync(id);
             return Ok();
         }
 

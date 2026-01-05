@@ -1,6 +1,9 @@
 ﻿using HotelRapidApi.BusinessLayer.Abstract;
 using HotelRapidApi.DataAccessLayer.Abstract;
+using HotelRapidApi.DtoLayer.DTOs.BookingDtos;
+using HotelRapidApi.DtoLayer.DTOs.GuestDtos;
 using HotelRapidApi.EntityLayer.Entities;
+using MapsterMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,31 +12,35 @@ using System.Threading.Tasks;
 
 namespace HotelRapidApi.BusinessLayer.Concrete
 {
-    public class GuestManager(IGuestDal _guestDal) : IGuestService
+    public class GuestManager(IGuestDal _guestDal,IMapper _mapper) : IGuestService
     {
-        public void TDelete(Guest entity)
+        public async Task CreateAsync(CreateGuestDto create)
         {
-           _guestDal.Delete(entity);    
+           var guest=_mapper.Map<Guest>(create);
+            await _guestDal.CreateAsync(guest);
         }
 
-        public Guest TGetById(int id)
+        public async Task DeleteAsync(int id)
         {
-           return _guestDal.GetById(id);
+            await _guestDal.DeleteAsync(id);
         }
 
-        public List<Guest> TGetList()
+        public async Task<ResultGuestDto> GetByIdAsync(int id)
         {
-           return _guestDal.GetList();
+           var guest=await _guestDal.GetByIdAsync(id);
+            return _mapper.Map<ResultGuestDto>(guest);
         }
 
-        public void TInsert(Guest entity)
+        public async Task<List<ResultGuestDto>> GetListAsync()
         {
-            _guestDal.Insert(entity);
+           var guest=await _guestDal.GetListAsync();
+            return _mapper.Map<List<ResultGuestDto>>(guest);
         }
 
-        public void TUpdate(Guest entity)
+        public async Task UpdateAsync(UpdateGuestDto update)
         {
-            _guestDal.Update(entity);
+            var guest=_mapper.Map<Guest>(update);
+             await _guestDal.UpdateAsync(guest);
         }
     }
 }

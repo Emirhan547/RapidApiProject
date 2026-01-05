@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HotelRapidApi.DtoLayer.DTOs.TestimonialDto
+namespace HotelRapidApi.DtoLayer.DTOs.SubscribeDtos
 {
-    public class TestimonialAddDto
+    public class CreateSubscribeDto
     {
+        public string Mail { get; set; }
     }
 }

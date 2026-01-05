@@ -9,7 +9,7 @@ namespace HotelRapidApi.DataAccessLayer.Abstract
 {
     public interface IStaffDal:IGenericDal<Staff>
     { 
-        int GetStaffCount();
-        List<Staff> Last4Staff();
+        Task<int> GetStaffCount();
+        Task<List<Staff>> Last4Staff();
     }
 }

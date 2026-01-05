@@ -1,7 +1,9 @@
 ﻿using HotelRapidApi.BusinessLayer.Abstract;
+using HotelRapidApi.DtoLayer.DTOs.SendMessageDtos;
 using HotelRapidApi.EntityLayer.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace HotelRapidApi.WebApi.Controllers
 {
@@ -10,40 +12,40 @@ namespace HotelRapidApi.WebApi.Controllers
     public class SendMessagesController(ISendMessageService _sendMessageService) : ControllerBase
     {
         [HttpGet]
-        public IActionResult GetList()
+        public async Task<IActionResult> GetList()
         {
-            var sendMessage=_sendMessageService.TGetList();
+            var sendMessage=await _sendMessageService.GetListAsync();
             return Ok(sendMessage);
         }
         [HttpGet("{id}")]
         public IActionResult GetSendMessage(int id)
         {
-            var sendMessage=_sendMessageService.TGetById(id);
+            var sendMessage=_sendMessageService.GetByIdAsync(id);
             return Ok(sendMessage);
         }
         [HttpPost]
-        public IActionResult CreateMessage(SendMessage sendMessage)
+        public async Task<IActionResult> CreateMessage(CreateSendMessageDto sendMessage)
         {
-            _sendMessageService.TInsert(sendMessage);
-            return Created();
+          await  _sendMessageService.CreateAsync(sendMessage);
+           return Created();
         }
         [HttpPut]
-        public IActionResult UpdateMessage(SendMessage sendMessage)
+        public async Task<IActionResult> UpdateMessage(UpdateSendMessageDto sendMessage)
         {
-            _sendMessageService.TUpdate(sendMessage);
+           await _sendMessageService.UpdateAsync(sendMessage);
             return NoContent();
         }
         [HttpDelete("{id}")]
-        public IActionResult DeleteSendMessage(int id)
+        public async Task<IActionResult> DeleteSendMessageAsync(int id)
         {
-            var message=_sendMessageService.TGetById(id);
-            _sendMessageService.TDelete(message);
+           await _sendMessageService.DeleteAsync(id);
             return NoContent();
         }
         [HttpGet("GetSendMessageCount")]
-        public IActionResult GetSendMessageCount()
+        public async Task<IActionResult> GetSendMessageCountAsync()
         {
-            return Ok(_sendMessageService.TGetSendMessageCount());
+            await _sendMessageService.TGetSendMessageCount();
+            return Ok();
         }
     }
 }

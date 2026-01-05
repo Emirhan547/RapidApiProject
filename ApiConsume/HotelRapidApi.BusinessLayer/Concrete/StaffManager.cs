@@ -1,6 +1,8 @@
 ﻿using HotelRapidApi.BusinessLayer.Abstract;
 using HotelRapidApi.DataAccessLayer.Abstract;
+using HotelRapidApi.DtoLayer.DTOs.StaffDtos;
 using HotelRapidApi.EntityLayer.Entities;
+using MapsterMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,48 +11,46 @@ using System.Threading.Tasks;
 
 namespace HotelRapidApi.BusinessLayer.Concrete
 {
-    public class StaffManager : IStaffService
+    public class StaffManager(IStaffDal _staffDal, IMapper _mapper) : IStaffService
     {
-        private readonly IStaffDal _staffDal;
-
-        public StaffManager(IStaffDal staffDal)
+        public async Task CreateAsync(CreateStaffDto create)
         {
-            _staffDal = staffDal;
+            var staff=_mapper.Map<Staff>(create);
+            await _staffDal.CreateAsync(staff);
         }
 
-        public void TDelete(Staff entity)
+        public async Task DeleteAsync(int id)
         {
-            _staffDal.Delete(entity);
+            await _staffDal.DeleteAsync(id);
         }
 
-        public Staff TGetById(int id)
+        public async Task<ResultStaffDto> GetByIdAsync(int id)
         {
-            return _staffDal.GetById(id);
+            var staff = await _staffDal.GetByIdAsync(id);
+            return _mapper.Map<ResultStaffDto>(staff);
         }
 
-        public List<Staff> TGetList()
+        public async Task<List<ResultStaffDto>> GetListAsync()
         {
-           return _staffDal.GetList();
+            var staff=await _staffDal.GetListAsync();
+            return _mapper.Map<List<ResultStaffDto>>(staff);
         }
 
-        public int TGetStaffCount()
+        public async Task<int> TGetStaffCount()
         {
-           return _staffDal.GetStaffCount();
+            return await _staffDal.GetStaffCount();
         }
 
-        public void TInsert(Staff entity)
+        public async Task<List<ResultStaffDto>> TLast4Staff()
         {
-            _staffDal.Insert(entity);
+            var staff=await _staffDal.Last4Staff();
+            return _mapper.Map<List<ResultStaffDto>>(staff);
         }
 
-        public List<Staff> TLast4Staff()
+        public async Task UpdateAsync(UpdateStaffDto update)
         {
-            return _staffDal.Last4Staff();
-        }
-
-        public void TUpdate(Staff entity)
-        {
-            _staffDal.Update(entity);
+            var staff=_mapper.Map<Staff>(update);
+            await _staffDal.UpdateAsync(staff);
         }
     }
 }

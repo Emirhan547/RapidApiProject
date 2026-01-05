@@ -1,7 +1,9 @@
 ﻿using HotelRapidApi.BusinessLayer.Abstract;
+using HotelRapidApi.DtoLayer.DTOs.MessageCategoryDtos;
 using HotelRapidApi.EntityLayer.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace HotelRapidApi.WebApi.Controllers
 {
@@ -10,34 +12,33 @@ namespace HotelRapidApi.WebApi.Controllers
     public class MessageCategoriesController(IMessageCategoryService _messageCategory) : ControllerBase
     {
         [HttpGet]
-        public IActionResult GetMessageCategory()
+        public async Task<IActionResult> GetMessageCategory()
         {
-            var messageCategory = _messageCategory.TGetList();
+            var messageCategory =await _messageCategory.GetListAsync();
             return Ok(messageCategory);
         }
         [HttpPost]
-        public IActionResult CreateMessageCategory(MessageCategory messageCategory)
+        public async Task<IActionResult> CreateMessageCategory(CreateMessageCategoryDto messageCategory)
         {
-            _messageCategory.TInsert(messageCategory);
+           await _messageCategory.CreateAsync(messageCategory);
             return Created();
         }
         [HttpPut]
-        public IActionResult UpdateMessageCategory(MessageCategory messageCategory)
+        public async Task<IActionResult> UpdateMessageCategory(UpdateMessageCategoryDto messageCategory)
         {
-            _messageCategory.TUpdate(messageCategory);
+           await _messageCategory.UpdateAsync(messageCategory);
             return Ok();
         }
         [HttpDelete("{id}")]
-        public IActionResult DeleteMessageCategory(int id)
+        public async Task<IActionResult> DeleteMessageCategoryAsync(int id)
         {
-            var category=_messageCategory.TGetById(id);
-            _messageCategory.TDelete(category);
+            await _messageCategory.DeleteAsync(id);
             return Ok();
         }
         [HttpGet("{id}")]
-        public IActionResult GetMessageCategoryById(int id)
+        public async Task<IActionResult> GetMessageCategoryByIdAsync(int id)
         {
-            var category=_messageCategory.TGetById(id);
+            var category= await _messageCategory.GetByIdAsync(id);
             return Ok(category);
         }
 

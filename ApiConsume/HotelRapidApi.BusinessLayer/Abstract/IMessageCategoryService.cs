@@ -1,13 +1,10 @@
-﻿using HotelRapidApi.EntityLayer.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+
+using HotelRapidApi.DtoLayer.DTOs.MessageCategoryDtos;
 
 namespace HotelRapidApi.BusinessLayer.Abstract
 {
-    public interface IMessageCategoryService:IGenericService<MessageCategory>
+    public interface IMessageCategoryService:IGenericService<ResultMessageCategoryDto,CreateMessageCategoryDto,UpdateMessageCategoryDto>
     {
     }
 }

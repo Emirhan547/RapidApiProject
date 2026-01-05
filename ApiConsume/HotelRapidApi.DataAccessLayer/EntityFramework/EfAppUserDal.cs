@@ -11,29 +11,35 @@ using System.Threading.Tasks;
 
 namespace HotelRapidApi.DataAccessLayer.EntityFramework
 {
-    public class EfAppUserDal : GenericRepository<AppUser>, IAppUserDal
+    public class EfAppUserDal :  IAppUserDal
     {
         private readonly AppDbContext _dbContext;
-        public EfAppUserDal(AppDbContext context, AppDbContext dbContext) : base(context)
+
+        public EfAppUserDal(AppDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public int AppUserCount()
+        public async Task<int> AppUserCount()
         {
-            var value=_dbContext.Users.Count();
-            return value; 
+            return await _dbContext.Users.CountAsync();
+             
         }
 
-        public List<AppUser> UserListWithLocation()
+        public async Task<List<AppUser>> GetListAsync()
         {
-            return _dbContext.Users.Include(x => x.WorkLocation).ToList();
+              return await _dbContext.Users.ToListAsync();
         }
 
-        public List<AppUser> UserListWithWorkLocations()
+        public async Task<List<AppUser>> UserListWithLocation()
         {
-           var values=_dbContext.Users.Include(x=>x.WorkLocation).ToList();
-            return values;
+            return await _dbContext.Users.Include(x => x.WorkLocation).ToListAsync();
+        }
+
+        public async Task <List<AppUser>> UserListWithWorkLocations()
+        {
+           return await _dbContext.Users.Include(x=>x.WorkLocation).ToListAsync();
+
         }
 
     }

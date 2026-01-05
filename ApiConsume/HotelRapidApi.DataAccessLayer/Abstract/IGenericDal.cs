@@ -1,18 +1,10 @@
 ﻿using HotelRapidApi.EntityLayer.Entities.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace HotelRapidApi.DataAccessLayer.Abstract
+public interface IGenericDal<TEntity> where TEntity : BaseEntity
 {
-    public interface IGenericDal<T> where T : class
-    {
-        void Insert(T entity);
-        void Update(T entity);
-        void Delete(T entity);
-        List<T> GetList();
-        T GetById(int id);
-    }
+    Task CreateAsync(TEntity entity);
+    Task UpdateAsync(TEntity entity);
+    Task DeleteAsync(int id);
+    Task<List<TEntity>> GetListAsync();
+    Task<TEntity> GetByIdAsync(int id);
 }

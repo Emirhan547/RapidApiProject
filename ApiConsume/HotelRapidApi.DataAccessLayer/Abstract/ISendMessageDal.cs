@@ -9,6 +9,6 @@ namespace HotelRapidApi.DataAccessLayer.Abstract
 {
     public interface ISendMessageDal:IGenericDal<SendMessage>
     {
-        public int GetSendMessageCount();
+        Task <int> GetSendMessageCount();
     }
 }

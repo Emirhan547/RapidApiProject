@@ -1,8 +1,10 @@
 ﻿using HotelRapidApi.BusinessLayer.Abstract;
+using HotelRapidApi.DtoLayer.DTOs.RoomDto;
 using HotelRapidApi.EntityLayer.Concrete;
 using HotelRapidApi.EntityLayer.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace HotelRapidApi.WebApi.Controllers
 {
@@ -11,34 +13,33 @@ namespace HotelRapidApi.WebApi.Controllers
     public class RoomsController(IRoomService _roomService) : ControllerBase
     {
         [HttpGet]
-        public IActionResult RoomList()
+        public async Task<IActionResult> RoomList()
         {
-            var values = _roomService.TGetList();
+            var values =await _roomService.GetListAsync();
             return Ok(values);
         }
         [HttpPost]
-        public IActionResult AddRoom(Room room)
+        public async Task<IActionResult> AddRoom(CreateRoomDto room)
         {
-            _roomService.TInsert(room);
+           await _roomService.CreateAsync(room);
             return Ok(room);
         }
         [HttpDelete("{id}")]
-        public IActionResult DeleteRoom(int Id)
+        public async Task<IActionResult> DeleteRoom(int id)
         {
-            var values = _roomService.TGetById(Id);
-            _roomService.TDelete(values);
+          await  _roomService.DeleteAsync(id);
             return Ok();
         }
         [HttpPut]
-        public IActionResult PutRoom(Room room)
+        public async Task<IActionResult> PutRoom(UpdateRoomDto room)
         {
-            _roomService.TUpdate(room);
+          await  _roomService.UpdateAsync(room);
             return Ok();
         }
         [HttpGet("{id}")]
-        public IActionResult GetRoom(int Id)
+        public async Task<IActionResult> GetRoom(int Id)
         {
-            var values = _roomService.TGetById(Id);
+            var values = await _roomService.GetByIdAsync(Id);
             return Ok(values);
         }
     }

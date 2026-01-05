@@ -2,6 +2,7 @@
 using HotelRapidApi.DataAccessLayer.Concrete;
 using HotelRapidApi.DataAccessLayer.Repositories;
 using HotelRapidApi.EntityLayer.Entities;
+using Microsoft.EntityFrameworkCore;
 
 public class EfContactDal : GenericRepository<Contact>, IContactDal
 {
@@ -12,8 +13,8 @@ public class EfContactDal : GenericRepository<Contact>, IContactDal
         _context = context;
     }
 
-    public int GetContactCount()
+    public async Task<int> GetContactCount()
     {
-        return _context.Contacts.Count();
+        return await _context.Contacts.CountAsync();
     }
 }

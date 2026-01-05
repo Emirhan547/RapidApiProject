@@ -1,4 +1,5 @@
-﻿using HotelRapidApi.EntityLayer.Entities;
+﻿using HotelRapidApi.DtoLayer.DTOs.SendMessageDtos;
+using HotelRapidApi.EntityLayer.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace HotelRapidApi.BusinessLayer.Abstract
 {
-    public interface ISendMessageService:IGenericService<SendMessage>
+    public interface ISendMessageService:IGenericService<ResultSendMessageDto, CreateSendMessageDto, UpdateSendMessageDto  >
     {
-        public int TGetSendMessageCount();
+        Task <int> TGetSendMessageCount();
     }
 }

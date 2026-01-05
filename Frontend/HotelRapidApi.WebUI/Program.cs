@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,7 +38,7 @@ builder.Services.AddIdentity<AppUser, AppRole>()
     .AddDefaultTokenProviders();
 
 // 🔹 AutoMapper
-builder.Services.AddAutoMapper(typeof(Program));
+
 builder.Services.AddMvc(config=>
 {
     var policy=new AuthorizationPolicyBuilder()

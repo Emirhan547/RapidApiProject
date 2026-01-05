@@ -1,7 +1,9 @@
 ﻿using HotelRapidApi.BusinessLayer.Abstract;
+using HotelRapidApi.DtoLayer.DTOs.BookingDtos;
 using HotelRapidApi.EntityLayer.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace HotelRapidApi.WebApi.Controllers
 {
@@ -10,41 +12,40 @@ namespace HotelRapidApi.WebApi.Controllers
     public class BookingsController(IBookingService _bookingService) : ControllerBase
     {
         [HttpGet]
-        public IActionResult BookingList()
+        public async Task<IActionResult> ListBooking()
         {
-            var values = _bookingService.TGetList();
+            var values =await _bookingService.GetListAsync();
             return Ok(values);
         }
         [HttpPost]
-        public IActionResult AddBooking(Booking booking)
+        public IActionResult CreateBooking(CreateBookingDto booking)
         {
-            _bookingService.TInsert(booking);
+            _bookingService.CreateAsync(booking);
             return Ok();
         }
         [HttpDelete("{id}")]
-        public IActionResult DeleteBooking(int id)
+        public async Task<IActionResult> DeleteBooking(int id)
         {
-            var values = _bookingService.TGetById(id);
-            _bookingService.TDelete(values);
+           await _bookingService.DeleteAsync(id);
             return Ok();
         }
         [HttpPut("UpdateBooking")]
-        public IActionResult UpdateBooking(Booking booking)
+        public async Task<IActionResult> UpdateBookingAsync(UpdateBookingDto booking)
         {
-            _bookingService.TUpdate(booking);
+           await _bookingService.UpdateAsync(booking);
             return Ok();
         }
         [HttpGet("{id}")]
-        public IActionResult GetBooking(int id)
+        public async Task<IActionResult> GetBooking(int id)
         {
-            var values = _bookingService.TGetById(id);
+            var values =await _bookingService.GetByIdAsync(id);
             return Ok(values);
         }
 
         [HttpGet("Last6Booking")]
-        public IActionResult Last6Booking()
+        public async Task<IActionResult> Last6Booking()
         {
-            var values = _bookingService.TLast6Bookings();
+            var values =await _bookingService.TLast6Bookings();
             return Ok(values);
         }
 

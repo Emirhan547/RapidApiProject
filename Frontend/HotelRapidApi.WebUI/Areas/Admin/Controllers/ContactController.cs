@@ -79,14 +79,7 @@ namespace HotelProject.WebUI.Controllers
             }
             return View();
         }
-        public PartialViewResult SideBarContactPartial()
-        {
-            return PartialView();
-        }
-        public PartialViewResult SideBarContactCategoryPartial()
-        {
-            return PartialView();
-        }
+       
         public async Task<IActionResult> MessageDetailsBySendbox(int id)
         {
             var client = _httpClientFactory.CreateClient();
@@ -113,18 +106,6 @@ namespace HotelProject.WebUI.Controllers
             return View();
         }
 
-        //public async Task<IActionResult> GetContactCount()
-        //{
-        //    var client = _httpClientFactory.CreateClient();
-        //    var responseMessage = await client.GetAsync("http://localhost:5196/api/Contact/GetContactCount");
-        //    if (responseMessage.IsSuccessStatusCode)
-        //    {
-        //        var jsonData = await responseMessage.Content.ReadAsStringAsync();
-        //        // var values = JsonConvert.DeserializeObject<List<InboxContactDto>>(jsonData);
-        //        ViewBag.data = jsonData;
-        //        return View();
-        //    }
-        //    return View();
-        //}
+   
     }
 }

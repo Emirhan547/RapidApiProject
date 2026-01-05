@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace HotelRapidApi.BusinessLayer.Abstract
 {
-    public interface IAppUserService : IGenericService<AppUser>
+    public interface IAppUserService
     {
-        List<AppUser> TUserListWithWorkLocation();
-        List<AppUser> TUsersListWithWorkLocations();
-        int TAppUserCount();
-     }
+       Task <List<AppUser>> TUserListWithWorkLocation();
+        Task<List<AppUser>> TUsersListWithWorkLocations();
+        Task<int> TAppUserCount();
+        Task <List<AppUser>> GetListAsync();
+    }
 }

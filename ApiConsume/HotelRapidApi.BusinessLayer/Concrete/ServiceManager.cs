@@ -1,6 +1,8 @@
 ﻿using HotelRapidApi.BusinessLayer.Abstract;
 using HotelRapidApi.DataAccessLayer.Abstract;
+using HotelRapidApi.DtoLayer.DTOs.ServiceDtos;
 using HotelRapidApi.EntityLayer.Entities;
+using MapsterMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,38 +11,35 @@ using System.Threading.Tasks;
 
 namespace HotelRapidApi.BusinessLayer.Concrete
 {
-    public class ServiceManager : IServiceService
+    public class ServiceManager(IServicesDal _servicesDal,IMapper _mapper) : IServiceService
     {
-        private readonly IServicesDal _servicesDal;
-
-        public ServiceManager(IServicesDal servicesDal)
+        public async Task CreateAsync(CreateServiceDto create)
         {
-            _servicesDal = servicesDal;
+            var service=_mapper.Map<Service>(create);
+            await _servicesDal.CreateAsync(service);
         }
 
-        public void TDelete(Service entity)
+        public async Task DeleteAsync(int id)
         {
-            _servicesDal.Delete(entity);
+           await _servicesDal.DeleteAsync(id);
         }
 
-        public Service TGetById(int id)
+        public async Task<ResultServiceDto> GetByIdAsync(int id)
         {
-            return _servicesDal.GetById(id);
+            var service=await _servicesDal.GetByIdAsync(id);
+            return _mapper.Map<ResultServiceDto>(service);
         }
 
-        public List<Service> TGetList()
+        public async Task<List<ResultServiceDto>> GetListAsync()
         {
-            return _servicesDal.GetList();
+            var service=await _servicesDal.GetListAsync();
+            return _mapper.Map<List<ResultServiceDto>>(service);
         }
 
-        public void TInsert(Service entity)
+        public async Task UpdateAsync(UpdateServiceDto update)
         {
-            _servicesDal.Insert(entity);
-        }
-
-        public void TUpdate(Service entity)
-        {
-            _servicesDal.Update(entity);
+            var service = _mapper.Map<Service>(update);
+            await _servicesDal.UpdateAsync(service);
         }
     }
 }

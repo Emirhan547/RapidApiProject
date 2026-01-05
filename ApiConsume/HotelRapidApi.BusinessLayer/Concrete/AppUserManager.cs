@@ -9,46 +9,26 @@ using System.Threading.Tasks;
 
 namespace HotelRapidApi.BusinessLayer.Concrete
 {
-    public class AppUserManager(IAppUserDal _appUserDal) : IAppUserService
+    public class AppUserManager (IAppUserDal _appUserDal): IAppUserService
     {
-        public int TAppUserCount()
+        public async Task<List<AppUser>> GetListAsync()
         {
-            return _appUserDal.AppUserCount();
+            return await _appUserDal.GetListAsync();
         }
 
-        public void TDelete(AppUser entity)
+        public async Task<int> TAppUserCount()
         {
-            throw new NotImplementedException();
+           return await _appUserDal.AppUserCount();
         }
 
-        public AppUser TGetById(int id)
+        public async Task<List<AppUser>> TUserListWithWorkLocation()
         {
-            throw new NotImplementedException();
+            return await _appUserDal.UserListWithWorkLocations();
         }
 
-        public List<AppUser> TGetList()
+        public async Task<List<AppUser>> TUsersListWithWorkLocations()
         {
-            return _appUserDal.GetList();
-        }
-
-        public void TInsert(AppUser entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void TUpdate(AppUser entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<AppUser> TUserListWithWorkLocation()
-        {
-            return _appUserDal.UserListWithLocation();
-        }
-
-        public List<AppUser> TUsersListWithWorkLocations()
-        {
-          return _appUserDal.UserListWithWorkLocations();
+            return await _appUserDal.UserListWithWorkLocations();
         }
     }
 }

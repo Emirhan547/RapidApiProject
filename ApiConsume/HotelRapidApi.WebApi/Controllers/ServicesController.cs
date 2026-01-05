@@ -1,8 +1,10 @@
 ﻿using HotelRapidApi.BusinessLayer.Abstract;
+using HotelRapidApi.DtoLayer.DTOs.ServiceDtos;
 using HotelRapidApi.EntityLayer.Concrete;
 using HotelRapidApi.EntityLayer.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace HotelRapidApi.WebApi.Controllers
 {
@@ -11,34 +13,33 @@ namespace HotelRapidApi.WebApi.Controllers
     public class ServicesController(IServiceService _service) : ControllerBase
     {
         [HttpGet]
-        public IActionResult ServiceList()
+        public async Task<IActionResult> ServiceList()
         {
-            var values = _service.TGetList();
+            var values =await _service.GetListAsync();
             return Ok(values);
         }
         [HttpPost]
-        public IActionResult AddService(Service service)
+        public async Task<IActionResult> AddService(CreateServiceDto service)
         {
-            _service.TInsert(service);
+           await _service.CreateAsync(service);
             return Ok(service);
         }
         [HttpDelete("{id}")]
-        public IActionResult DeleteService(int Id)
+        public async Task<IActionResult> DeleteService(int id)
         {
-            var values = _service.TGetById(Id);
-            _service.TDelete(values);
+           await _service.DeleteAsync(id);
             return Ok();
         }
         [HttpPut]
-        public IActionResult PutService(Service service)
+        public async Task<IActionResult> PutService(UpdateServiceDto service)
         {
-            _service.TUpdate(service);
+          await  _service.UpdateAsync(service);
             return Ok();
         }
         [HttpGet("{id}")]
-        public IActionResult GetService(int Id)
+        public async Task<IActionResult> GetService(int Id)
         {
-            var values = _service.TGetById(Id);
+            var values =await _service.GetByIdAsync(Id);
             return Ok(values);
         }
     }

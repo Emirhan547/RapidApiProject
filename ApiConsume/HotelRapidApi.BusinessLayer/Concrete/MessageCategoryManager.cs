@@ -1,6 +1,9 @@
 ﻿using HotelRapidApi.BusinessLayer.Abstract;
 using HotelRapidApi.DataAccessLayer.Abstract;
+using HotelRapidApi.DtoLayer.DTOs.MessageCategoryDtos;
+using HotelRapidApi.DtoLayer.DTOs.SendMessageDtos;
 using HotelRapidApi.EntityLayer.Entities;
+using MapsterMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,31 +12,35 @@ using System.Threading.Tasks;
 
 namespace HotelRapidApi.BusinessLayer.Concrete
 {
-    public class MessageCategoryManager(IMessageCategoryDal _messageCategoryDal) : IMessageCategoryService
+    public class MessageCategoryManager(IMessageCategoryDal _messageCategoryDal, IMapper _mapper) : IMessageCategoryService
     {
-        public void TDelete(MessageCategory entity)
+        public async Task CreateAsync(CreateMessageCategoryDto create)
         {
-            _messageCategoryDal.Delete(entity);
+            var messageCategory = _mapper.Map<MessageCategory>(create);
+            await _messageCategoryDal.CreateAsync(messageCategory);
         }
 
-        public MessageCategory TGetById(int id)
+        public async Task DeleteAsync(int id)
         {
-           return _messageCategoryDal.GetById(id);
+            await _messageCategoryDal.DeleteAsync(id);
         }
 
-        public List<MessageCategory> TGetList()
+        public async Task<ResultMessageCategoryDto> GetByIdAsync(int id)
         {
-           return _messageCategoryDal.GetList();
+            var messageCategory=await _messageCategoryDal.GetByIdAsync(id);
+            return _mapper.Map<ResultMessageCategoryDto>(messageCategory);
         }
 
-        public void TInsert(MessageCategory entity)
+        public async Task<List<ResultMessageCategoryDto>> GetListAsync()
         {
-           _messageCategoryDal.Insert(entity);
+           var messageCategory=await _messageCategoryDal.GetListAsync();
+            return _mapper.Map<List<ResultMessageCategoryDto>>(messageCategory);
         }
 
-        public void TUpdate(MessageCategory entity)
+        public async Task UpdateAsync(UpdateMessageCategoryDto update)
         {
-           _messageCategoryDal.Update(entity);
+           var messageCategory=_mapper.Map<MessageCategory>(update);
+             await _messageCategoryDal.UpdateAsync(messageCategory);
         }
     }
 }

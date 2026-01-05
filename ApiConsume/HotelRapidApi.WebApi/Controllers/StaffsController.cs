@@ -1,7 +1,9 @@
 ﻿using HotelRapidApi.BusinessLayer.Abstract;
+using HotelRapidApi.DtoLayer.DTOs.StaffDtos;
 using HotelRapidApi.EntityLayer.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace HotelRapidApi.WebApi.Controllers
 {
@@ -12,38 +14,37 @@ namespace HotelRapidApi.WebApi.Controllers
         [HttpGet]
         public IActionResult StaffList()
         {
-            var values = _staffService.TGetList();
+            var values = _staffService.GetListAsync();
             return Ok(values);
         }
         [HttpPost]
-        public IActionResult AddStaff(Staff staff)
+        public async Task<IActionResult> AddStaff(CreateStaffDto staff)
         {
-            _staffService.TInsert(staff);
+           await _staffService.CreateAsync(staff);
             return Ok(staff);
         }
         [HttpDelete("{id}")]
-        public IActionResult DeleteStaff(int Id)
+        public async Task<IActionResult> DeleteStaff(int id)
         {
-            var values=_staffService.TGetById(Id);
-            _staffService.TDelete(values);
+          await  _staffService.DeleteAsync(id);
             return Ok();
         }
         [HttpPut]
-        public IActionResult PutStaff(Staff staff)
+        public async Task<IActionResult> PutStaff(UpdateStaffDto staff)
         {
-            _staffService.TUpdate(staff);
+           await _staffService.UpdateAsync(staff);
             return Ok();
         }
         [HttpGet("{id}")]
-        public IActionResult GetStaff(int Id)
+        public async Task<IActionResult> GetStaff(int Id)
         { 
-            var values= _staffService.TGetById(Id);
+            var values=await _staffService.GetByIdAsync(Id);
             return Ok(values);  
         }
         [HttpGet("Last4Staff")]
-        public IActionResult Last4Staff()
+        public async Task<IActionResult> Last4StaffAsync()
         {
-            var values=_staffService.TLast4Staff();
+            var values=await _staffService.TLast4Staff();
             return Ok(values);
         }
     }

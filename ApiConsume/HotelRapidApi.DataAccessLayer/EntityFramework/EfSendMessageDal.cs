@@ -2,6 +2,7 @@
 using HotelRapidApi.DataAccessLayer.Concrete;
 using HotelRapidApi.DataAccessLayer.Repositories;
 using HotelRapidApi.EntityLayer.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +19,9 @@ namespace HotelRapidApi.DataAccessLayer.EntityFramework
             _context = context;
         }
 
-        public int GetSendMessageCount()
+        public async Task <int> GetSendMessageCount()
         {
-            return _context.Contacts.Count();
+            return await _context.Contacts.CountAsync();
         }
     }
 }

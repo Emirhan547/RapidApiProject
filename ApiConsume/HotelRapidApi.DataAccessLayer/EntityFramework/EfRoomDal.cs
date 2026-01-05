@@ -2,6 +2,7 @@
 using HotelRapidApi.DataAccessLayer.Concrete;
 using HotelRapidApi.DataAccessLayer.Repositories;
 using HotelRapidApi.EntityLayer.Concrete;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +19,9 @@ namespace HotelRapidApi.DataAccessLayer.EntityFramework
             _appDbContext = appDbContext;
         }
 
-        public int RoomCount()
+        public async Task<int> RoomCount()
         {
-            var value=_appDbContext.Rooms.Count();
+            var value= await _appDbContext.Rooms.CountAsync();
             return value;
         }
     }

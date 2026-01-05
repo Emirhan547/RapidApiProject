@@ -1,8 +1,10 @@
 ﻿using HotelRapidApi.BusinessLayer.Abstract;
+using HotelRapidApi.DtoLayer.DTOs.SubscribeDtos;
 using HotelRapidApi.EntityLayer.Concrete;
 using HotelRapidApi.EntityLayer.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace HotelRapidApi.WebApi.Controllers
 {
@@ -11,34 +13,33 @@ namespace HotelRapidApi.WebApi.Controllers
     public class SubscribesController(ISubscribeService _subscribeService) : ControllerBase
     {
         [HttpGet]
-        public IActionResult RoomList()
+        public async Task<IActionResult> RoomList()
         {
-            var values = _subscribeService.TGetList();
+            var values =await _subscribeService.GetListAsync();
             return Ok(values);
         }
         [HttpPost]
-        public IActionResult AddRoom(Subscribe subscribe)
+        public async Task<IActionResult> AddRoom(CreateSubscribeDto subscribe)
         {
-            _subscribeService.TInsert(subscribe);
+           await _subscribeService.CreateAsync(subscribe);
             return Ok(subscribe);
         }
         [HttpDelete("{id}")]
-        public IActionResult DeleteRoom(int Id)
+        public async Task<IActionResult> DeleteRoom(int id)
         {
-            var values = _subscribeService.TGetById(Id);
-            _subscribeService.TDelete(values);
+          await  _subscribeService.DeleteAsync(id);
             return Ok();
         }
         [HttpPut]
-        public IActionResult PutRoom(Subscribe subscribe)
+        public async Task<IActionResult> PutRoom(UpdateSubscribeDto subscribe)
         {
-            _subscribeService.TUpdate(subscribe);
+           await _subscribeService.UpdateAsync(subscribe);
             return Ok();
         }
         [HttpGet("{id}")]
         public IActionResult GetRoom(int Id)
         {
-            var values = _subscribeService.TGetById(Id);
+            var values = _subscribeService.GetByIdAsync(Id);
             return Ok(values);
         }
     }

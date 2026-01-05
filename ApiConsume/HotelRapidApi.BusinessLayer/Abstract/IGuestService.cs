@@ -1,13 +1,10 @@
-﻿using HotelRapidApi.EntityLayer.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+
+using HotelRapidApi.DtoLayer.DTOs.GuestDtos;
 
 namespace HotelRapidApi.BusinessLayer.Abstract
 {
-    public interface IGuestService: IGenericService<Guest>
+    public interface IGuestService: IGenericService<ResultGuestDto,CreateGuestDto,UpdateGuestDto>
     {
     }
 }

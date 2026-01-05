@@ -1,8 +1,10 @@
 ﻿using HotelRapidApi.BusinessLayer.Abstract;
+using HotelRapidApi.DtoLayer.DTOs.AboutDtos;
 using HotelRapidApi.EntityLayer.Concrete;
 using HotelRapidApi.EntityLayer.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace HotelRapidApi.WebApi.Controllers
 {
@@ -11,34 +13,33 @@ namespace HotelRapidApi.WebApi.Controllers
     public class AboutsController(IAboutService _aboutService) : ControllerBase
     {
         [HttpGet]
-        public IActionResult AboutList()
+        public async Task<IActionResult> ListAbout()
         {
-            var values = _aboutService.TGetList();
+            var values =await _aboutService.GetListAsync();
             return Ok(values);
         }
         [HttpPost]
-        public IActionResult AddAbout(About about)
+        public async Task<IActionResult> CreateAbout(CreateAboutDto about)
         {
-            _aboutService.TInsert(about);
+           await _aboutService.CreateAsync(about);
             return Ok(about);
         }
         [HttpDelete("{id}")]
-        public IActionResult DeleteAbout(int Id)
+        public async Task<IActionResult> DeleteAbout(int id)
         {
-            var values = _aboutService.TGetById(Id);
-            _aboutService.TDelete(values);
+           await _aboutService.DeleteAsync(id);
             return Ok();
         }
         [HttpPut]
-        public IActionResult PutAbout(About about)
+        public async Task<IActionResult> UpdateAbout(UpdateAboutDto about)
         {
-            _aboutService.TUpdate(about);
+           await _aboutService.UpdateAsync(about);
             return Ok();
         }
         [HttpGet("{id}")]
-        public IActionResult GetAbout(int Id)
+        public async Task<IActionResult> GetByIdAbout(int Id)
         {
-            var values = _aboutService.TGetById(Id);
+            var values =await _aboutService.GetByIdAsync(Id);
             return Ok(values);
         }
     }

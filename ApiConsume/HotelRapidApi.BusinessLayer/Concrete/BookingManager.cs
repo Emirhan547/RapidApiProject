@@ -1,79 +1,81 @@
 ﻿using HotelRapidApi.BusinessLayer.Abstract;
 using HotelRapidApi.DataAccessLayer.Abstract;
+using HotelRapidApi.DtoLayer.DTOs.BookingDtos;
 using HotelRapidApi.EntityLayer.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MapsterMapper;
 
 namespace HotelRapidApi.BusinessLayer.Concrete
 {
-    public class BookingManager (IBookingDal _bookingDal): IBookingService
+    public class BookingManager(IBookingDal _bookingDal, IMapper _mapper) : IBookingService
     {
-
-        public void TBookingStatusChangeApproved(Booking booking)
+        public async Task CreateAsync(CreateBookingDto create)
         {
-            _bookingDal.BookingStatusChangeApproved(booking);
+            var booking = _mapper.Map<Booking>(create);
+            await _bookingDal.CreateAsync(booking);
         }
 
-        public void TBookingStatusChangeApproved2(int id)
+        public async Task DeleteAsync(int id)
         {
-            _bookingDal.BookingStatusChangeApproved2(id);
+            await _bookingDal.DeleteAsync(id);
         }
 
-        public void TBookingStatusChangeApproved3(int id)
+        public async Task<ResultBookingDto> GetByIdAsync(int id)
         {
-            _bookingDal.BookingStatusChangeApproved3(id);
+            var booking = await _bookingDal.GetByIdAsync(id);
+            return _mapper.Map<ResultBookingDto>(booking);
         }
 
-        public void TBookingStatusChangeCancel(int id)
+        public async Task<List<ResultBookingDto>> GetListAsync()
         {
-            _bookingDal.BookingStatusChangeCancel(id);
-        }
-
-        public void TBookingStatusChangeWait(int id)
-        {
-            _bookingDal.BookingStatusChangeWait(id);
-        }
-
-        public void TDelete(Booking t)
-        {
-            _bookingDal.Delete(t);
-        }
-
-        public int TGetBookingCount()
-        {
-            return _bookingDal.GetBookingCount();
-        }
-
-        public Booking TGetById(int id)
-        {
-            return _bookingDal.GetById(id);
-        }
-
-        
-        public List<Booking> TGetList()
-        {
-            return _bookingDal.GetList();
-        }
-
-        public void TInsert(Booking t)
-        {
-            _bookingDal.Insert(t);
-        }
-
-        public List<Booking> TLast6Bookings()
-        {
-            return _bookingDal.Last6Bookings();
-        }
-
-        public void TUpdate(Booking t)
-        {
-            _bookingDal.Update(t);
+            var bookings = await _bookingDal.GetListAsync();
+            return _mapper.Map<List<ResultBookingDto>>(bookings);
         }
 
 
+        public async Task TBookingStatusChangeApproved(int id)
+        {
+            await _bookingDal.BookingStatusChangeApproved2(id);
+        }
 
+        public async Task TBookingStatusChangeApproved2(int id)
+        {
+            await _bookingDal.BookingStatusChangeApproved2(id);
+        }
+
+        public async Task TBookingStatusChangeApproved3(int id)
+        {
+            await _bookingDal.BookingStatusChangeApproved3(id);
+        }
+
+        public async Task TBookingStatusChangeCancel(int id)
+        {
+            await _bookingDal.BookingStatusChangeCancel(id);
+        }
+
+        public async Task TBookingStatusChangeWait(int id)
+        {
+            await _bookingDal.BookingStatusChangeWait(id);
+        }
+
+        public async Task<int> TGetBookingCount()
+        {
+            return await _bookingDal.GetBookingCount();
+        }
+
+        // ✅ LAST 6 BOOKINGS
+
+        public async Task<List<ResultBookingDto>> TLast6Bookings()
+        {
+            var bookings = await _bookingDal.Last6Bookings();
+            return _mapper.Map<List<ResultBookingDto>>(bookings);
+        }
+
+        // ✅ UPDATE
+
+        public async Task UpdateAsync(UpdateBookingDto update)
+        {
+            var booking = _mapper.Map<Booking>(update);
+            await _bookingDal.UpdateAsync(booking);
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using HotelRapidApi.EntityLayer.Entities;
+﻿using HotelRapidApi.DtoLayer.DTOs.SubscribeDtos;
+using HotelRapidApi.EntityLayer.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HotelRapidApi.BusinessLayer.Abstract
 {
-    public interface ISubscribeService:IGenericService<Subscribe>
+    public interface ISubscribeService:IGenericService<ResultSubscribeDto,CreateSubscribeDto,UpdateSubscribeDto>
     {
     }
 }

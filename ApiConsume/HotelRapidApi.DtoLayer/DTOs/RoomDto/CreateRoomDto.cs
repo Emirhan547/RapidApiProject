@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HotelRapidApi.DtoLayer.DTOs.RoomDto
 {
-    public class RoomAddDto
+    public class CreateRoomDto
     {
         public string RoomNumber { get; set; }
         public string RoomCoverImage { get; set; }

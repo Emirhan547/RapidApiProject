@@ -2,6 +2,7 @@
 using HotelRapidApi.DataAccessLayer.Concrete;
 using HotelRapidApi.DataAccessLayer.Repositories;
 using HotelRapidApi.EntityLayer.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,57 +20,57 @@ namespace HotelRapidApi.DataAccessLayer.EntityFramework
             _appDbContext = appDbContext;
         }
 
-        public void BookingStatusChangeApproved(Booking booking)
+        public async Task BookingStatusChangeApproved(Booking booking)
         {
-
-            var values = _appDbContext.Bookings.Where(x => x.Id == booking.Id).FirstOrDefault();
+            var values = await _appDbContext.Bookings.Where(x => x.Id == booking.Id).FirstOrDefaultAsync();
             values.Status = "Onaylandı";
-            _appDbContext.SaveChanges();
+            await _appDbContext.SaveChangesAsync();
         }
 
-        public void BookingStatusChangeApproved2(int id)
+        public async Task BookingStatusChangeApproved2(int id)
         {
 
-            var values = _appDbContext.Bookings.Find(id);
+            var values =await _appDbContext.Bookings.FindAsync(id);
             values.Status = "Onaylandı";
-            _appDbContext.SaveChanges();
+           await _appDbContext.SaveChangesAsync();
         }
 
-        public void BookingStatusChangeApproved3(int id)
+        public async Task BookingStatusChangeApproved3(int id)
         {
 
-            var values = _appDbContext.Bookings.Find(id);
+            var values =await _appDbContext.Bookings.FindAsync(id);
             values.Status = "Onaylandı";
-            _appDbContext.SaveChanges();
+            await _appDbContext.SaveChangesAsync();
         }
 
-        public void BookingStatusChangeCancel(int id)
+        public async Task BookingStatusChangeCancel(int id)
         {
 
-            var values = _appDbContext.Bookings.Find(id);
+            var values= await _appDbContext.Bookings.FindAsync(id);
             values.Status = "İptal Edildi";
-            _appDbContext.SaveChanges();
+            await _appDbContext.SaveChangesAsync();
         }
 
-        public void BookingStatusChangeWait(int id)
+        public async Task BookingStatusChangeWait(int id)
         {
-            var values = _appDbContext.Bookings.Find(id);
+            var values =await _appDbContext.Bookings.FindAsync(id);
             values.Status = "Müşteri Aranacak";
-            _appDbContext.SaveChanges();
+            await _appDbContext.SaveChangesAsync();
         }
 
-        public int GetBookingCount()
+        public async Task<int> GetBookingCount()
         {
 
-            var value = _appDbContext.Bookings.Count();
+            var value= await _appDbContext.Bookings.CountAsync();
             return value;
         }
 
-        public List<Booking> Last6Bookings()
+        public async Task <List<Booking>> Last6Bookings()
         {
-            var values = _appDbContext.Bookings.OrderByDescending(x => x.Id).Take(6).ToList();
+            var values =await _appDbContext.Bookings.OrderByDescending(x => x.Id).Take(6).ToListAsync();
             return values;
         }
 
+      
     }
 }

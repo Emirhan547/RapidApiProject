@@ -1,6 +1,7 @@
 ﻿using HotelRapidApi.DataAccessLayer.Abstract;
 using HotelRapidApi.DataAccessLayer.Concrete;
 using HotelRapidApi.EntityLayer.Entities.Common;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace HotelRapidApi.DataAccessLayer.Repositories
 {
-    public class GenericRepository<T>: IGenericDal<T> where T : class
+    public class GenericRepository<TEntity>: IGenericDal<TEntity> where TEntity : BaseEntity
     {
         private readonly AppDbContext _context;
 
@@ -18,32 +19,36 @@ namespace HotelRapidApi.DataAccessLayer.Repositories
             _context = context;
         }
 
-        public void Delete(T entity)
+        public async Task CreateAsync(TEntity entity)
         {
-            _context.Remove(entity);
-            _context.SaveChanges();
+           await _context.AddAsync(entity);
+            await _context.SaveChangesAsync();
         }
 
-        public T GetById(int id)
+        public async Task DeleteAsync(int id)
         {
-            return _context.Set<T>().Find(id);
+            _context.Remove(id);
+            await _context.SaveChangesAsync();
         }
 
-        public List<T> GetList()
+      
+
+        public async Task<TEntity> GetByIdAsync(int id)
         {
-           return _context.Set<T>().ToList();
+           return await _context.Set<TEntity>().FindAsync(id);
         }
 
-        public void Insert(T entity)
+        public async Task<List<TEntity>> GetListAsync()
         {
-            _context.Add(entity);
-            _context.SaveChanges();
+            return await _context.Set<TEntity>().AsNoTracking().ToListAsync();
         }
 
-        public void Update(T entity)
+        public async Task UpdateAsync(TEntity entity)
         {
             _context.Update(entity);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
+
+       
     }
 }

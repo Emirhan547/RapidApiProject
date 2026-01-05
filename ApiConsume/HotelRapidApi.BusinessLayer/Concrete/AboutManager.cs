@@ -1,6 +1,8 @@
 ﻿using HotelRapidApi.BusinessLayer.Abstract;
 using HotelRapidApi.DataAccessLayer.Abstract;
+using HotelRapidApi.DtoLayer.DTOs.AboutDtos;
 using HotelRapidApi.EntityLayer.Entities;
+using MapsterMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,31 +11,36 @@ using System.Threading.Tasks;
 
 namespace HotelRapidApi.BusinessLayer.Concrete
 {
-    public class AboutManager(IAboutDal _aboutDal) : IAboutService
+    public class AboutManager(IAboutDal _aboutDal,IMapper _mapper) : IAboutService
     {
-        public void TDelete(About entity)
+        public async Task CreateAsync(CreateAboutDto create)
         {
-            _aboutDal.Delete(entity);
+            var about=_mapper.Map<About>(create);
+            await _aboutDal.CreateAsync(about);
         }
 
-        public About TGetById(int id)
+        public async Task DeleteAsync(int id)
         {
-           return _aboutDal.GetById(id);
+            await _aboutDal.DeleteAsync(id);
         }
 
-        public List<About> TGetList()
+        public async Task<ResultAboutDto> GetByIdAsync(int id)
         {
-            return _aboutDal.GetList();
+            var about= await _aboutDal.GetByIdAsync(id);
+            return _mapper.Map<ResultAboutDto>(about);
+
         }
 
-        public void TInsert(About entity)
+        public async Task<List<ResultAboutDto>> GetListAsync()
         {
-            _aboutDal.Insert(entity);
+           var abouts=await _aboutDal.GetListAsync();
+            return _mapper.Map<List<ResultAboutDto>>(abouts);
         }
 
-        public void TUpdate(About entity)
+        public async Task UpdateAsync(UpdateAboutDto update)
         {
-            _aboutDal.Update(entity);
+            var abouts= _mapper.Map<About>(update);
+            await _aboutDal.UpdateAsync(abouts);
         }
     }
 }

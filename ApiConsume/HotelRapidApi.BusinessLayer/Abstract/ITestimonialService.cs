@@ -1,4 +1,5 @@
-﻿using HotelRapidApi.EntityLayer.Entities;
+﻿using HotelRapidApi.DtoLayer.DTOs.TestimonialDto;
+using HotelRapidApi.EntityLayer.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HotelRapidApi.BusinessLayer.Abstract
 {
-    public interface ITestimonialService:IGenericService<Testimonial>
+    public interface ITestimonialService:IGenericService<ResultTestimonialDto,CreateTestimonialDto,UpdateTestimonialDto>
     {
     }
 }

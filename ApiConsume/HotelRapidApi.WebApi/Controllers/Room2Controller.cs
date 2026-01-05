@@ -5,6 +5,7 @@ using HotelRapidApi.EntityLayer.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Threading.Tasks;
 
 namespace HotelRapidApi.WebApi.Controllers
 {
@@ -21,33 +22,22 @@ namespace HotelRapidApi.WebApi.Controllers
             _mapper = mapper;
         }
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync()
         {
-            var values=_roomService.TGetList();
+            var values= await _roomService.GetListAsync();
             return Ok(values);
         }
         [HttpPost]
-        public IActionResult AddRoom(RoomAddDto roomAddDto)
+        public async Task<IActionResult> AddRoom(CreateRoomDto roomAddDto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-             }
-            var values=_mapper.Map<Room>(roomAddDto);
-            _roomService.TInsert(values);
-
+          await _roomService.CreateAsync(roomAddDto);
             return Ok();
         }
         [HttpPut]
         public IActionResult UpdateRoom(UpdateRoomDto updateRoomDto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-            var values=_mapper.Map<Room>(updateRoomDto);
-            _roomService.TUpdate(values);
-            return Ok("Başarıyla Güncellendi");
+            _roomService.UpdateAsync(updateRoomDto);
+            return Ok();
         }
 
     }

@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace HotelRapidApi.DataAccessLayer.Abstract
 {
-    public interface IAppUserDal :IGenericDal<AppUser>
+    public interface IAppUserDal
     {
-        List<AppUser> UserListWithLocation();
-        List<AppUser>UserListWithWorkLocations();
-        int AppUserCount();
+        Task<List<AppUser>> UserListWithLocation();
+        Task<List<AppUser>>UserListWithWorkLocations();
+        Task<int> AppUserCount();
+        Task<List<AppUser>> GetListAsync();
     }
 }

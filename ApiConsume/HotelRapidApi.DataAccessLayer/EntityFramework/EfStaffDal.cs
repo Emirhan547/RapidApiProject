@@ -2,6 +2,7 @@
 using HotelRapidApi.DataAccessLayer.Concrete;
 using HotelRapidApi.DataAccessLayer.Repositories;
 using HotelRapidApi.EntityLayer.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,15 +19,15 @@ namespace HotelRapidApi.DataAccessLayer.EntityFramework
             _appDbContext = appDbContext;
         }
 
-        public int GetStaffCount()
+        public async Task<int> GetStaffCount()
         {
-            var value=_appDbContext.Staffs.Count();
+            var value=await _appDbContext.Staffs.CountAsync();
             return value;
         }
 
-        public List<Staff> Last4Staff()
+        public async Task <List<Staff>> Last4Staff()
         {
-            var value=_appDbContext.Staffs.OrderByDescending(x=> x.Id).Take(4).ToList();
+            var value=await _appDbContext.Staffs.OrderByDescending(x=> x.Id).Take(4).ToListAsync();
             return value;
         }
     }

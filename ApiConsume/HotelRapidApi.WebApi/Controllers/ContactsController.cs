@@ -1,7 +1,9 @@
 ﻿using HotelRapidApi.BusinessLayer.Abstract;
+using HotelRapidApi.DtoLayer.DTOs.ContactDtos;
 using HotelRapidApi.EntityLayer.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace HotelRapidApi.WebApi.Controllers
 {
@@ -11,28 +13,29 @@ namespace HotelRapidApi.WebApi.Controllers
     {
        
         [HttpPost]
-        public IActionResult AddContact(Contact contact)
+        public IActionResult AddContact(CreateContactDto contact)
         {
             contact.Date = Convert.ToDateTime(DateTime.Now.ToString());
-            _contactService.TInsert(contact);
+            _contactService.CreateAsync(contact);
             return Ok();
         }
         [HttpGet]
-        public IActionResult InboxListContact()
+        public async Task<IActionResult> InboxListContact()
         {
-            var values = _contactService.TGetList();
+            var values =await _contactService.GetListAsync();
             return Ok(values);
         }
         [HttpGet("{id}")]
-        public IActionResult GetSendMessage(int id)
+        public async Task<IActionResult> GetSendMessage(int id)
         {
-            var values = _contactService.TGetById(id);
+            var values =await _contactService.GetByIdAsync(id);
             return Ok(values);
         }
         [HttpGet("GetContactCount")]
-        public IActionResult GetContactCount()
+        public async Task<IActionResult> GetContactCountAsync()
         {
-            return Ok(_contactService.TGetContactCount());
+            await _contactService.TGetContactCount();
+            return Ok();
         }
 
     }

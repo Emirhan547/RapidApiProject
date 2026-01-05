@@ -1,6 +1,8 @@
 ﻿using HotelRapidApi.BusinessLayer.Abstract;
 using HotelRapidApi.DataAccessLayer.Abstract;
+using HotelRapidApi.DtoLayer.DTOs.SubscribeDtos;
 using HotelRapidApi.EntityLayer.Entities;
+using MapsterMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,38 +11,35 @@ using System.Threading.Tasks;
 
 namespace HotelRapidApi.BusinessLayer.Concrete
 {
-    public class SubscribeManager : ISubscribeService
+    public class SubscribeManager(ISubscribeDal _subscribeDal, IMapper _mapper) : ISubscribeService
     {
-        private readonly ISubscribeDal _subscribeDal;
-
-        public SubscribeManager(ISubscribeDal subscribeDal)
+        public async Task CreateAsync(CreateSubscribeDto create)
         {
-            _subscribeDal = subscribeDal;
+            var subscriber = _mapper.Map<Subscribe>(create);
+            await _subscribeDal.CreateAsync(subscriber);
         }
 
-        public void TDelete(Subscribe entity)
+        public async Task DeleteAsync(int id)
         {
-            _subscribeDal.Delete(entity);
+            await _subscribeDal.DeleteAsync(id);
         }
 
-        public Subscribe TGetById(int id)
+        public async Task<ResultSubscribeDto> GetByIdAsync(int id)
         {
-            return _subscribeDal.GetById(id);
+           var subscriber=await _subscribeDal.GetByIdAsync(id);
+            return _mapper.Map<ResultSubscribeDto>(subscriber);
         }
 
-        public List<Subscribe> TGetList()
+        public async Task<List<ResultSubscribeDto>> GetListAsync()
         {
-            return _subscribeDal.GetList();
+            var subscriber=await _subscribeDal.GetListAsync();
+            return _mapper.Map<List<ResultSubscribeDto>>(subscriber);
         }
 
-        public void TInsert(Subscribe entity)
+        public async Task UpdateAsync(UpdateSubscribeDto update)
         {
-            _subscribeDal.Insert(entity);
-        }
-
-        public void TUpdate(Subscribe entity)
-        {
-            _subscribeDal.Update(entity);   
+            var subscriber=_mapper.Map<Subscribe>(update);
+            await _subscribeDal.UpdateAsync(subscriber);
         }
     }
 }

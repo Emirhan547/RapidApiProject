@@ -1,6 +1,8 @@
 ﻿using HotelRapidApi.BusinessLayer.Abstract;
 using HotelRapidApi.DataAccessLayer.Abstract;
+using HotelRapidApi.DtoLayer.DTOs.TestimonialDto;
 using HotelRapidApi.EntityLayer.Entities;
+using MapsterMapper;
 using Microsoft.EntityFrameworkCore.Metadata;
 using System;
 using System.Collections.Generic;
@@ -10,38 +12,35 @@ using System.Threading.Tasks;
 
 namespace HotelRapidApi.BusinessLayer.Concrete
 {
-    public class TestimonialManager : ITestimonialService
+    public class TestimonialManager(ITestimonialDal _testimonialDal, IMapper _mapper) : ITestimonialService
     {
-        private readonly ITestimonialDal _testimonialDal;
-
-        public TestimonialManager(ITestimonialDal testimonialDal)
+        public async Task CreateAsync(CreateTestimonialDto create)
         {
-            _testimonialDal = testimonialDal;
+            var testimonials = _mapper.Map<Testimonial>(create);
+            await _testimonialDal.CreateAsync(testimonials);
         }
 
-        public void TDelete(Testimonial entity)
+        public async Task DeleteAsync(int id)
         {
-            _testimonialDal.Delete(entity);
+            await _testimonialDal.DeleteAsync(id);
         }
 
-        public Testimonial TGetById(int id)
+        public async Task<ResultTestimonialDto> GetByIdAsync(int id)
         {
-            return _testimonialDal.GetById(id);
+            var testimonials=await _testimonialDal.GetByIdAsync(id);
+            return _mapper.Map<ResultTestimonialDto>(testimonials);
         }
 
-        public List<Testimonial> TGetList()
+        public async Task<List<ResultTestimonialDto>> GetListAsync()
         {
-            return _testimonialDal.GetList();
+            var testimonials = await _testimonialDal.GetListAsync();
+            return _mapper.Map<List<ResultTestimonialDto>>(testimonials);
         }
 
-        public void TInsert(Testimonial entity)
+        public async Task UpdateAsync(UpdateTestimonialDto update)
         {
-            _testimonialDal.Insert(entity);
-        }
-
-        public void TUpdate(Testimonial entity)
-        {
-            _testimonialDal.Update(entity);
+           var testimonials=_mapper.Map<Testimonial>(update);
+            await _testimonialDal.UpdateAsync(testimonials);
         }
     }
 }

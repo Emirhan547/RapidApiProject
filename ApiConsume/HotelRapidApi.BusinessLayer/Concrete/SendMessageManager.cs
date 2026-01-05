@@ -1,6 +1,8 @@
 ﻿using HotelRapidApi.BusinessLayer.Abstract;
 using HotelRapidApi.DataAccessLayer.Abstract;
+using HotelRapidApi.DtoLayer.DTOs.SendMessageDtos;
 using HotelRapidApi.EntityLayer.Entities;
+using MapsterMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,36 +11,40 @@ using System.Threading.Tasks;
 
 namespace HotelRapidApi.BusinessLayer.Concrete
 {
-    public class SendMessageManager(ISendMessageDal _sendMessageDal) : ISendMessageService
+    public class SendMessageManager(ISendMessageDal _sendMessageDal, IMapper _mapper) : ISendMessageService
     {
-        public void TDelete(SendMessage entity)
+        public async Task CreateAsync(CreateSendMessageDto create)
         {
-            _sendMessageDal.Delete(entity);
+            var sendMessage = _mapper.Map<SendMessage>(create);
+            await _sendMessageDal.CreateAsync(sendMessage);
         }
 
-        public SendMessage TGetById(int id)
+        public async Task DeleteAsync(int id)
         {
-            return _sendMessageDal.GetById(id);
+           await _sendMessageDal.DeleteAsync(id);
         }
 
-        public List<SendMessage> TGetList()
+        public async Task<ResultSendMessageDto> GetByIdAsync(int id)
         {
-            return _sendMessageDal.GetList();
+           var sendMessage=await _sendMessageDal.GetByIdAsync(id);
+            return _mapper.Map<ResultSendMessageDto>(sendMessage);
         }
 
-        public int TGetSendMessageCount()
+        public async Task<List<ResultSendMessageDto>> GetListAsync()
         {
-            return _sendMessageDal.GetSendMessageCount();
+            var sendMessage=await _sendMessageDal.GetListAsync();
+            return _mapper.Map<List<ResultSendMessageDto>>(sendMessage);
         }
 
-        public void TInsert(SendMessage entity)
+        public async Task<int> TGetSendMessageCount()
         {
-            _sendMessageDal.Insert(entity);
+            return await _sendMessageDal.GetSendMessageCount();
         }
 
-        public void TUpdate(SendMessage entity)
+        public async Task UpdateAsync(UpdateSendMessageDto update)
         {
-           _sendMessageDal.Update(entity);
+           var sendMessage=_mapper.Map<SendMessage>(update);
+            await _sendMessageDal.UpdateAsync(sendMessage);
         }
     }
 }

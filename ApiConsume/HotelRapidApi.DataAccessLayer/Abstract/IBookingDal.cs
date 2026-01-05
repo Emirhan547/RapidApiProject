@@ -9,13 +9,13 @@ namespace HotelRapidApi.DataAccessLayer.Abstract
 {
     public interface IBookingDal:IGenericDal<Booking>
     {
-        void BookingStatusChangeApproved(Booking booking);
-        void BookingStatusChangeApproved2(int id);
-        int GetBookingCount();
-        List<Booking> Last6Bookings();
-        void BookingStatusChangeApproved3(int id);
-        void BookingStatusChangeCancel(int id);
-        void BookingStatusChangeWait(int id);
+        Task BookingStatusChangeApproved(Booking booking);
+        Task BookingStatusChangeApproved2(int id);
+        Task<int> GetBookingCount();
+        Task<List<Booking>> Last6Bookings();
+        Task BookingStatusChangeApproved3(int id);
+        Task BookingStatusChangeCancel(int id);
+        Task BookingStatusChangeWait(int id);
 
     }
 }

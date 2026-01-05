@@ -1,7 +1,9 @@
 ﻿using HotelRapidApi.BusinessLayer.Abstract;
+using HotelRapidApi.DtoLayer.DTOs.TestimonialDto;
 using HotelRapidApi.EntityLayer.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace HotelRapidApi.WebApi.Controllers
 {
@@ -10,34 +12,33 @@ namespace HotelRapidApi.WebApi.Controllers
     public class TestimonialsController(ITestimonialService _testimonialService) : ControllerBase
     {
         [HttpGet]
-        public IActionResult TestimonialList()
+        public async Task<IActionResult> TestimonialList()
         {
-            var values = _testimonialService.TGetList();
+            var values =await _testimonialService.GetListAsync();
             return Ok(values);
         }
         [HttpPost]
-        public IActionResult AddTestimonial(Testimonial testimonial)
+        public async Task<IActionResult> AddTestimonial(CreateTestimonialDto testimonial)
         {
-            _testimonialService.TInsert(testimonial);
+           await _testimonialService.CreateAsync(testimonial);
             return Ok(testimonial);
         }
         [HttpDelete("{id}")]
-        public IActionResult DeleteTestimonial(int Id)
+        public async Task<IActionResult> DeleteTestimonial(int id)
         {
-            var values = _testimonialService.TGetById(Id);
-            _testimonialService.TDelete(values);
+          await _testimonialService.DeleteAsync(id);
             return Ok();
         }
         [HttpPut]
-        public IActionResult PutTestimonial(Testimonial testimonial)
+        public async Task<IActionResult> PutTestimonial(UpdateTestimonialDto testimonial)
         {
-            _testimonialService.TUpdate(testimonial);
+          await  _testimonialService.UpdateAsync(testimonial);
             return Ok();
         }
         [HttpGet("{id}")]
-        public IActionResult GetTestimonial(int Id)
+        public async Task<IActionResult> GetTestimonial(int Id)
         {
-            var values = _testimonialService.TGetById(Id);
+            var values =await _testimonialService.GetByIdAsync(Id);
             return Ok(values);
         }
     }

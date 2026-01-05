@@ -17,7 +17,7 @@ namespace HotelRapidApi.WebApi.Controllers
         [HttpGet("AppUserList")]
         public IActionResult GetUserList()
         {
-            var values=_appUserService.TGetList();
+            var values=_appUserService.GetListAsync();
             return Ok(values);
         }
     }

@@ -7,7 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Mapster" Version="7.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\HotelRapidApi.DataAccessLayer\HotelRapidApi.DataAccessLayer.csproj" />
+    <ProjectReference Include="..\HotelRapidApi.DtoLayer\HotelRapidApi.DtoLayer.csproj" />
   </ItemGroup>
 
 </Project>
