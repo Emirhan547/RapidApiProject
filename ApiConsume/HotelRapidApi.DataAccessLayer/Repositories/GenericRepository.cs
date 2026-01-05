@@ -25,9 +25,9 @@ namespace HotelRapidApi.DataAccessLayer.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(TEntity entity)
         {
-            _context.Remove(id);
+            _context.Remove(entity);
             await _context.SaveChangesAsync();
         }
 

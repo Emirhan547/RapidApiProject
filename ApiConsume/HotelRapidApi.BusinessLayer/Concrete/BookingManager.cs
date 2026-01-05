@@ -16,7 +16,8 @@ namespace HotelRapidApi.BusinessLayer.Concrete
 
         public async Task DeleteAsync(int id)
         {
-            await _bookingDal.DeleteAsync(id);
+            var booking = await _bookingDal.GetByIdAsync(id);
+            await _bookingDal.DeleteAsync(booking);
         }
 
         public async Task<ResultBookingDto> GetByIdAsync(int id)
