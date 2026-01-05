@@ -1,5 +1,7 @@
-﻿using HotelRapidApi.WebUI.Areas.Admin.Models.Testimonial;
+﻿
 
+
+using HotelRapidApi.WebUI.DTOs.TestimonialDtos;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
@@ -23,10 +25,10 @@ namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsondata = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<TestimonialViewModel>>(jsondata);
-                return View(values);
+                var values = JsonConvert.DeserializeObject<List<ResultTestimonialDto>>(jsondata);
+                return View(values ?? new List<ResultTestimonialDto>());
             }
-            return View();
+            return View(new List<ResultTestimonialDto>());
         }
         [HttpGet]
         public IActionResult AddTestimonial()
@@ -34,7 +36,7 @@ namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> AddTestimonial(TestimonialViewModel model)
+        public async Task<IActionResult> AddTestimonial(CreateTestimonialDto model)
         {
             var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(model);
@@ -65,12 +67,14 @@ namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<TestimonialViewModel>(jsonData);
+                var values = JsonConvert.DeserializeObject<UpdateTestimonialDto>(jsonData);
+                return View(values);
+
             }
-            return View();
+            return View(new UpdateTestimonialDto());
         }
         [HttpPost]
-        public async Task<IActionResult> UpdateTestimonial(TestimonialViewModel model)
+        public async Task<IActionResult> UpdateTestimonial(UpdateTestimonialDto model)
         {
             var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(model);

@@ -19,16 +19,15 @@ namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
         public async Task <IActionResult> Index()
         {
             var client=_httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("http://localhost:5196/api/Staffs");
+            var responseMessage = await client.GetAsync("http://localhost:5196/api/Services");
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData=await responseMessage.Content.ReadAsStringAsync();
                 var values = JsonConvert.DeserializeObject<List<ResultServiceDto>>(jsonData);
+                return View(values ?? new List<ResultServiceDto>());
             }
 
-
-
-            return View();
+            return View(new List<ResultServiceDto>());
         }
         [HttpGet]
         public IActionResult AddService()
@@ -73,8 +72,9 @@ namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
                 var values = JsonConvert.DeserializeObject<UpdateServiceDto>(jsonData);
+                return View(values);
             }
-            return View();
+            return View(new UpdateServiceDto());
         }
         [HttpPost]
         public async Task<IActionResult> UpdateService(UpdateServiceDto updateServiceDto)

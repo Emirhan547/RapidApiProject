@@ -29,7 +29,7 @@
                 <tr>
                     <th>@count</th>
                     <td>@item.Name</td>
-                    <td>@(((DateTime)item.CheckIn).ToString("dd-MMM-yyyy"))</td>
+                    <td>@(((DateTime)item.Checkin).ToString("dd-MMM-yyyy"))</td>
                     <td>@(((DateTime)item.CheckOut).ToString("dd-MMM-yyyy"))</td>
                     <td><span class="badge badge-primary px-2">@item.Status</span></td>
                     <td><a href="/Admin/Booking/ApprovedReservation2/@item.Id" class="btn btn-outline-primary">Onayla</a></td>

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HotelRapidApi.EntityLayer.Concrete
 {
-    public class Room:BaseEntity
+    public class Room: BaseEntity
     {
         public string RoomNumber{ get; set; }
         public string RoomCoverImage{ get; set; }

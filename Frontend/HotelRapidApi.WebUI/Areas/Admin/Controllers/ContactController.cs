@@ -1,4 +1,4 @@
-﻿using HotelProject.WebUI.Dtos.ContactDto;
+﻿
 using HotelRapidApi.WebUI.DTOs.ContactDtos;
 using HotelRapidApi.WebUI.DTOs.SendMessageDtos;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +10,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HotelProject.WebUI.Controllers
+namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class ContactController : Controller
@@ -32,18 +32,26 @@ namespace HotelProject.WebUI.Controllers
 
             var client3 = _httpClientFactory.CreateClient();
             var responseMessage3 = await client3.GetAsync("http://localhost:5196/api/SendMessage/GetSendMessageCount");
+            ViewBag.contactCount = "0";
+            ViewBag.sendMessageCount = "0";
+
+            if (responseMessage2.IsSuccessStatusCode)
+            {
+                ViewBag.contactCount = await responseMessage2.Content.ReadAsStringAsync();
+            }
+
+            if (responseMessage3.IsSuccessStatusCode)
+            {
+                ViewBag.sendMessageCount = await responseMessage3.Content.ReadAsStringAsync();
+            }
 
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
                 var values = JsonConvert.DeserializeObject<List<InboxContactDto>>(jsonData);
-                var jsonData2 = await responseMessage2.Content.ReadAsStringAsync();
-                ViewBag.contactCount = jsonData2;
-                var jsonData3 = await responseMessage3.Content.ReadAsStringAsync();
-                ViewBag.sendMessageCount = jsonData3;
-                return View(values);
+                return View(values ?? new List<InboxContactDto>());
             }
-            return View();
+            return View(new List<InboxContactDto>());
         }
 
         public async Task<IActionResult> Sendbox()
@@ -54,9 +62,9 @@ namespace HotelProject.WebUI.Controllers
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
                 var values = JsonConvert.DeserializeObject<List<ResultSendboxDto>>(jsonData);
-                return View(values);
+                return View(values ?? new List<ResultSendboxDto>());
             }
-            return View();
+            return View(new List<ResultSendboxDto>());
         }
         [HttpGet]
         public IActionResult SendMessage()
@@ -87,10 +95,10 @@ namespace HotelProject.WebUI.Controllers
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<GetMessageByIdDto>(jsonData);
+                var values = JsonConvert.DeserializeObject<ResultSendboxDto>(jsonData);
                 return View(values);
             }
-            return View();
+            return View(new ResultSendboxDto());
         }
 
         public async Task<IActionResult> MessageDetailsByInbox(int id)
@@ -103,7 +111,7 @@ namespace HotelProject.WebUI.Controllers
                 var values = JsonConvert.DeserializeObject<InboxContactDto>(jsonData);
                 return View(values);
             }
-            return View();
+            return View(new InboxContactDto());
         }
 
    

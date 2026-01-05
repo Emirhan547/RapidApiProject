@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HotelRapidApi.EntityLayer.Entities
 {
-    public class SendMessage:BaseEntity
+    public class SendMessage : BaseEntity
     {
         public string Title { get; set; }
         public string ReceiverName { get; set; }

@@ -17,7 +17,15 @@ namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            if (User?.Identity?.Name is null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            if (user is null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             UserEditViewModel userEditViewModel = new UserEditViewModel();
             userEditViewModel.Name = user.Name;
             userEditViewModel.Surname = user.Surname;
@@ -28,9 +36,17 @@ namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(UserEditViewModel userEditViewModel)
         {
+            if (User?.Identity?.Name is null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             if (userEditViewModel.Password == userEditViewModel.ConfirmPassword)
             {
                 var user = await _userManager.FindByNameAsync(User.Identity.Name);
+                if (user is null)
+                {
+                    return RedirectToAction("Index", "Login");
+                }
                 user.Name = userEditViewModel.Name;
                 user.Surname = userEditViewModel.Surname;
                 user.Email = userEditViewModel.Email;

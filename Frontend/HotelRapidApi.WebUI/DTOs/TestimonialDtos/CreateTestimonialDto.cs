@@ -1,8 +1,7 @@
-﻿namespace HotelRapidApi.WebUI.Areas.Admin.Models.Testimonial
+﻿namespace HotelRapidApi.WebUI.DTOs.TestimonialDtos
 {
-    public class TestimonialViewModel
+    public class CreateTestimonialDto
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }

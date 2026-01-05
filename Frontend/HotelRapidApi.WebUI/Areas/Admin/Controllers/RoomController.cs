@@ -1,4 +1,4 @@
-﻿using HotelRapidApi.WebUI.Areas.Admin.Models.Staff;
+﻿
 using HotelRapidApi.WebUI.DTOs.RoomDtos;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -24,9 +24,9 @@ namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
             {
                 var jsondata = await responseMessage.Content.ReadAsStringAsync();
                 var values = JsonConvert.DeserializeObject<List<ResultRoomDto>>(jsondata);
-                return View(values);
+                return View(values ?? new List<ResultRoomDto>());
             }
-            return View();
+            return View(new List<ResultRoomDto>());
         }
         [HttpGet]
         public IActionResult AddRoom()
@@ -66,8 +66,9 @@ namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
                 var values = JsonConvert.DeserializeObject<UpdateRoomDto>(jsonData);
+                return View(values);
             }
-            return View();
+            return View(new UpdateRoomDto());
         }
         [HttpPost]
         public async Task<IActionResult> UpdateRoom(UpdateRoomDto model)

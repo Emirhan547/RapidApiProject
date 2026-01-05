@@ -1,6 +1,7 @@
-﻿using HotelProject.WebUI.Dtos.MessageCategoryDto;
+﻿
 using HotelRapidApi.WebUI.DTOs.BookingDtos;
 using HotelRapidApi.WebUI.DTOs.ContactDtos;
+using HotelRapidApi.WebUI.DTOs.MessageCategoryDtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HotelRapidApi.EntityLayer.Entities
 {
-    public class Subscribe:BaseEntity
+    public class Subscribe : BaseEntity
     {
         public string Mail { get; set; }
     }

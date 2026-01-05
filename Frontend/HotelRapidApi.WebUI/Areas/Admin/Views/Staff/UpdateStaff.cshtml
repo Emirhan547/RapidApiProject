@@ -1,12 +1,14 @@
-﻿@using HotelRapidApi.WebUI.Areas.Admin.Models.Staff
-@model UpdateStaffViewModel
+﻿@using HotelRapidApi.DtoLayer.DTOs.StaffDtos
+
+
+@model UpdateStaffDto
 @{
     ViewData["Title"] = "UpdateStaff";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <form method="post">
-    <input type="hidden"asp-for="StaffId"/>
+    <input type="hidden" asp-for="Id" />
     <label>Personel Adı</label>
     <input type="text" asp-for="Name" class="form-control" />
     <br />

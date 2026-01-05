@@ -24,10 +24,10 @@ namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsondata = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultAppUserDto>>(jsondata);
-                return View(values);
+                var values = JsonConvert.DeserializeObject<List<ResultAppUserListDto>>(jsondata);
+                return View(values ?? new List<ResultAppUserListDto>());
             }
-            return View();
+            return View(new List<ResultAppUserListDto>());
         }
         public async Task<IActionResult> UserList()
         {
@@ -37,9 +37,9 @@ namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
             {
                 var jsondata = await responseMessage.Content.ReadAsStringAsync();
                 var values = JsonConvert.DeserializeObject<List<ResultAppUserListDto>>(jsondata);
-                return View(values);
+                return View(values ?? new List<ResultAppUserListDto>());
             }
-            return View();
+            return View(new List<ResultAppUserListDto>());
         }
     }
 }

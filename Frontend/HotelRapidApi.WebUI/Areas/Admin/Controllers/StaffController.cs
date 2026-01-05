@@ -1,4 +1,6 @@
-﻿using HotelRapidApi.WebUI.Areas.Admin.Models.Staff;
+﻿
+
+using HotelRapidApi.WebUI.DTOs.StaffDtos;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -23,10 +25,10 @@ namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsondata = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<StaffViewModel>>(jsondata);
-                return View(values);
+                var values = JsonConvert.DeserializeObject<List<ResultStaffDto>>(jsondata);
+                return View(values ?? new List<ResultStaffDto>());
             }
-            return View();
+            return View(new List<ResultStaffDto>());
         }
         [HttpGet]
         public IActionResult AddStaff()
@@ -34,7 +36,7 @@ namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> AddStaff(AddStaffViewModel model)
+        public async Task<IActionResult> AddStaff(CreateStaffDto model)
         {
             var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(model);
@@ -65,12 +67,13 @@ namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData=await responseMessage.Content.ReadAsStringAsync();
-                var values=JsonConvert.DeserializeObject<UpdateStaffViewModel>(jsonData);
+                var values=JsonConvert.DeserializeObject<UpdateStaffDto>(jsonData);
+                return View(values);
             }
-            return View();
+            return View(new UpdateStaffDto());
         }
         [HttpPost]
-        public async Task<IActionResult>UpdateStaff(UpdateStaffViewModel model)
+        public async Task<IActionResult>UpdateStaff(UpdateStaffDto model)
         {
             var client=_httpClientFactory.CreateClient();
             var jsonData=JsonConvert.SerializeObject(model);

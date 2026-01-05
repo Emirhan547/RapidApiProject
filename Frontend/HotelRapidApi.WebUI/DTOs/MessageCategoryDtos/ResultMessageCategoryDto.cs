@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HotelProject.WebUI.Dtos.MessageCategoryDto
+namespace HotelRapidApi.WebUI.DTOs.MessageCategoryDtos
 {
     public class ResultMessageCategoryDto
     {

@@ -1,4 +1,4 @@
-﻿using HotelRapidApi.WebUI.Areas.Admin.Models.Staff;
+﻿
 using HotelRapidApi.WebUI.DTOs.AboutDtos;
 using HotelRapidApi.WebUI.DTOs.BookingDtos;
 using Microsoft.AspNetCore.Mvc;
@@ -25,9 +25,9 @@ namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
             {
                 var jsondata = await responseMessage.Content.ReadAsStringAsync();
                 var values = JsonConvert.DeserializeObject<List<ResultAboutDto>>(jsondata);
-                return View(values);
+                return View(values ?? new List<ResultAboutDto>());
             }
-            return View();
+            return View(new List<ResultAboutDto>());
         }
         [HttpGet]
         public async Task<IActionResult> UpdateAbout(int id)
@@ -38,8 +38,9 @@ namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
                 var values = JsonConvert.DeserializeObject<UpdateAboutDto>(jsonData);
+                return View(values);
             }
-            return View();
+            return View(new UpdateAboutDto());
         }
         [HttpPost]
         public async Task<IActionResult> UpdateAbout(UpdateAboutDto model)

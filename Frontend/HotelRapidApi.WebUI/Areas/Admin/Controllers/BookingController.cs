@@ -23,9 +23,9 @@ namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
                 var values = JsonConvert.DeserializeObject<List<ResultBookingDto>>(jsonData);
-                return View(values);
+                return View(values ?? new List<ResultBookingDto>());
             }
-            return View();
+            return View(new List<ResultBookingDto>());
         }
 
         public async Task<IActionResult> ApprovedReservation2(int id)
@@ -71,7 +71,7 @@ namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
                 var values = JsonConvert.DeserializeObject<UpdateBookingDto>(jsonData);
                 return View(values);
             }
-            return View();
+            return View(new UpdateBookingDto());
         }
         [HttpPost]
         public async Task<IActionResult> UpdateBooking(UpdateBookingDto updateBookingDto)

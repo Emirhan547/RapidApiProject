@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HotelRapidApi.EntityLayer.Entities
 {
-    public class Testimonial:BaseEntity
+    public class Testimonial :BaseEntity
     {
         public string Name { get; set; }
         public string Title { get; set; }

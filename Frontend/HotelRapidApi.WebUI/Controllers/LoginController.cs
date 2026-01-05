@@ -28,7 +28,7 @@ namespace HotelRapidApi.WebUI.Controllers
                 var result = await _signInManager.PasswordSignInAsync(loginUserDto.Username, loginUserDto.Password, false, false);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Staff", new {areas="Admin"});
+                    return RedirectToAction("Index", "Staff", new { area = "Admin" });
                 }
                 else
                 {
@@ -37,6 +37,12 @@ namespace HotelRapidApi.WebUI.Controllers
 
             }
             return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Login");
         }
 
     }

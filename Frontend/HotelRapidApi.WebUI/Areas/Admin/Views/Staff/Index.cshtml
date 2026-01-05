@@ -1,5 +1,5 @@
-﻿@using HotelRapidApi.WebUI.Areas.Admin.Models.Staff
-@model List<StaffViewModel>
+﻿@using HotelRapidApi.WebUI.DTOs.StaffDtos
+@model List<ResultStaffDto>
 
 @{
     ViewData["Title"] = "Index";
@@ -23,8 +23,8 @@
             <th>@count</th>
             <td>@item.Name</td>
             <td>@item.Title</td>
-            <td><a href="/Admin/Staff/DeleteStaff/@item.StaffId" class="btn mb-1 btn-rounded btn-outline-danger">Sil</a></td>
-            <td><a href="/Admin/Staff/UpdateStaff/@item.StaffId" class="btn mb-1 btn-rounded btn-outline-success">Güncelle</a></td>
+            <td><a href="/Admin/Staff/DeleteStaff/@item.Id" class="btn mb-1 btn-rounded btn-outline-danger">Sil</a></td>
+            <td><a href="/Admin/Staff/UpdateStaff/@item.Id" class="btn mb-1 btn-rounded btn-outline-success">Güncelle</a></td>
             <td><a href="#" class="btn mb-1 btn-rounded btn-outline-dark">Detaylar</a></td>
         </tr>
     }

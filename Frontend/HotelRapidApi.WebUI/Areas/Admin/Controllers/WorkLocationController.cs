@@ -24,9 +24,9 @@ namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
             {
                 var jsondata = await responseMessage.Content.ReadAsStringAsync();
                 var values = JsonConvert.DeserializeObject<List<ResultWorkLocationDto>>(jsondata);
-                return View(values);
+                return View(values ?? new List<ResultWorkLocationDto>());
             }
-            return View();
+            return View(new List<ResultWorkLocationDto>());
         }
         [HttpGet]
         public IActionResult AddWorkLocation()
@@ -66,8 +66,9 @@ namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
                 var values = JsonConvert.DeserializeObject<UpdateWorkLocationDto>(jsonData);
+                return View(values);
             }
-            return View();
+            return View(new UpdateWorkLocationDto());
         }
         [HttpPost]
         public async Task<IActionResult> UpdateWorkLocation(UpdateWorkLocationDto model)

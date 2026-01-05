@@ -22,9 +22,9 @@ namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
             {
                 var jsondata = await responseMessage.Content.ReadAsStringAsync();
                 var values = JsonConvert.DeserializeObject<List<ResultAppUserWithWorkLocationDto>>(jsondata);
-                return View(values);
+                return View(values ?? new List<ResultAppUserWithWorkLocationDto>());
             }
-            return View();
+            return View(new List<ResultAppUserWithWorkLocationDto>());
         }
     }
 }
