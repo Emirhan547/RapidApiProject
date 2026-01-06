@@ -1,8 +1,8 @@
 ﻿
 
-namespace HotelRapidApi.WebUI.DTOs.ContactDtos
+namespace HotelRapidApi.WebUI.DTOs.ContactMessageDtos
 {
-    public class CreateContactDto
+    public class CreateContactMessageDto
     {
         public string Name { get; set; }
         public string Mail { get; set; }

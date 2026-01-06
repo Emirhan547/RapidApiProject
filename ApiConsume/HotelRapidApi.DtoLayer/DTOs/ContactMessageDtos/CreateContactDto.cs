@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HotelRapidApi.DtoLayer.DTOs.ContactDtos
+namespace HotelRapidApi.DtoLayer.DTOs.ContactMessageDtos
 {
-    public class UpdateContactDto
+    public class CreateContactMessageDto
     {
         public int Id { get; set; }
         public string Name { get; set; }

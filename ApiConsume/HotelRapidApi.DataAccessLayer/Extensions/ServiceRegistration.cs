@@ -21,7 +21,7 @@ namespace HotelRapidApi.DataAccessLayer.Extensions
             services.AddScoped<ITestimonialDal, EfTestimonialDal>();
             services.AddScoped<IAboutDal, EfAboutDal>();
             services.AddScoped<IBookingDal, EfBookingDal>();
-            services.AddScoped<IContactDal, EfContactDal>();
+            services.AddScoped<IContactMessageDal, EfContactMessageDal>();
             services.AddScoped<IGuestDal, EfGuestDal>();
             services.AddScoped<ISendMessageDal, EfSendMessageDal>();
             services.AddScoped<IMessageCategoryDal, EfMessageCategoryDal>();
@@ -30,4 +30,3 @@ namespace HotelRapidApi.DataAccessLayer.Extensions
         }
     }
 }
- 

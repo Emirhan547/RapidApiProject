@@ -1,6 +1,6 @@
 ﻿
-using HotelRapidApi.WebUI.DTOs.BookingDtos;
-using HotelRapidApi.WebUI.DTOs.ContactDtos;
+
+
 using HotelRapidApi.WebUI.DTOs.MessageCategoryDtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -43,13 +43,13 @@ namespace HotelRapidApi.WebUI.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> SendMessage(CreateContactDto createContactDto)
+        public async Task<IActionResult> SendMessage(CreateContactMessageDto createContactDto)
         {
             createContactDto.Date=DateTime.Parse(DateTime.Now.ToShortDateString());
             var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(createContactDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            await client.PostAsync("http://localhost:5196/api/Contacts", stringContent);
+            await client.PostAsync("http://localhost:5196/api/ContactMessages", stringContent);
             return RedirectToAction("Index", "Default");
         }
     }

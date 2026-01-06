@@ -10,6 +10,6 @@ namespace HotelRapidApi.EntityLayer.Entities
     public class MessageCategory : BaseEntity
     {
         public string MessageCategoryName { get; set; }
-        public List<Contact> Contacts { get; set; }
+        public List<ContactMessage> ContactMessages { get; set; }
     }
 }

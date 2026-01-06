@@ -1,4 +1,5 @@
 ﻿
+using HotelRapidApi.DtoLayer.DTOs.ContactMessageDtos;
 using HotelRapidApi.WebUI.DTOs.ContactDtos;
 using HotelRapidApi.WebUI.DTOs.SendMessageDtos;
 using Microsoft.AspNetCore.Mvc;
@@ -25,13 +26,13 @@ namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
         {
 
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("http://localhost:5196/api/Contact");
+            var responseMessage = await client.GetAsync("http://localhost:5196/api/ContactMessages");
 
             var client2 = _httpClientFactory.CreateClient();
-            var responseMessage2 = await client2.GetAsync("http://localhost:5196/api/Contact/GetContactCount");
+            var responseMessage2 = await client2.GetAsync("http://localhost:5196/api/ContactMessages/GetContactCount");
 
             var client3 = _httpClientFactory.CreateClient();
-            var responseMessage3 = await client3.GetAsync("http://localhost:5196/api/SendMessage/GetSendMessageCount");
+            var responseMessage3 = await client3.GetAsync("http://localhost:5196/api/SendMessages/GetSendMessageCount");
             ViewBag.contactCount = "0";
             ViewBag.sendMessageCount = "0";
 
@@ -48,16 +49,16 @@ namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultContactDto>>(jsonData);
-                return View(values ?? new List<ResultContactDto>());
+                var values = JsonConvert.DeserializeObject<List<ResultContactMessageDto>>(jsonData);
+                return View(values ?? new List<ResultContactMessageDto>());
             }
-            return View(new List<ResultContactDto>());
+            return View(new List<ResultContactMessageDto>());
         }
 
         public async Task<IActionResult> Sendbox()
         {
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("http://localhost:5196/api/SendMessage");
+            var responseMessage = await client.GetAsync("http://localhost:5196/api/SendMessages");
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
@@ -80,7 +81,7 @@ namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
             var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(createSendMessage);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responseMessage = await client.PostAsync("http://localhost:5196/api/SendMessage", stringContent);
+            var responseMessage = await client.PostAsync("http://localhost:5196/api/SendMessages", stringContent);
             if (responseMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("SendBox");
@@ -91,7 +92,7 @@ namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> MessageDetailsBySendbox(int id)
         {
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync($"http://localhost:5196/api/SendMessage/{id}");
+            var responseMessage = await client.GetAsync($"http://localhost:5196/api/SendMessages/{id}");
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
@@ -104,14 +105,14 @@ namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> MessageDetailsByInbox(int id)
         {
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync($"http://localhost:5196/api/Contact/{id}");
+            var responseMessage = await client.GetAsync($"http://localhost:5196/api/ContactMessages/{id}");
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<ResultContactDto>(jsonData);
+                var values = JsonConvert.DeserializeObject<ResultContactMessageDto>(jsonData);
                 return View(values);
             }
-            return View(new ResultContactDto());
+            return View(new ResultContactMessageDto());
         }
 
    

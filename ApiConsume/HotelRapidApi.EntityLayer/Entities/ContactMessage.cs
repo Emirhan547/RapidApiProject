@@ -1,21 +1,20 @@
-﻿using System;
+﻿using HotelRapidApi.EntityLayer.Entities.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HotelRapidApi.DtoLayer.DTOs.ContactDtos
+namespace HotelRapidApi.EntityLayer.Entities
 {
-    public class CreateContactDto
+    public class ContactMessage : BaseEntity
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Mail { get; set; }
         public string Subject { get; set; }
         public string Message { get; set; }
         public DateTime Date { get; set; }
-
         public int MessageCategoryId { get; set; }
-        public string MessageCategoryName { get; set; }
+        public MessageCategory MessageCategory { get; set; }
     }
 }

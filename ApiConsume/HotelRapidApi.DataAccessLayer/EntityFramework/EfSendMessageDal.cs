@@ -21,7 +21,7 @@ namespace HotelRapidApi.DataAccessLayer.EntityFramework
 
         public async Task <int> GetSendMessageCount()
         {
-            return await _context.Contacts.CountAsync();
+            return await _context.ContactMessages.CountAsync();
         }
     }
 }
