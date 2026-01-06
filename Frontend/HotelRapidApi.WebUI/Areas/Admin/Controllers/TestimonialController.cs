@@ -46,7 +46,7 @@ namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
             {
                 return RedirectToAction("Index");
             }
-            return View();
+            return View(model);
 
         }
         public async Task<IActionResult> DeleteTestimonial(int id)
@@ -57,7 +57,7 @@ namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
             {
                 return RedirectToAction("Index");
             }
-            return View();
+            return RedirectToAction("Index");
         }
         [HttpGet]
         public async Task<IActionResult> UpdateTestimonial(int id)
@@ -84,7 +84,7 @@ namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
             {
                 return RedirectToAction("Index");
             }
-            return View();
+            return View(model);
         }
     }
 }

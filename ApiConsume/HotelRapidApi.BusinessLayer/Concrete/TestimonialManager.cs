@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace HotelRapidApi.BusinessLayer.Concrete
 {
-    public class TestimonialManager(ITestimonialDal _testimonialDal, IMapper _mapper) : ITestimonialService
+    public class TestimonialManager(ITestimonialDal _testimonialDal) : ITestimonialService
     {
         public async Task CreateAsync(CreateTestimonialDto create)
         {

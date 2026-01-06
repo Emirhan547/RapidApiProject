@@ -48,10 +48,10 @@ namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<InboxContactDto>>(jsonData);
-                return View(values ?? new List<InboxContactDto>());
+                var values = JsonConvert.DeserializeObject<List<ResultContactDto>>(jsonData);
+                return View(values ?? new List<ResultContactDto>());
             }
-            return View(new List<InboxContactDto>());
+            return View(new List<ResultContactDto>());
         }
 
         public async Task<IActionResult> Sendbox()
@@ -108,10 +108,10 @@ namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<InboxContactDto>(jsonData);
+                var values = JsonConvert.DeserializeObject<ResultContactDto>(jsonData);
                 return View(values);
             }
-            return View(new InboxContactDto());
+            return View(new ResultContactDto());
         }
 
    

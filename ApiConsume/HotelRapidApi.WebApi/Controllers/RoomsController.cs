@@ -1,5 +1,5 @@
 ﻿using HotelRapidApi.BusinessLayer.Abstract;
-using HotelRapidApi.DtoLayer.DTOs.RoomDto;
+using HotelRapidApi.DtoLayer.DTOs.RoomDtos;
 using HotelRapidApi.EntityLayer.Concrete;
 using HotelRapidApi.EntityLayer.Entities;
 using Microsoft.AspNetCore.Http;

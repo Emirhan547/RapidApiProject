@@ -1,6 +1,6 @@
 ﻿namespace HotelRapidApi.WebUI.DTOs.ContactDtos
 {
-    public class InboxContactDto
+    public class ResultContactDto
     {
         public int Id { get; set; }
         public string Name { get; set; }

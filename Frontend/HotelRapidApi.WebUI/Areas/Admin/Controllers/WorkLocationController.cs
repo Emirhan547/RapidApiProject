@@ -44,7 +44,7 @@ namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
             {
                 return RedirectToAction("Index");
             }
-            return View();
+            return View(model);
 
         }
         public async Task<IActionResult> DeleteWorkLocation(int id)
@@ -55,7 +55,7 @@ namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
             {
                 return RedirectToAction("Index");
             }
-            return View();
+            return RedirectToAction("Index");
         }
         [HttpGet]
         public async Task<IActionResult> UpdateWorkLocation(int id)
@@ -81,7 +81,7 @@ namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
             {
                 return RedirectToAction("Index");
             }
-            return View();
+            return View(model);
         }
     }
 }

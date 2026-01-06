@@ -38,9 +38,6 @@ namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> AddRoom(CreateRoomDto model)
         {
-            if (!ModelState.IsValid)
-                return View(model);
-
             var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(model);
 

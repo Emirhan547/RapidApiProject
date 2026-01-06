@@ -1,0 +1,18 @@
+﻿@using HotelRapidApi.WebUI.DTOs.WorkLocationsDto
+@model CreateWorkLocationDto
+@{
+    ViewData["Title"] = "AddWorkLocation";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<form method="post">
+    <label>Lokasyon Adı</label>
+    <input type="text" asp-for="WorkLocationName" class="form-control" />
+    <span asp-validation-for="WorkLocationName" class="text-danger"></span>
+    <br />
+    <label>Şehir</label>
+    <input type="text" asp-for="WorkLocationCity" class="form-control" />
+    <span asp-validation-for="WorkLocationCity" class="text-danger"></span>
+    <br />
+    <button class="btn btn-primary">Lokasyonu Ekle</button>
+</form>

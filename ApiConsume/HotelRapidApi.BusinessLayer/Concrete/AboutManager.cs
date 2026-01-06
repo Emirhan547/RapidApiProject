@@ -28,7 +28,7 @@ namespace HotelRapidApi.BusinessLayer.Concrete
 
 
         }
-
+        
         public async Task<List<ResultAboutDto>> GetListAsync()
         {
            var abouts=await _aboutDal.GetListAsync();

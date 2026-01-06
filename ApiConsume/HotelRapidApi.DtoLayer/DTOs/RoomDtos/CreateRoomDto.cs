@@ -1,8 +1,13 @@
-﻿namespace HotelRapidApi.WebUI.DTOs.RoomDtos
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace HotelRapidApi.DtoLayer.DTOs.RoomDtos
 {
-    public class UpdateRoomDto
+    public class CreateRoomDto
     {
-        public int Id { get; set; }
         public string? RoomNumber { get; set; }
         public string? RoomCoverImage { get; set; }
         public int Price { get; set; }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using HotelRapidApi.BusinessLayer.Abstract;
-using HotelRapidApi.DtoLayer.DTOs.RoomDto;
+
+using HotelRapidApi.DtoLayer.DTOs.RoomDtos;
 using HotelRapidApi.EntityLayer.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

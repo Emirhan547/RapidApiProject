@@ -29,6 +29,26 @@ namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
             }
             return View(new List<ResultAboutDto>());
         }
+
+        [HttpGet]
+        public IActionResult AddAbout()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddAbout(CreateAboutDto model)
+        {
+            var client = _httpClientFactory.CreateClient();
+            var jsonData = JsonConvert.SerializeObject(model);
+            StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            var responseMessage = await client.PostAsync("http://localhost:5196/api/Abouts", stringContent);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+
         [HttpGet]
         public async Task<IActionResult> UpdateAbout(int id)
         {

@@ -1,31 +1,35 @@
-﻿
-@model UpdateAboutDto
+﻿@using HotelRapidApi.WebUI.DTOs.AboutDtos
+@model CreateAboutDto
 
 @{
-    ViewData["Title"] = "UpdateAbout";
+    ViewData["Title"] = "AddAbout";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <form method="post">
-    <input type="hidden" asp-for="Id" />
     <label>Hakkımızda Başlık 1</label>
     <input type="text" asp-for="Title1" class="form-control" />
+    <span asp-validation-for="Title1" class="text-danger"></span>
     <br />
     <label>Hakkımızda Başlık 2</label>
     <input type="text" asp-for="Title2" class="form-control" />
+    <span asp-validation-for="Title2" class="text-danger"></span>
     <br />
     <label>İçerik</label>
     <input type="text" asp-for="Content" class="form-control" />
+    <span asp-validation-for="Content" class="text-danger"></span>
     <br />
     <label>Personel Sayısı</label>
     <input type="text" asp-for="StaffCount" class="form-control" />
+    <span asp-validation-for="StaffCount" class="text-danger"></span>
     <br />
     <label>Oda Sayısı</label>
     <input type="text" asp-for="RoomCount" class="form-control" />
+    <span asp-validation-for="RoomCount" class="text-danger"></span>
     <br />
     <label>Müşteri Sayısı</label>
     <input type="text" asp-for="CustomerCount" class="form-control" />
+    <span asp-validation-for="CustomerCount" class="text-danger"></span>
     <br />
-    <button class="btn btn-outline-success">Hakkımızda Bilgisini Güncelle</button>
+    <button class="btn btn-primary">Hakkımızda Bilgisini Ekle</button>
 </form>
-

@@ -1,10 +1,8 @@
-﻿using HotelRapidApi.DtoLayer.DTOs.RoomDto;
-using HotelRapidApi.EntityLayer.Concrete;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+
+
+
+using HotelRapidApi.DtoLayer.DTOs.RoomDtos;
 
 namespace HotelRapidApi.BusinessLayer.Abstract
 {
