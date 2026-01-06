@@ -37,9 +37,9 @@ namespace HotelRapidApi.WebApi.Controllers
             return Ok();
         }
         [HttpGet("{id}")]
-        public IActionResult GetRoom(int Id)
+        public async Task<IActionResult> GetRoom(int Id)
         {
-            var values = _subscribeService.GetByIdAsync(Id);
+            var values=await _subscribeService.GetByIdAsync(Id);
             return Ok(values);
         }
     }

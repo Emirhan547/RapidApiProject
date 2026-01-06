@@ -13,10 +13,10 @@ namespace HotelRapidApi.WebApi.Controllers
     {
        
         [HttpPost]
-        public IActionResult AddContact(CreateContactDto contact)
+        public async Task<IActionResult> AddContact(CreateContactDto contact)
         {
             contact.Date = Convert.ToDateTime(DateTime.Now.ToString());
-            _contactService.CreateAsync(contact);
+            await _contactService.CreateAsync(contact);
             return Ok();
         }
         [HttpGet]

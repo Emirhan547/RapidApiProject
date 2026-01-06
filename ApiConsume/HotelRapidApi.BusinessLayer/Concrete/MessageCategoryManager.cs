@@ -3,6 +3,7 @@ using HotelRapidApi.DataAccessLayer.Abstract;
 using HotelRapidApi.DtoLayer.DTOs.MessageCategoryDtos;
 using HotelRapidApi.DtoLayer.DTOs.SendMessageDtos;
 using HotelRapidApi.EntityLayer.Entities;
+using Mapster;
 using MapsterMapper;
 using System;
 using System.Collections.Generic;
@@ -12,11 +13,11 @@ using System.Threading.Tasks;
 
 namespace HotelRapidApi.BusinessLayer.Concrete
 {
-    public class MessageCategoryManager(IMessageCategoryDal _messageCategoryDal, IMapper _mapper) : IMessageCategoryService
+    public class MessageCategoryManager(IMessageCategoryDal _messageCategoryDal) : IMessageCategoryService
     {
         public async Task CreateAsync(CreateMessageCategoryDto create)
         {
-            var messageCategory = _mapper.Map<MessageCategory>(create);
+            var messageCategory = create.Adapt<MessageCategory>();
             await _messageCategoryDal.CreateAsync(messageCategory);
         }
 
@@ -29,18 +30,18 @@ namespace HotelRapidApi.BusinessLayer.Concrete
         public async Task<ResultMessageCategoryDto> GetByIdAsync(int id)
         {
             var messageCategory=await _messageCategoryDal.GetByIdAsync(id);
-            return _mapper.Map<ResultMessageCategoryDto>(messageCategory);
+            return messageCategory.Adapt<ResultMessageCategoryDto>();
         }
 
         public async Task<List<ResultMessageCategoryDto>> GetListAsync()
         {
            var messageCategory=await _messageCategoryDal.GetListAsync();
-            return _mapper.Map<List<ResultMessageCategoryDto>>(messageCategory);
+            return messageCategory.Adapt<List<ResultMessageCategoryDto>>();
         }
 
         public async Task UpdateAsync(UpdateMessageCategoryDto update)
         {
-           var messageCategory=_mapper.Map<MessageCategory>(update);
+           var messageCategory=update.Adapt<MessageCategory>();
              await _messageCategoryDal.UpdateAsync(messageCategory);
         }
     }

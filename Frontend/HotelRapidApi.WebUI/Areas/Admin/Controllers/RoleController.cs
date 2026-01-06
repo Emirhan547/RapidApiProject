@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
 {
@@ -17,9 +18,9 @@ namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
             _roleManager = roleManager;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var values = _roleManager.Roles.ToList();
+            var values =await _roleManager.Roles.ToListAsync();
             return View(values);
         }
         [HttpGet]

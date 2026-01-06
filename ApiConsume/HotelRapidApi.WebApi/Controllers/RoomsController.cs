@@ -19,7 +19,7 @@ namespace HotelRapidApi.WebApi.Controllers
             return Ok(values);
         }
         [HttpPost]
-        public async Task<IActionResult> AddRoom(CreateRoomDto room)
+        public async Task<IActionResult> AddRoom([FromBody] CreateRoomDto room)
         {
            await _roomService.CreateAsync(room);
             return Ok(room);

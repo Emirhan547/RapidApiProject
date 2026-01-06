@@ -14,7 +14,7 @@ namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Index(MailViewModel model)
+        public  IActionResult Index(MailViewModel model)
         {
             MimeMessage mimeMessage = new MimeMessage();
             MailboxAddress mailboxAddressFrom = new MailboxAddress("Admin", "emirhanhacioglu0@gmail.com");

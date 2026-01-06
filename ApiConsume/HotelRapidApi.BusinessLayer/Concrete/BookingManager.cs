@@ -2,15 +2,16 @@
 using HotelRapidApi.DataAccessLayer.Abstract;
 using HotelRapidApi.DtoLayer.DTOs.BookingDtos;
 using HotelRapidApi.EntityLayer.Entities;
+using Mapster;
 using MapsterMapper;
 
 namespace HotelRapidApi.BusinessLayer.Concrete
 {
-    public class BookingManager(IBookingDal _bookingDal, IMapper _mapper) : IBookingService
+    public class BookingManager(IBookingDal _bookingDal) : IBookingService
     {
         public async Task CreateAsync(CreateBookingDto create)
         {
-            var booking = _mapper.Map<Booking>(create);
+            var booking = create.Adapt<Booking>();
             await _bookingDal.CreateAsync(booking);
         }
 
@@ -23,13 +24,13 @@ namespace HotelRapidApi.BusinessLayer.Concrete
         public async Task<ResultBookingDto> GetByIdAsync(int id)
         {
             var booking = await _bookingDal.GetByIdAsync(id);
-            return _mapper.Map<ResultBookingDto>(booking);
+            return booking.Adapt<ResultBookingDto>( );
         }
 
         public async Task<List<ResultBookingDto>> GetListAsync()
         {
             var bookings = await _bookingDal.GetListAsync();
-            return _mapper.Map<List<ResultBookingDto>>(bookings);
+            return bookings.Adapt<List<ResultBookingDto>>();
         }
 
 
@@ -68,14 +69,14 @@ namespace HotelRapidApi.BusinessLayer.Concrete
         public async Task<List<ResultBookingDto>> TLast6Bookings()
         {
             var bookings = await _bookingDal.Last6Bookings();
-            return _mapper.Map<List<ResultBookingDto>>(bookings);
+            return bookings.Adapt<List<ResultBookingDto>>();
         }
 
         // ✅ UPDATE
 
         public async Task UpdateAsync(UpdateBookingDto update)
         {
-            var booking = _mapper.Map<Booking>(update);
+            var booking = update.Adapt<Booking>();
             await _bookingDal.UpdateAsync(booking);
         }
     }

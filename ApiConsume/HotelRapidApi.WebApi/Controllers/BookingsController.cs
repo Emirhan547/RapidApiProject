@@ -18,9 +18,9 @@ namespace HotelRapidApi.WebApi.Controllers
             return Ok(values);
         }
         [HttpPost]
-        public IActionResult CreateBooking(CreateBookingDto booking)
+        public async Task<IActionResult> CreateBooking(CreateBookingDto booking)
         {
-            _bookingService.CreateAsync(booking);
+           await _bookingService.CreateAsync(booking);
             return Ok();
         }
         [HttpDelete("{id}")]
@@ -50,22 +50,22 @@ namespace HotelRapidApi.WebApi.Controllers
         }
 
         [HttpGet("BookingAproved")]
-        public IActionResult BookingAproved(int id)
+        public async Task<IActionResult> BookingAproved(int id)
         {
-            _bookingService.TBookingStatusChangeApproved3(id);
+            await _bookingService.TBookingStatusChangeApproved3(id);
             return Ok();
         }
 
         [HttpGet("BookingCancel")]
-        public IActionResult BookingCancel(int id)
+        public async Task <IActionResult> BookingCancel(int id)
         {
-            _bookingService.TBookingStatusChangeCancel(id);
+            await _bookingService.TBookingStatusChangeCancel(id);
             return Ok();
         }
         [HttpGet("BookingWait")]
-        public IActionResult BookingWait(int id)
+        public async Task<IActionResult> BookingWait(int id)
         {
-            _bookingService.TBookingStatusChangeWait(id);
+           await _bookingService.TBookingStatusChangeWait(id);
             return Ok();
         }
 

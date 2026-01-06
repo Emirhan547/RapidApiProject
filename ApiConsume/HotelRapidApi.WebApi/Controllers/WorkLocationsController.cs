@@ -24,9 +24,9 @@ namespace HotelRapidApi.WebApi.Controllers
             return Ok(workLocations);
         }
         [HttpPost]
-        public IActionResult CreateWorkLocation(CreateWorkLocationDto workLocation)
+        public async Task<IActionResult> CreateWorkLocation(CreateWorkLocationDto workLocation)
         {
-            _workLocation.CreateAsync(workLocation);
+           await _workLocation.CreateAsync(workLocation);
             return Created();
         }
         [HttpPut]

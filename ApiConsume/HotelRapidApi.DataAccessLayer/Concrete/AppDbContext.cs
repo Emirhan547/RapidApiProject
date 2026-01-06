@@ -12,7 +12,16 @@ namespace HotelRapidApi.DataAccessLayer.Concrete
             : base(options)
         {
         }
-
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Room>()
+                .ToTable(tb => tb.UseSqlOutputClause(false));
+            modelBuilder.Entity<Guest>()
+                .ToTable(tb=>tb.UseSqlOutputClause(false));
+            modelBuilder.Entity<Staff>()
+               .ToTable(tb => tb.UseSqlOutputClause(false));
+            base.OnModelCreating(modelBuilder);
+        }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Service> Services { get; set; }
         public DbSet<Staff> Staffs { get; set; }

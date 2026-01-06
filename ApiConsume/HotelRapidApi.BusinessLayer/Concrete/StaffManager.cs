@@ -2,6 +2,7 @@
 using HotelRapidApi.DataAccessLayer.Abstract;
 using HotelRapidApi.DtoLayer.DTOs.StaffDtos;
 using HotelRapidApi.EntityLayer.Entities;
+using Mapster;
 using MapsterMapper;
 using System;
 using System.Collections.Generic;
@@ -11,11 +12,11 @@ using System.Threading.Tasks;
 
 namespace HotelRapidApi.BusinessLayer.Concrete
 {
-    public class StaffManager(IStaffDal _staffDal, IMapper _mapper) : IStaffService
+    public class StaffManager(IStaffDal _staffDal) : IStaffService
     {
         public async Task CreateAsync(CreateStaffDto create)
         {
-            var staff=_mapper.Map<Staff>(create);
+            var staff=create.Adapt<Staff>();
             await _staffDal.CreateAsync(staff);
         }
 
@@ -28,13 +29,13 @@ namespace HotelRapidApi.BusinessLayer.Concrete
         public async Task<ResultStaffDto> GetByIdAsync(int id)
         {
             var staff = await _staffDal.GetByIdAsync(id);
-            return _mapper.Map<ResultStaffDto>(staff);
+            return staff.Adapt<ResultStaffDto>();
         }
 
         public async Task<List<ResultStaffDto>> GetListAsync()
         {
             var staff=await _staffDal.GetListAsync();
-            return _mapper.Map<List<ResultStaffDto>>(staff);
+            return staff.Adapt<List<ResultStaffDto>>();
         }
 
         public async Task<int> TGetStaffCount()
@@ -45,12 +46,12 @@ namespace HotelRapidApi.BusinessLayer.Concrete
         public async Task<List<ResultStaffDto>> TLast4Staff()
         {
             var staff=await _staffDal.Last4Staff();
-            return _mapper.Map<List<ResultStaffDto>>(staff);
+            return staff.Adapt<List<ResultStaffDto>>();
         }
 
         public async Task UpdateAsync(UpdateStaffDto update)
         {
-            var staff=_mapper.Map<Staff>(update);
+            var staff=update.Adapt<Staff>();
             await _staffDal.UpdateAsync(staff);
         }
     }

@@ -9,15 +9,15 @@ namespace HotelRapidApi.WebApi.Controllers
     public class AppUsersController(IAppUserService _appUserService) : ControllerBase
     {
         [HttpGet]
-        public IActionResult GetUserListWithLocation()
+        public async Task<IActionResult> GetUserListWithLocation()
         {
-            var values=_appUserService.TUserListWithWorkLocation();
+            var values=await _appUserService.TUserListWithWorkLocation();
             return Ok(values);
         }
         [HttpGet("AppUserList")]
-        public IActionResult GetUserList()
+        public async Task <IActionResult> GetUserList()
         {
-            var values=_appUserService.GetListAsync();
+            var values=await _appUserService.GetListAsync();
             return Ok(values);
         }
     }

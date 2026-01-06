@@ -1,5 +1,6 @@
 ﻿using HotelRapidApi.BusinessLayer.Abstract;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace HotelRapidApi.WebApi.Controllers
 {
@@ -22,30 +23,30 @@ namespace HotelRapidApi.WebApi.Controllers
             _roomService = roomService;
         }
         [HttpGet("StaffCount")]
-        public IActionResult StaffCount()
+        public async Task<IActionResult> StaffCount()
         {
             var value = _staffService.TGetStaffCount();
             return Ok(value);
         }
 
         [HttpGet("BookingCount")]
-        public IActionResult BookingCount()
+        public async Task<IActionResult> BookingCount()
         {
-            var value = _bookingService.TGetBookingCount();
+            var value =await _bookingService.TGetBookingCount();
             return Ok(value);
         }
 
         [HttpGet("AppUserCount")]
-        public IActionResult AppUserCount()
+        public async Task<IActionResult> AppUserCount()
         {
-            var value = _appUserService.TAppUserCount();
+            var value =await _appUserService.TAppUserCount();
             return Ok(value);
         }
 
         [HttpGet("RoomCount")]
-        public IActionResult RoomCount()
+        public async Task<IActionResult> RoomCount()
         {
-            var value = _roomService.RoomCount();
+            var value =await _roomService.RoomCount();
             return Ok(value);
         }
 

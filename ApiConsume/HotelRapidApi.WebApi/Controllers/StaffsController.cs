@@ -12,9 +12,9 @@ namespace HotelRapidApi.WebApi.Controllers
     public class StaffsController(IStaffService _staffService) : ControllerBase
     {
         [HttpGet]
-        public IActionResult StaffList()
+        public async Task<IActionResult> StaffList()
         {
-            var values = _staffService.GetListAsync();
+            var values =await _staffService.GetListAsync();
             return Ok(values);
         }
         [HttpPost]

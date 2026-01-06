@@ -2,6 +2,7 @@
 using HotelRapidApi.DataAccessLayer.Abstract;
 using HotelRapidApi.DtoLayer.DTOs.TestimonialDto;
 using HotelRapidApi.EntityLayer.Entities;
+using Mapster;
 using MapsterMapper;
 using Microsoft.EntityFrameworkCore.Metadata;
 using System;
@@ -16,7 +17,7 @@ namespace HotelRapidApi.BusinessLayer.Concrete
     {
         public async Task CreateAsync(CreateTestimonialDto create)
         {
-            var testimonials = _mapper.Map<Testimonial>(create);
+            var testimonials = create.Adapt<Testimonial>();
             await _testimonialDal.CreateAsync(testimonials);
         }
 
@@ -29,18 +30,18 @@ namespace HotelRapidApi.BusinessLayer.Concrete
         public async Task<ResultTestimonialDto> GetByIdAsync(int id)
         {
             var testimonials=await _testimonialDal.GetByIdAsync(id);
-            return _mapper.Map<ResultTestimonialDto>(testimonials);
+            return testimonials.Adapt<ResultTestimonialDto>();
         }
 
         public async Task<List<ResultTestimonialDto>> GetListAsync()
         {
             var testimonials = await _testimonialDal.GetListAsync();
-            return _mapper.Map<List<ResultTestimonialDto>>(testimonials);
+            return testimonials.Adapt<List<ResultTestimonialDto>>();
         }
 
         public async Task UpdateAsync(UpdateTestimonialDto update)
         {
-           var testimonials=_mapper.Map<Testimonial>(update);
+           var testimonials=update.Adapt<Testimonial>();
             await _testimonialDal.UpdateAsync(testimonials);
         }
     }

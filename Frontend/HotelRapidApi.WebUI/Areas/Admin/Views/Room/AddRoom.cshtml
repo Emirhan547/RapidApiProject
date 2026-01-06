@@ -6,27 +6,42 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
+<h3>Yeni Oda Ekle</h3>
+
 <form method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
     <label>Oda Numarası</label>
-    <input type="text" asp-for="RoomNumber" class="form-control" />
+    <input asp-for="RoomNumber" class="form-control" />
     <br />
+
     <label>Oda Başlığı</label>
-    <input type="text" asp-for="Title" class="form-control" />
+    <input asp-for="Title" class="form-control" />
     <br />
+
     <label>Fiyat</label>
-    <input type="text" asp-for="Price" class="form-control" />
+    <input type="number" asp-for="Price" class="form-control" />
     <br />
+
     <label>Yatak Odası Sayısı</label>
-    <input type="text" asp-for="BedCount" class="form-control" />
+    <input type="number" asp-for="BedCount" class="form-control" />
     <br />
+
     <label>Banyo Sayısı</label>
-    <input type="text" asp-for="BathCount" class="form-control" />
+    <input type="number" asp-for="BathCount" class="form-control" />
     <br />
+
     <label>Oda Kapak Fotoğrafı</label>
-    <input type="text" asp-for="RoomCoverImage" class="form-control" />
+    <input asp-for="RoomCoverImage" class="form-control" />
     <br />
+
+    <label>Wifi</label>
+    <input asp-for="Wifi" class="form-control" />
+    <br />
+
     <label>Açıklama</label>
-    <input type="text" asp-for="Description" class="form-control" />
+    <textarea asp-for="Description" class="form-control" rows="3"></textarea>
     <br />
-    <button class="btn btn-primary">Odayı Ekle</button>
+
+    <button type="submit" class="btn btn-primary">Odayı Ekle</button>
 </form>

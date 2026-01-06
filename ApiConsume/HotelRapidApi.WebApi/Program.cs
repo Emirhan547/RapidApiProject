@@ -12,11 +12,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddBusinessServices();
 builder.Services.AddDataAccessService();
 
-// 🔥 MAPSTER CONFIG
-var config = TypeAdapterConfig.GlobalSettings;
-config.Scan(typeof(Program).Assembly);
-builder.Services.AddSingleton(config);
-builder.Services.AddScoped<IMapper, ServiceMapper>();
 
 
 builder.Services.AddCors(opt =>

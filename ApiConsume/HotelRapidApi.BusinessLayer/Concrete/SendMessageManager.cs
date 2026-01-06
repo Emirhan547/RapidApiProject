@@ -2,6 +2,7 @@
 using HotelRapidApi.DataAccessLayer.Abstract;
 using HotelRapidApi.DtoLayer.DTOs.SendMessageDtos;
 using HotelRapidApi.EntityLayer.Entities;
+using Mapster;
 using MapsterMapper;
 using System;
 using System.Collections.Generic;
@@ -11,11 +12,11 @@ using System.Threading.Tasks;
 
 namespace HotelRapidApi.BusinessLayer.Concrete
 {
-    public class SendMessageManager(ISendMessageDal _sendMessageDal, IMapper _mapper) : ISendMessageService
+    public class SendMessageManager(ISendMessageDal _sendMessageDal) : ISendMessageService
     {
         public async Task CreateAsync(CreateSendMessageDto create)
         {
-            var sendMessage = _mapper.Map<SendMessage>(create);
+            var sendMessage =create.Adapt<SendMessage>();
             await _sendMessageDal.CreateAsync(sendMessage);
         }
 
@@ -28,13 +29,13 @@ namespace HotelRapidApi.BusinessLayer.Concrete
         public async Task<ResultSendMessageDto> GetByIdAsync(int id)
         {
            var sendMessage=await _sendMessageDal.GetByIdAsync(id);
-            return _mapper.Map<ResultSendMessageDto>(sendMessage);
+            return sendMessage.Adapt<ResultSendMessageDto>();
         }
 
         public async Task<List<ResultSendMessageDto>> GetListAsync()
         {
             var sendMessage=await _sendMessageDal.GetListAsync();
-            return _mapper.Map<List<ResultSendMessageDto>>(sendMessage);
+            return sendMessage.Adapt<List<ResultSendMessageDto>>();
         }
 
         public async Task<int> TGetSendMessageCount()
@@ -44,7 +45,7 @@ namespace HotelRapidApi.BusinessLayer.Concrete
 
         public async Task UpdateAsync(UpdateSendMessageDto update)
         {
-           var sendMessage=_mapper.Map<SendMessage>(update);
+           var sendMessage=update.Adapt<SendMessage>();
             await _sendMessageDal.UpdateAsync(sendMessage);
         }
     }

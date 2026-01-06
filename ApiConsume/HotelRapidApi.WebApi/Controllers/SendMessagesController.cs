@@ -18,9 +18,9 @@ namespace HotelRapidApi.WebApi.Controllers
             return Ok(sendMessage);
         }
         [HttpGet("{id}")]
-        public IActionResult GetSendMessage(int id)
+        public async Task<IActionResult> GetSendMessageAsync(int id)
         {
-            var sendMessage=_sendMessageService.GetByIdAsync(id);
+            var sendMessage=await _sendMessageService.GetByIdAsync(id);
             return Ok(sendMessage);
         }
         [HttpPost]

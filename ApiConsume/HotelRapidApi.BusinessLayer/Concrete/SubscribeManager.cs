@@ -2,6 +2,7 @@
 using HotelRapidApi.DataAccessLayer.Abstract;
 using HotelRapidApi.DtoLayer.DTOs.SubscribeDtos;
 using HotelRapidApi.EntityLayer.Entities;
+using Mapster;
 using MapsterMapper;
 using System;
 using System.Collections.Generic;
@@ -11,11 +12,11 @@ using System.Threading.Tasks;
 
 namespace HotelRapidApi.BusinessLayer.Concrete
 {
-    public class SubscribeManager(ISubscribeDal _subscribeDal, IMapper _mapper) : ISubscribeService
+    public class SubscribeManager(ISubscribeDal _subscribeDal) : ISubscribeService
     {
         public async Task CreateAsync(CreateSubscribeDto create)
         {
-            var subscriber = _mapper.Map<Subscribe>(create);
+            var subscriber = create.Adapt<Subscribe>();
             await _subscribeDal.CreateAsync(subscriber);
         }
 
@@ -28,18 +29,18 @@ namespace HotelRapidApi.BusinessLayer.Concrete
         public async Task<ResultSubscribeDto> GetByIdAsync(int id)
         {
            var subscriber=await _subscribeDal.GetByIdAsync(id);
-            return _mapper.Map<ResultSubscribeDto>(subscriber);
+            return subscriber.Adapt<ResultSubscribeDto>();
         }
 
         public async Task<List<ResultSubscribeDto>> GetListAsync()
         {
             var subscriber=await _subscribeDal.GetListAsync();
-            return _mapper.Map<List<ResultSubscribeDto>>(subscriber);
+            return subscriber.Adapt<List<ResultSubscribeDto>>();
         }
 
         public async Task UpdateAsync(UpdateSubscribeDto update)
         {
-            var subscriber=_mapper.Map<Subscribe>(update);
+            var subscriber=update.Adapt<Subscribe>();
             await _subscribeDal.UpdateAsync(subscriber);
         }
     }

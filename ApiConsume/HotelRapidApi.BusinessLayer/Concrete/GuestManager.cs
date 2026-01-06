@@ -3,6 +3,7 @@ using HotelRapidApi.DataAccessLayer.Abstract;
 using HotelRapidApi.DtoLayer.DTOs.BookingDtos;
 using HotelRapidApi.DtoLayer.DTOs.GuestDtos;
 using HotelRapidApi.EntityLayer.Entities;
+using Mapster;
 using MapsterMapper;
 using System;
 using System.Collections.Generic;
@@ -12,11 +13,11 @@ using System.Threading.Tasks;
 
 namespace HotelRapidApi.BusinessLayer.Concrete
 {
-    public class GuestManager(IGuestDal _guestDal,IMapper _mapper) : IGuestService
+    public class GuestManager(IGuestDal _guestDal) : IGuestService
     {
         public async Task CreateAsync(CreateGuestDto create)
         {
-           var guest=_mapper.Map<Guest>(create);
+           var guest=create.Adapt<Guest>();
             await _guestDal.CreateAsync(guest);
         }
 
@@ -29,18 +30,18 @@ namespace HotelRapidApi.BusinessLayer.Concrete
         public async Task<ResultGuestDto> GetByIdAsync(int id)
         {
            var guest=await _guestDal.GetByIdAsync(id);
-            return _mapper.Map<ResultGuestDto>(guest);
+            return guest.Adapt<ResultGuestDto>();
         }
 
         public async Task<List<ResultGuestDto>> GetListAsync()
         {
            var guest=await _guestDal.GetListAsync();
-            return _mapper.Map<List<ResultGuestDto>>(guest);
+            return guest.Adapt<List<ResultGuestDto>>();
         }
 
         public async Task UpdateAsync(UpdateGuestDto update)
         {
-            var guest=_mapper.Map<Guest>(update);
+            var guest=update.Adapt<Guest>();
              await _guestDal.UpdateAsync(guest);
         }
     }
