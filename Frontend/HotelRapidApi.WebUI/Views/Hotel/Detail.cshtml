@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Otel Detayı";
+    Layout = "~/Views/Shared/_UILayout.cshtml";
+}
+
+<!-- PAGE HEADER -->
+<div class="container-fluid page-header mb-5 p-0"
+     style="background-image: url('/hotel-theme/img/carousel-1.jpg');">
+    <div class="container-fluid page-header-inner py-5">
+        <div class="container text-center">
+            <h1 class="display-3 text-white mb-3">Otel Detayı</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-center text-uppercase">
+                    <li class="breadcrumb-item">
+                        <a asp-controller="Default" asp-action="Index">Ana Sayfa</a>
+                    </li>
+                    <li class="breadcrumb-item active text-white" aria-current="page">
+                        Detay
+                    </li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<!-- CONTENT -->
+<div class="container py-5">
+    <h2 class="mb-3">Otel Bilgileri</h2>
+
+    <p>
+        <strong>Otel ID:</strong> @ViewBag.HotelId
+    </p>
+
+    <p class="text-muted">
+        Burada RapidAPI → <b>getHotelDetails</b> endpoint’i kullanılacak.
+    </p>
+</div>

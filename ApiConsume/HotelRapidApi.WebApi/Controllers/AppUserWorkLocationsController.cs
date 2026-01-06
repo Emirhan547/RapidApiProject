@@ -1,9 +1,13 @@
-﻿using HotelRapidApi.BusinessLayer.Abstract;
+﻿using Azure;
+using HotelRapidApi.BusinessLayer.Abstract;
 using HotelRapidApi.DataAccessLayer.Concrete;
 using HotelRapidApi.WebApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace HotelRapidApi.WebApi.Controllers
 {
@@ -12,30 +16,36 @@ namespace HotelRapidApi.WebApi.Controllers
     public class AppUserWorkLocationsController : ControllerBase
     {
         private readonly IAppUserService _appUserService;
-        private readonly AppDbContext _appDbContext;
-        public AppUserWorkLocationsController(IAppUserService appUserService, AppDbContext appDbContext)
+
+        public AppUserWorkLocationsController(IAppUserService appUserService)
         {
             _appUserService = appUserService;
-            _appDbContext = appDbContext;
+
         }
+
         [HttpGet]
-        public IActionResult Index()
+
+        public async Task<IActionResult> Index()
         {
-            //var values = _appUserService.TUsersListWithWorkLocations();
 
-            var values = _appDbContext.Users.Include(x => x.WorkLocation).Select(y => new AppUserWorkLocationViewModel
+
+            var values = await _appUserService.TUserListWithWorkLocation();
+            var response = values.Select(user => new AppUserWorkLocationViewModel
             {
-                Name = y.Name,
-                Surname = y.Surname,
-                WorkLocationId = y.WorkLocationId ?? 0,
-                WorkLocationName = y.WorkLocation.WorkLocationName,
-                City = y.City,
-                Country = y.Country,
-                Gender = y.Gender,
-                ImageUrl = y.ImageUrl
-            }).ToList();
-            return Ok(values);
-        }
 
+                Name = user.Name,
+                Surname = user.Surname,
+                WorkLocationId = user.WorkLocationId ?? 0,
+                WorkLocationName = user.WorkLocation?.WorkLocationName,
+                City = user.City,
+                Country = user.Country,
+                Gender = user.Gender,
+                ImageUrl = user.ImageUrl
+            }).ToList();
+
+
+
+            return Ok(response);
+        }
     }
 }

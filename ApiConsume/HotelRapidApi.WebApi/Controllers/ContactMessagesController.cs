@@ -34,8 +34,8 @@ namespace HotelRapidApi.WebApi.Controllers
         [HttpGet("GetContactCount")]
         public async Task<IActionResult> GetContactCountAsync()
         {
-            await _contactMessageService.TGetContactCount();
-            return Ok();
+            var count = await _contactMessageService.TGetContactCount();
+            return Ok(count);
         }
 
     }

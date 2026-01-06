@@ -1,6 +1,6 @@
 ﻿
 using HotelRapidApi.DtoLayer.DTOs.ContactMessageDtos;
-using HotelRapidApi.WebUI.DTOs.ContactDtos;
+
 using HotelRapidApi.WebUI.DTOs.SendMessageDtos;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;

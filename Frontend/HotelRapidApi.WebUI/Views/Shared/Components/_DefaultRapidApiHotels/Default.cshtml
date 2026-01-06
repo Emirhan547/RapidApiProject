@@ -1,0 +1,106 @@
+﻿@using HotelRapidApi.WebUI.DTOs.RapidApiDtos
+@model List<BookingApiResponseDto>
+
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <h6 class="section-title text-center text-primary text-uppercase">
+                RapidAPI Önerileri
+            </h6>
+            <h1 class="mb-5">
+                Popüler <span class="text-primary text-uppercase">Otel</span> Seçimleri
+            </h1>
+            <p class="text-muted mb-4">
+                RapidAPI üzerinden çektiğimiz canlı otel listesiyle hızlı bir keşif yapabilirsiniz.
+            </p>
+        </div>
+
+        <div class="row g-4">
+            @if (Model != null && Model.Any())
+            {
+                foreach (var hotel in Model.Take(6))
+                {
+                    var imageUrl = !string.IsNullOrEmpty(hotel.ImageUrl)
+                    ? hotel.ImageUrl
+                    : "https://placehold.co/600x400?text=Hotel";
+
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="room-item shadow rounded overflow-hidden h-100">
+
+                            <!-- 🔥 GÖRSEL ARTIK TIKLANABİLİR -->
+                            <div class="position-relative">
+                                <a asp-controller="Hotel"
+                                   asp-action="Detail"
+                                   asp-route-id="@hotel.HotelId">
+                                    <img class="img-fluid" src="@imageUrl" alt="@hotel.Name" />
+                                </a>
+
+                                <small class="position-absolute start-0 top-100 translate-middle-y
+                                                     bg-primary text-white rounded py-1 px-3 ms-4">
+                                    @hotel.ReviewScore.ToString("0.0") @hotel.ReviewScoreWord
+                                </small>
+                            </div>
+
+                            <div class="p-4 mt-2 d-flex flex-column h-100">
+
+                                <!-- 🔥 BAŞLIK ARTIK TIKLANABİLİR -->
+                                <div class="mb-2">
+                                    <h5 class="mb-0">
+                                        <a asp-controller="Hotel"
+                                           asp-action="Detail"
+                                           asp-route-id="@hotel.HotelId"
+                                           class="text-dark text-decoration-none">
+                                            @hotel.Name
+                                        </a>
+                                    </h5>
+                                </div>
+
+                                <p class="text-body mb-3">
+                                    Konaklama tarihleri:<br />
+                                    @hotel.CheckinDate - @hotel.CheckoutDate
+                                </p>
+
+                                <div class="d-flex justify-content-between mb-3">
+                                    <span class="text-primary">
+                                        @hotel.ReviewCount yorum
+                                    </span>
+                                    <span class="text-muted">
+                                        @hotel.Currency
+                                    </span>
+                                </div>
+
+                                <!-- 🔥 DETAY BUTONU (Z-INDEX FIX) -->
+                                <div class="mt-auto text-end position-relative" style="z-index: 5;">
+                                    <a asp-controller="Hotel"
+                                       asp-action="Detail"
+                                       asp-route-id="@hotel.HotelId"
+                                       class="btn btn-outline-primary btn-sm">
+                                        Detayları Gör
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <!-- 🔥 TÜMÜNÜ GÖR -->
+                <div class="col-12 text-center mt-4">
+                    <a asp-controller="Hotel"
+                       asp-action="Index"
+                       class="btn btn-primary px-5 py-3">
+                        Tüm Otelleri Gör
+                    </a>
+                </div>
+            }
+            else
+            {
+                <div class="col-12">
+                    <div class="alert alert-warning text-center mb-0">
+                        Şu anda RapidAPI otel listesi getirilemedi.
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

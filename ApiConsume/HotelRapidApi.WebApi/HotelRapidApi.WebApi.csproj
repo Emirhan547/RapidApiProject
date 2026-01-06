@@ -23,6 +23,7 @@
     <ProjectReference Include="..\HotelRapidApi.BusinessLayer\HotelRapidApi.BusinessLayer.csproj" />
     <ProjectReference Include="..\HotelRapidApi.DataAccessLayer\HotelRapidApi.DataAccessLayer.csproj" />
     <ProjectReference Include="..\HotelRapidApi.DtoLayer\HotelRapidApi.DtoLayer.csproj" />
+    <ProjectReference Include="..\HotelRapidApi.EntityLayer\HotelRapidApi.EntityLayer.csproj" />
   </ItemGroup>
 
   <ItemGroup>

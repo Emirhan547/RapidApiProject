@@ -1,6 +1,6 @@
 ﻿using HotelRapidApi.BusinessLayer.Abstract;
-
-
+using HotelRapidApi.DataAccessLayer.Abstract;
+using HotelRapidApi.DtoLayer.DTOs.ContactMessageDtos;
 using HotelRapidApi.EntityLayer.Entities;
 using Mapster;
 using MapsterMapper;

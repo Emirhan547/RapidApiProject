@@ -17,7 +17,7 @@ namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> UserList()
         {
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("http://localhost:5196/api/AppUserWorkLocations");
+            var responseMessage = await client.GetAsync("http://localhost:5196/api/AppUsers/WithWorkLocation");
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsondata = await responseMessage.Content.ReadAsStringAsync();
