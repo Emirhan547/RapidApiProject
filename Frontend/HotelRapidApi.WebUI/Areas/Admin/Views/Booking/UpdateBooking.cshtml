@@ -1,49 +1,62 @@
-﻿
-@model UpdateBookingDto
+﻿@model UpdateBookingDto
 @{
-    ViewData["Title"] = "UpdateBooking";
+    ViewData["Title"] = "Rezervasyon Güncelle";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Rezervasyon Güncelleme Sayfası</h1>
+
 
 <form method="post">
     <input type="hidden" asp-for="Id" />
-    <label>Misafir Adı Soyadı</label>
-    <input type="text" asp-for="Name" class="form-control" />
-    <br />
-    <label>Misafir Mail Adresi</label>
-    <input type="email" asp-for="Mail" class="form-control" />
-    <br />
-    <label>Misafir Giriş Tarihi</label>
-    <input type="date" asp-for="Checkin" class="form-control" />
-    <br />
-    <label>Misafir Çıkış Tarihi</label>
-    <input type="date" asp-for="CheckOut" class="form-control" />
-    <br />
-    <label>Yetişkin Sayısı</label>
-    <input type="text" asp-for="AdultCount" class="form-control" />
-    <br />
-    <label>Çocuk Sayısı</label>
-    <input type="text" asp-for="ChildCount" class="form-control" />
-    <br />
-    <label>Oda Sayısı</label>
-    <input type="text" asp-for="RoomCount" class="form-control" />
-    <br />
-    <label>Şehir</label>
-    <input type="text" asp-for="City" class="form-control" />
-    <br />
-    <label>Ülke</label>
-    <input type="text" asp-for="Country" class="form-control" />
-    <br />
-    <label>Durum</label>
-    <input type="text" asp-for="Status" class="form-control" />
-    <br />
-    <label>Özel İstekler</label>
-    <textarea class="form-control" rows="5" asp-for="SpecialRequest"></textarea>
-    <br />
-    <label>Açıklama</label>
-    <textarea class="form-control" rows="5" asp-for="Description"></textarea>
-    <br />
+   
+    <div class="form-group mb-3">
+        <label>Misafir Adı Soyadı</label>
+        <input type="text" asp-for="Name" class="form-control" />
+    </div>
+    <div class="form-group mb-3">
+        <label>Misafir Mail Adresi</label>
+        <input type="email" asp-for="Mail" class="form-control" />
+    </div>
+    <div class="form-group mb-3">
+        <label>Misafir Giriş Tarihi</label>
+        <input type="date" asp-for="Checkin" class="form-control" />
+    </div>
+    <div class="form-group mb-3">
+        <label>Misafir Çıkış Tarihi</label>
+        <input type="date" asp-for="CheckOut" class="form-control" />
+    </div>
+    <div class="form-group mb-3">
+        <label>Yetişkin Sayısı</label>
+        <input type="text" asp-for="AdultCount" class="form-control" />
+    </div>
+    <div class="form-group mb-3">
+        <label>Çocuk Sayısı</label>
+        <input type="text" asp-for="ChildCount" class="form-control" />
+    </div>
+    <div class="form-group mb-3">
+        <label>Oda Sayısı</label>
+        <input type="text" asp-for="RoomCount" class="form-control" />
+    </div>
+    <div class="form-group mb-3">
+        <label>Şehir</label>
+        <input type="text" asp-for="City" class="form-control" />
+    </div>
+    <div class="form-group mb-3">
+        <label>Ülke</label>
+        <input type="text" asp-for="Country" class="form-control" />
+    </div>
+    <div class="form-group mb-3">
+        <label>Durum</label>
+        <input type="text" asp-for="Status" class="form-control" />
+    </div>
+    <div class="form-group mb-3">
+        <label>Özel İstekler</label>
+        <textarea class="form-control" rows="4" asp-for="SpecialRequest"></textarea>
+    </div>
+    <div class="form-group mb-4">
+        <label>Açıklama</label>
+        <textarea class="form-control" rows="4" asp-for="Description"></textarea>
+    </div>
     <button class="btn btn-primary">Rezervasyonu Güncelle</button>
+    <a href="/Admin/Booking/Index" class="btn btn-outline-secondary ml-2">Vazgeç</a>
 </form>

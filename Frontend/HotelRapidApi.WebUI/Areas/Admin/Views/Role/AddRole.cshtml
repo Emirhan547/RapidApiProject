@@ -1,14 +1,16 @@
 ﻿@using HotelRapidApi.WebUI.Models
 @model AddRoleViewModel
 @{
-    ViewData["Title"] = "AddRole";
+    ViewData["Title"] = "Yeni Rol";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <form method="post">
-    <label>Rol Adı</label>
-    <input type="text" asp-for="RoleName" class="form-control" />
-    <br />
+    
+    <div class="form-group mb-4">
+        <label>Rol Adı</label>
+        <input type="text" asp-for="RoleName" class="form-control" />
+    </div>
     <button class="btn btn-primary">Rolü Ekle</button>
+    <a href="/Admin/Role/Index" class="btn btn-outline-secondary ml-2">Vazgeç</a>
 </form>
-

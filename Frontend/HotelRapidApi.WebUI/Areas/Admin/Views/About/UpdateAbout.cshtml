@@ -1,31 +1,102 @@
-﻿
-@model UpdateAboutDto
-
+﻿@model UpdateAboutDto
 @{
-    ViewData["Title"] = "UpdateAbout";
+    ViewData["Title"] = "Hakkımızda Bilgisi Güncelle";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<form method="post">
-    <input type="hidden" asp-for="Id" />
-    <label>Hakkımızda Başlık 1</label>
-    <input type="text" asp-for="Title1" class="form-control" />
-    <br />
-    <label>Hakkımızda Başlık 2</label>
-    <input type="text" asp-for="Title2" class="form-control" />
-    <br />
-    <label>İçerik</label>
-    <input type="text" asp-for="Content" class="form-control" />
-    <br />
-    <label>Personel Sayısı</label>
-    <input type="text" asp-for="StaffCount" class="form-control" />
-    <br />
-    <label>Oda Sayısı</label>
-    <input type="text" asp-for="RoomCount" class="form-control" />
-    <br />
-    <label>Müşteri Sayısı</label>
-    <input type="text" asp-for="CustomerCount" class="form-control" />
-    <br />
-    <button class="btn btn-outline-success">Hakkımızda Bilgisini Güncelle</button>
-</form>
+<!-- Page Header -->
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+        <div class="welcome-text">
+            <h4>Hakkımızda Bilgisi Güncelle</h4>
+            <p class="mb-0">Hakkımızda bilgisini aşağıdaki form üzerinden güncelleyebilirsiniz.</p>
+        </div>
+    </div>
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <a href="/Admin/About/Index" class="btn btn-light btn-sm">
+            <i class="fa fa-arrow-left mr-1"></i> Listeye Dön
+        </a>
+    </div>
+</div>
 
+<!-- Content Area -->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Hakkımızda Güncelleme Formu</h4>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    <input type="hidden" asp-for="Id" />
+
+                    <div class="row">
+                        <!-- Başlık 1 -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="mb-1">Başlık 1</label>
+                                <input type="text" asp-for="Title1" class="form-control" />
+                                <span asp-validation-for="Title1" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <!-- Başlık 2 -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="mb-1">Başlık 2</label>
+                                <input type="text" asp-for="Title2" class="form-control" />
+                                <span asp-validation-for="Title2" class="text-danger small"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- İçerik -->
+                    <div class="form-group">
+                        <label class="mb-1">İçerik</label>
+                        <textarea asp-for="Content" class="form-control" rows="4"></textarea>
+                        <span asp-validation-for="Content" class="text-danger small"></span>
+                    </div>
+
+                    <!-- Sayısal Bilgiler -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="mb-1">Personel Sayısı</label>
+                                <input type="number" asp-for="StaffCount" class="form-control" min="0" />
+                                <span asp-validation-for="StaffCount" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="mb-1">Oda Sayısı</label>
+                                <input type="number" asp-for="RoomCount" class="form-control" min="0" />
+                                <span asp-validation-for="RoomCount" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="mb-1">Müşteri Sayısı</label>
+                                <input type="number" asp-for="CustomerCount" class="form-control" min="0" />
+                                <span asp-validation-for="CustomerCount" class="text-danger small"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="form-group mt-4">
+                        <div class="d-flex justify-content-between">
+                            <a href="/Admin/About/Index" class="btn btn-light">
+                                <i class="fa fa-times mr-1"></i> İptal
+                            </a>
+                            <button type="submit" class="btn btn-success">
+                                <i class="fa fa-check mr-1"></i> Güncelle
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

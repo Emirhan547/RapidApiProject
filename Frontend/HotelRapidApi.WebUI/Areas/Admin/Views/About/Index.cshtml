@@ -1,30 +1,98 @@
-﻿
-@model List<ResultAboutDto>
+﻿@model List<ResultAboutDto>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Hakkımızda Yönetimi";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
     int count = 0;
 }
 
-<h1>Index</h1>
+<!-- Page Header -->
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+        <div class="welcome-text">
+            <h4>Hakkımızda Bilgileri</h4>
+            <p class="mb-0">Sistemde kayıtlı tüm hakkımızda bilgilerini buradan yönetebilirsiniz.</p>
+        </div>
+    </div>
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <a href="/Admin/About/AddAbout/" class="btn btn-primary btn-sm">
+            <i class="fa fa-plus-circle mr-1"></i> Yeni Ekle
+        </a>
+    </div>
+</div>
 
-<table class="table table-bordered">
-    <tr>
-        <th>#</th>
-        <th>Başlık 1</th>
-        <th>Başlık 2</th>
-        <th>Güncelle</th>
-
-    </tr>
-    @foreach (var item in Model)
-    {
-        count++;
-        <tr>
-            <td>@count</td>
-            <td>@item.Title1</td>
-            <td>@item.Title2</td>
-            <td><a href="/Admin/About/UpdateAbout/@item.Id" class="btn mb-1 btn rounded btn-success">Güncelle</a></td>
-        </tr>
-    }
-</table>
-<a href="/Admin/About/AddAbout/" class="btn mb-1 btn-rounded btn-outline-info">Yeni Hakkımızda Girişi</a>
+<!-- Content Area -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Hakkımızda Listesi</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th width="50">#</th>
+                                <th>Başlık 1</th>
+                                <th>Başlık 2</th>
+                                <th>Personel Sayısı</th>
+                                <th>Oda Sayısı</th>
+                                <th>Müşteri Sayısı</th>
+                                <th width="100">İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Any())
+                            {
+                                @foreach (var item in Model)
+                                {
+                                    count++;
+                                    <tr>
+                                        <td class="text-center">@count</td>
+                                        <td>@item.Title1</td>
+                                        <td>@item.Title2</td>
+                                        <td class="text-center">
+                                            <span class="badge badge-info">@item.StaffCount</span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span class="badge badge-success">@item.RoomCount</span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span class="badge badge-warning">@item.CustomerCount</span>
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="d-flex justify-content-center">
+                                                <a href="/Admin/About/UpdateAbout/@item.Id"
+                                                   class="btn btn-outline-primary btn-sm mr-1"
+                                                   title="Güncelle">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                                <a href="/Admin/About/DeleteAbout/@item.Id"
+                                                   class="btn btn-outline-danger btn-sm"
+                                                   title="Sil"
+                                                   onclick="return confirm('Bu kaydı silmek istediğinize emin misiniz?')">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="7" class="text-center">
+                                        <div class="alert alert-info">
+                                            <i class="fa fa-info-circle mr-2"></i>
+                                            Henüz hakkımızda bilgisi eklenmemiş.
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

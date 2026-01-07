@@ -1,23 +1,28 @@
-﻿
-@model CreateGuestDto
+﻿@model CreateGuestDto
 
 @{
-    ViewData["Title"] = "AddGuest";
+
+    ViewData["Title"] = "Yeni Misafir";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <form method="post">
-    <label>Misafir Adı</label>
-    <input type="text" asp-for="Name" class="form-control" />
-    <span asp-validation-for="Name" class="text-danger"></span>
-    <br />
-    <label>Misafir Soyadı</label>
-    <input type="text" asp-for="Surname" class="form-control" />
-    <span asp-validation-for="Surname" class="text-danger"></span>
-    <br />
-    <label>Misafir Şehir</label>
-    <input type="text" asp-for="City" class="form-control" />
-    <span asp-validation-for="City" class="text-danger"></span>
-    <br />
+    
+    <div class="form-group mb-3">
+        <label>Misafir Adı</label>
+        <input type="text" asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group mb-3">
+        <label>Misafir Soyadı</label>
+        <input type="text" asp-for="Surname" class="form-control" />
+        <span asp-validation-for="Surname" class="text-danger"></span>
+    </div>
+    <div class="form-group mb-4">
+        <label>Misafir Şehir</label>
+        <input type="text" asp-for="City" class="form-control" />
+        <span asp-validation-for="City" class="text-danger"></span>
+    </div>
     <button class="btn btn-primary">Misafiri Ekle</button>
+    <a href="/Admin/Guest/Index" class="btn btn-outline-secondary ml-2">Vazgeç</a>
 </form>

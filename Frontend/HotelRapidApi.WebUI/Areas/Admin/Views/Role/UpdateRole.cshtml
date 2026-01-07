@@ -1,16 +1,18 @@
 ﻿@using HotelRapidApi.WebUI.Models
 @model UpdateRoleViewModel
 @{
-    ViewData["Title"] = "UpdateRole";
+
+    ViewData["Title"] = "Rol Güncelle";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Rol Güncelleme Sayfası</h1>
-
 <form method="post">
     <input type="hidden" asp-for="RoleId" />
-    <label>Rol Adı</label>
-    <input type="text" asp-for="RoleName" class="form-control" />
-    <br />
+    
+    <div class="form-group mb-4">
+        <label>Rol Adı</label>
+        <input type="text" asp-for="RoleName" class="form-control" />
+    </div>
     <button class="btn btn-success">Rolü Güncelle</button>
 </form>
+    <a href="/Admin/Role/Index" class="btn btn-outline-secondary ml-2">Vazgeç</a>
