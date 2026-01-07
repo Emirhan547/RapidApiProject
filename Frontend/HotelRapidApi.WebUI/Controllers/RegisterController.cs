@@ -39,6 +39,15 @@ namespace HotelRapidApi.WebUI.Controllers
             var result=await _userManager.CreateAsync(appUser,createNewUserDto.Password);
             if (result.Succeeded)
             {
+                var roleResult = await _userManager.AddToRoleAsync(appUser, "User");
+                if (!roleResult.Succeeded)
+                {
+                    foreach (var error in roleResult.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                    return View();
+                }
                 return RedirectToAction("Index", "Login");
             }
             return View();
