@@ -9,12 +9,14 @@
 
 
 <body>
-    <div class="container-xxl bg-white p-0">
+    <div class="container-xxl bg-white p-0 shadow-sm">
         <!-- Spinner Start -->
 @await Component.InvokeAsync("_UILayoutSpinner")
 
 @await Component.InvokeAsync("_UILayoutNavbar")
-@RenderBody()
+        <main role="main">
+            @RenderBody()
+        </main>
         @await Component.InvokeAsync("_UILayoutFooter")
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>

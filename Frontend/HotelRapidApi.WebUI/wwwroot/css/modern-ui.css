@@ -1,0 +1,542 @@
+﻿/* ============================================
+   MODERN UI CUSTOM STYLES
+   Hotel RapidAPI - Frontend Enhancement
+   ============================================ */
+
+/* === Root Variables === */
+:root {
+    --primary: #FEA116;
+    --secondary: #0F172B;
+    --light: #F1F8FF;
+    --dark: #0F172B;
+    --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    --gradient-gold: linear-gradient(135deg, #f7971e 0%, #ffd200 100%);
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+    --shadow-md: 0 4px 20px rgba(0,0,0,0.12);
+    --shadow-lg: 0 8px 30px rgba(0,0,0,0.15);
+    --border-radius: 12px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* === Global Enhancements === */
+body {
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+}
+
+/* === Glass Morphism Card === */
+.glass-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: var(--shadow-md);
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+}
+
+    .glass-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-lg);
+    }
+
+/* === Modern Navbar === */
+.navbar {
+    backdrop-filter: blur(20px);
+    background: rgba(15, 23, 43, 0.95) !important;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.nav-link {
+    position: relative;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background: var(--gradient-gold);
+        transition: var(--transition);
+        transform: translateX(-50%);
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+        width: 80%;
+    }
+
+/* === Hero Section === */
+.carousel-caption {
+    background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.7) 100%);
+    backdrop-filter: blur(5px);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+}
+
+    .carousel-caption h1 {
+        font-weight: 800;
+        text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        letter-spacing: -1px;
+    }
+
+/* === Section Headers === */
+.section-title {
+    font-weight: 700;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 3px;
+        background: var(--gradient-gold);
+        border-radius: 10px;
+    }
+
+/* === Modern Room Cards === */
+.room-item {
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    transition: var(--transition);
+    background: white;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+    .room-item:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    .room-item img {
+        transition: var(--transition);
+    }
+
+    .room-item:hover img {
+        transform: scale(1.1);
+    }
+
+    .room-item .position-relative {
+        overflow: hidden;
+    }
+
+    .room-item small.position-absolute {
+        background: var(--gradient-gold);
+        font-weight: 600;
+        box-shadow: var(--shadow-md);
+        border-radius: 20px;
+        padding: 8px 16px;
+    }
+
+/* === Service Cards === */
+.service-item {
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    background: white;
+    border: 2px solid transparent;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+    .service-item::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--gradient-1);
+        opacity: 0;
+        transition: var(--transition);
+        z-index: -1;
+    }
+
+    .service-item:hover::before {
+        opacity: 0.1;
+    }
+
+    .service-item:hover {
+        border-color: var(--primary);
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-lg);
+    }
+
+.service-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    background: var(--gradient-1);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.service-item:hover .service-icon {
+    transform: rotate(10deg) scale(1.1);
+}
+
+.service-icon i {
+    font-size: 2rem;
+    color: white;
+}
+
+/* === Testimonial Cards === */
+.testimonial-carousel .testimonial-item {
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    background: white;
+    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
+}
+
+.testimonial-item::before {
+    content: '"';
+    position: absolute;
+    top: -20px;
+    left: 20px;
+    font-size: 120px;
+    color: rgba(254, 161, 22, 0.1);
+    font-family: Georgia, serif;
+}
+
+.testimonial-item img {
+    border: 3px solid var(--primary);
+    transition: var(--transition);
+}
+
+.testimonial-item:hover img {
+    transform: scale(1.1);
+}
+
+/* === Team Cards === */
+.team-card {
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    position: relative;
+}
+
+    .team-card img {
+        transition: var(--transition);
+    }
+
+    .team-card:hover img {
+        transform: scale(1.1);
+        filter: brightness(0.8);
+    }
+
+    .team-card .position-absolute {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: var(--transition);
+    }
+
+    .team-card:hover .position-absolute {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+/* === Modern Buttons === */
+.btn {
+    border-radius: 50px;
+    padding: 12px 30px;
+    font-weight: 600;
+    transition: var(--transition);
+    border: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary {
+    background: var(--gradient-gold);
+    box-shadow: 0 4px 15px rgba(254, 161, 22, 0.4);
+}
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(254, 161, 22, 0.6);
+    }
+
+.btn-light {
+    background: white;
+    color: var(--dark);
+    box-shadow: var(--shadow-sm);
+}
+
+    .btn-light:hover {
+        background: var(--light);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+    }
+
+/* === Booking Form === */
+.booking {
+    background: linear-gradient(135deg, rgba(15, 23, 43, 0.95) 0%, rgba(254, 161, 22, 0.95) 100%);
+    border-radius: var(--border-radius);
+}
+
+    .booking .form-control,
+    .booking .form-select {
+        border-radius: 50px;
+        padding: 12px 20px;
+        border: 2px solid rgba(255,255,255,0.2);
+        background: rgba(255,255,255,0.95);
+        transition: var(--transition);
+    }
+
+        .booking .form-control:focus,
+        .booking .form-select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 0.2rem rgba(254, 161, 22, 0.25);
+            transform: translateY(-2px);
+        }
+
+/* === Contact Form === */
+.contact-form .form-floating {
+    margin-bottom: 1.5rem;
+}
+
+.contact-form .form-control {
+    border-radius: var(--border-radius);
+    border: 2px solid #e5e7eb;
+    transition: var(--transition);
+}
+
+    .contact-form .form-control:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 0.2rem rgba(254, 161, 22, 0.15);
+    }
+
+/* === About Section === */
+.about-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+}
+
+.stat-card {
+    text-align: center;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    background: white;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-md);
+    }
+
+    .stat-card i {
+        font-size: 2.5rem;
+        background: var(--gradient-gold);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+/* === RapidAPI Hotel Cards === */
+.rapidapi-hotel-card {
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    background: white;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+    .rapidapi-hotel-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    }
+
+    .rapidapi-hotel-card .badge {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: rgba(254, 161, 22, 0.95);
+        backdrop-filter: blur(10px);
+        padding: 8px 15px;
+        border-radius: 20px;
+        font-weight: 600;
+        box-shadow: var(--shadow-sm);
+    }
+
+    .rapidapi-hotel-card img {
+        height: 250px;
+        object-fit: cover;
+        transition: var(--transition);
+    }
+
+    .rapidapi-hotel-card:hover img {
+        transform: scale(1.05);
+    }
+
+/* === Footer === */
+.footer {
+    background: linear-gradient(180deg, var(--dark) 0%, #1a202c 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+    .footer::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23fea116" fill-opacity="0.05" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>') no-repeat top;
+        background-size: cover;
+    }
+
+    .footer .bg-primary {
+        background: var(--gradient-gold) !important;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-lg);
+    }
+
+/* === Newsletter Section === */
+.newsletter {
+    background: linear-gradient(135deg, rgba(254, 161, 22, 0.1) 0%, rgba(15, 23, 43, 0.1) 100%);
+    border-radius: var(--border-radius);
+    padding: 3rem;
+}
+
+    .newsletter .form-control {
+        border-radius: 50px;
+        border: 2px solid rgba(254, 161, 22, 0.3);
+        padding: 15px 25px;
+    }
+
+    .newsletter .btn {
+        border-radius: 50px;
+        padding: 12px 25px;
+    }
+
+/* === Animations === */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fadeInUp {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.pulse {
+    animation: pulse 2s infinite;
+}
+
+/* === Scroll Animations === */
+.wow {
+    visibility: hidden;
+}
+
+.animated {
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}
+
+/* === Loading Spinner === */
+#spinner {
+    background: linear-gradient(135deg, var(--dark) 0%, #1a202c 100%);
+}
+
+.spinner-border {
+    border-width: 3px;
+    animation: spinner-rotate 1s linear infinite;
+}
+
+@keyframes spinner-rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* === Responsive Adjustments === */
+@media (max-width: 768px) {
+    .room-item,
+    .service-item,
+    .testimonial-item {
+        margin-bottom: 2rem;
+    }
+
+    .carousel-caption h1 {
+        font-size: 2rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+}
+
+/* === Utility Classes === */
+.hover-lift {
+    transition: var(--transition);
+}
+
+    .hover-lift:hover {
+        transform: translateY(-5px);
+    }
+
+.gradient-text {
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.shadow-custom {
+    box-shadow: var(--shadow-md);
+}
+
+.rounded-custom {
+    border-radius: var(--border-radius);
+}
