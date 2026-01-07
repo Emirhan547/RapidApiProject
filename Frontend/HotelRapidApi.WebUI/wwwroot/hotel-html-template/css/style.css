@@ -1,4 +1,4 @@
-/********** Template CSS **********/
+﻿/********** Template CSS **********/
 :root {
     --primary: #FEA116;
     --light: #F1F8FF;
@@ -488,4 +488,9 @@
     margin-right: 0;
     padding-right: 0;
     border-right: none;
+}
+/* === FOOTER OVERLAP KILL SWITCH === */
+.footer {
+    margin-top: 0 !important;
+    padding-top: 60px !important;
 }
