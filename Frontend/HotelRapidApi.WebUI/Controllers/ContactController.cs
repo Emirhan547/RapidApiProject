@@ -18,12 +18,13 @@ namespace HotelRapidApi.WebUI.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<IActionResult> Index()
+        // 🔹 ORTAK METOT → KATEGORİLERİ YÜKLER
+        private async Task LoadMessageCategories()
         {
             var client = _httpClientFactory.CreateClient();
             var responseMessage = await client.GetAsync("http://localhost:5196/api/MessageCategory");
 
-            List<ResultMessageCategoryDto> values = new();
+            var values = new List<ResultMessageCategoryDto>();
 
             if (responseMessage.IsSuccessStatusCode)
             {
@@ -32,34 +33,36 @@ namespace HotelRapidApi.WebUI.Controllers
                          ?? new List<ResultMessageCategoryDto>();
             }
 
-            List<SelectListItem> values2 = values
-                .Select(x => new SelectListItem
-                {
-                    Text = x.MessageCategoryName,
-                    Value = x.Id.ToString()
-                })
-                .ToList();
-
-            ViewBag.v = values2;
-
-            return View();
+            ViewBag.v = values.Select(x => new SelectListItem
+            {
+                Text = x.MessageCategoryName,
+                Value = x.Id.ToString()
+            }).ToList();
         }
 
+        // 🔹 SAYFA (FORM)
         [HttpGet]
-        public IActionResult SendMessage()
+        public async Task<IActionResult> SendMessage()
         {
+            await LoadMessageCategories();
             return View();
         }
 
+        // 🔹 FORM POST
         [HttpPost]
         public async Task<IActionResult> SendMessage(CreateContactMessageDto createContactDto)
         {
+            if (!ModelState.IsValid)
+            {
+                await LoadMessageCategories();
+                return View(createContactDto);
+            }
+
             createContactDto.Date = DateTime.Now;
 
             var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(createContactDto);
-            StringContent stringContent =
-                new StringContent(jsonData, Encoding.UTF8, "application/json");
+            var stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
             await client.PostAsync(
                 "http://localhost:5196/api/ContactMessages",

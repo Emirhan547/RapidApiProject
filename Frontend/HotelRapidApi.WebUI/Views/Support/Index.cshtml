@@ -1,0 +1,67 @@
+﻿﻿@using HotelRapidApi.WebUI.DTOs.ContactMessageDtos
+@model CreateContactMessageDto
+
+@{
+    ViewData["Title"] = "Destek";
+    Layout = "~/Views/Shared/_UILayout.cshtml";
+}
+
+<div class="container-fluid page-header mb-5 p-0"
+     style="background-image: url('/hotel-theme/img/carousel-1.jpg');">
+    <div class="container-fluid page-header-inner py-5">
+        <div class="container text-center">
+            <h1 class="display-3 text-white mb-3">Destek</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-center text-uppercase">
+                    <li class="breadcrumb-item">
+                        <a asp-controller="Default" asp-action="Index">Ana Sayfa</a>
+                    </li>
+                    <li class="breadcrumb-item active text-white" aria-current="page">
+                        Destek
+                    </li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <h6 class="section-title text-center text-primary text-uppercase">Destek Merkezi</h6>
+            <h1 class="mb-5">Size <span class="text-primary text-uppercase">Nasıl Yardımcı</span> Olabiliriz?</h1>
+            <p class="text-muted">
+                Rezervasyon, ödeme, iptal ve teknik konularda hızlıca destek alabilirsiniz.
+            </p>
+        </div>
+        <div class="row g-4 text-center">
+            <div class="col-lg-4 col-md-6">
+                <div class="bg-light rounded p-4 h-100 shadow-sm">
+                    <div class="mb-3 text-primary">
+                        <i class="fa fa-calendar-check fa-2x"></i>
+                    </div>
+                    <h5 class="mb-2">Rezervasyon Desteği</h5>
+                    <p class="mb-0 text-muted">Tarihler, fiyatlar ve oda uygunluğu için bizimle iletişime geçin.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="bg-light rounded p-4 h-100 shadow-sm">
+                    <div class="mb-3 text-primary">
+                        <i class="fa fa-credit-card fa-2x"></i>
+                    </div>
+                    <h5 class="mb-2">Ödeme &amp; İade</h5>
+                    <p class="mb-0 text-muted">Fatura, iade ve ödeme onayıyla ilgili hızlı çözüm sunuyoruz.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="bg-light rounded p-4 h-100 shadow-sm">
+                    <div class="mb-3 text-primary">
+                        <i class="fa fa-headset fa-2x"></i>
+                    </div>
+                    <h5 class="mb-2">Teknik Yardım</h5>
+                    <p class="mb-0 text-muted">Hesap erişimi ve sistem sorunlarında teknik ekip yanınızda.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
