@@ -1,22 +1,116 @@
-﻿
-@{
-    ViewData["Title"] = "Index";
+﻿@{
+    ViewData["Title"] = "Dashboard";
+    ViewData["Description"] = "API Otel Yönetim Paneli";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
+<!-- Dashboard Head (CSS ve JS) -->
 @await Component.InvokeAsync("_DashboardHead")
 
-<div class="container-fluid mt-3">
+<div class="flex flex-col space-y-6">
+    <!-- Page Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between">
+        <div>
+            <h1 class="text-2xl font-bold text-text-main dark:text-white">Dashboard</h1>
+            <p class="text-text-sub dark:text-gray-400 mt-1">API Otel Yönetim Paneli - Genel Bakış</p>
+        </div>
+        <div class="flex items-center gap-2 mt-4 sm:mt-0">
+            <span class="text-sm text-text-sub dark:text-gray-400">Son Güncelleme:</span>
+            <span class="text-sm font-medium text-text-main dark:text-white last-update-time">
+                @DateTime.Now.ToString("dd MMMM yyyy HH:mm")
+            </span>
+        </div>
+    </div>
 
-@await Component.InvokeAsync("_DashboardWidget")
+    <!-- Ana İstatistik Kartları -->
+    <div class="dashboard-stats-grid">
+        <!-- Personel -->
+        <div class="stat-card" style="--card-gradient-1: #667eea; --card-gradient-2: #764ba2;">
+            <div class="stat-icon">
+                <span class="material-symbols-outlined">groups</span>
+            </div>
+            <div class="stat-value" data-stat="staff">@ViewBag.staffCount</div>
+            <div class="stat-label">Toplam Personel</div>
+            <div class="stat-trend trend-up">
+                <span class="material-symbols-outlined text-sm">trending_up</span>
+                <span>+%12 bu ay</span>
+            </div>
+        </div>
 
-@await Component.InvokeAsync("_DashboardLast4StaffList")
+        <!-- Rezervasyon -->
+        <div class="stat-card" style="--card-gradient-1: #f093fb; --card-gradient-2: #f5576c;">
+            <div class="stat-icon">
+                <span class="material-symbols-outlined">calendar_month</span>
+            </div>
+            <div class="stat-value" data-stat="booking">@ViewBag.bookingCount</div>
+            <div class="stat-label">Toplam Rezervasyon</div>
+            <div class="stat-trend trend-up">
+                <span class="material-symbols-outlined text-sm">trending_up</span>
+                <span>+%18 bu ay</span>
+            </div>
+        </div>
 
-@await Component.InvokeAsync("_DashboardLast6Bookings")
+        <!-- Müşteri -->
+        <div class="stat-card" style="--card-gradient-1: #4facfe; --card-gradient-2: #00f2fe;">
+            <div class="stat-icon">
+                <span class="material-symbols-outlined">person</span>
+            </div>
+            <div class="stat-value" data-stat="customer">@ViewBag.appUserCount</div>
+            <div class="stat-label">Toplam Müşteri</div>
+            <div class="stat-trend trend-up">
+                <span class="material-symbols-outlined text-sm">trending_up</span>
+                <span>+%22 bu ay</span>
+            </div>
+        </div>
 
-@await Component.InvokeAsync("_DashboardSubscribeCount")
+        <!-- Oda -->
+        <div class="stat-card" style="--card-gradient-1: #43e97b; --card-gradient-2: #38f9d7;">
+            <div class="stat-icon">
+                <span class="material-symbols-outlined">bed</span>
+            </div>
+            <div class="stat-value" data-stat="room">@ViewBag.roomCount</div>
+            <div class="stat-label">Toplam Oda</div>
+            <div class="stat-trend trend-down">
+                <span class="material-symbols-outlined text-sm">trending_down</span>
+                <span>-%5 doluluk</span>
+            </div>
+        </div>
+    </div>
 
+    <!-- Dashboard Widget'lar -->
+    @await Component.InvokeAsync("_DashboardWidget")
+
+    <!-- Ek ViewComponent'ler -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Son Personeller -->
+        <div class="bg-surface-light dark:bg-surface-dark rounded-2xl shadow p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-lg font-semibold text-text-main dark:text-white">Son Eklenen Personeller</h2>
+                <a href="/Admin/Staff" class="text-sm text-primary hover:text-primary-dark">Tümünü Gör</a>
+            </div>
+            @await Component.InvokeAsync("_DashboardLast4StaffList")
+        </div>
+
+        <!-- Sosyal Medya -->
+        <div class="bg-surface-light dark:bg-surface-dark rounded-2xl shadow p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-lg font-semibold text-text-main dark:text-white">Sosyal Medya</h2>
+                <span class="text-sm text-text-sub dark:text-gray-400">Güncel</span>
+            </div>
+            @await Component.InvokeAsync("_DashboardSubscriberCount")
+        </div>
+    </div>
+
+    <!-- Son Rezervasyonlar -->
+    <div class="bg-surface-light dark:bg-surface-dark rounded-2xl shadow overflow-hidden">
+        <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+            <div class="flex items-center justify-between">
+                <h2 class="text-lg font-semibold text-text-main dark:text-white">Son Rezervasyonlar</h2>
+                <a href="/Admin/Booking" class="text-sm text-primary hover:text-primary-dark">Tüm Rezervasyonlar</a>
+            </div>
+        </div>
+        <div class="overflow-x-auto">
+            @await Component.InvokeAsync("_DashboardLast4StaffList")
+        </div>
+    </div>
 </div>
-<!-- #/ container -->
-@await Component.InvokeAsync("_DashboardScript")
-

@@ -1,24 +1,90 @@
-﻿<script src="~/adminweb/plugins/common/common.min.js"></script>
-<script src="~/adminweb/js/custom.min.js"></script>
-<script src="~/adminweb/js/settings.js"></script>
-<script src="~/adminweb/js/gleek.js"></script>
-<script src="~/adminweb/js/styleSwitcher.js"></script>
+﻿@section Scripts {
+    <script>
+        // Dashboard istatistiklerini güncelle
+        function updateDashboardStats() {
+            fetch('/Admin/Dashboard/GetDashboardStats')
+                .then(response => response.json())
+                .then(data => {
+                    // İstatistikleri güncelle
+                    document.querySelector('[data-stat="staff"]').textContent = data.staffCount;
+                    document.querySelector('[data-stat="booking"]').textContent = data.bookingCount;
+                    document.querySelector('[data-stat="customer"]').textContent = data.appUserCount;
+                    document.querySelector('[data-stat="room"]').textContent = data.roomCount;
+                })
+                .catch(error => console.error('İstatistik güncelleme hatası:', error));
+        }
 
-<!-- Chartjs -->
-<script src="~/adminweb/plugins/chart.js/Chart.bundle.min.js"></script>
-<!-- Circle progress -->
-<script src="~/adminweb/plugins/circle-progress/circle-progress.min.js"></script>
-<!-- Datamap -->
-<script src="~/adminweb/plugins/d3v3/index.js"></script>
-<script src="~/adminweb/plugins/topojson/topojson.min.js"></script>
-<script src="~/adminweb/plugins/datamaps/datamaps.world.min.js"></script>
-<!-- Morrisjs -->
-<script src="~/adminweb/plugins/raphael/raphael.min.js"></script>
-<script src="~/adminweb/plugins/morris/morris.min.js"></script>
-<!-- Pignose Calender -->
-<script src="~/adminweb/plugins/moment/moment.min.js"></script>
-<script src="~/adminweb/plugins/pg-calendar/js/pignose.calendar.min.js"></script>
-<!-- ChartistJS -->
-<script src="~/adminweb/plugins/chartist/js/chartist.min.js"></script>
-<script src="~/adminweb/plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js"></script>
-<script src="~/adminweb/js/dashboard/dashboard-1.js"></script>
+        // Sayfa yüklendiğinde ve her 60 saniyede bir güncelle
+        document.addEventListener('DOMContentLoaded', function() {
+            updateDashboardStats();
+            setInterval(updateDashboardStats, 60000); // 1 dakikada bir
+
+            // Son güncelleme zamanını güncelle
+            function updateLastUpdateTime() {
+                const now = new Date();
+                const options = {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                };
+                const timeString = now.toLocaleDateString('tr-TR', options);
+                document.querySelector('.last-update-time').textContent = timeString;
+            }
+
+            updateLastUpdateTime();
+            setInterval(updateLastUpdateTime, 60000); // 1 dakikada bir
+        });
+
+        // Sosyal medya istatistiklerini güncelle
+        function updateSocialMediaStats() {
+            fetch('/Admin/Dashboard/GetSocialMediaStats')
+                .then(response => response.json())
+                .then(data => {
+                    // Instagram
+                    if (data.instagram) {
+                        document.querySelector('[data-social="instagram-followers"]').textContent = data.instagram.followers;
+                        document.querySelector('[data-social="instagram-following"]').textContent = data.instagram.following;
+                    }
+
+                    // Twitter
+                    if (data.twitter) {
+                        document.querySelector('[data-social="twitter-followers"]').textContent = data.twitter.followers;
+                        document.querySelector('[data-social="twitter-following"]').textContent = data.twitter.following;
+                    }
+                })
+                .catch(error => console.error('Sosyal medya güncelleme hatası:', error));
+        }
+
+        // Hızlı erişim butonları
+        const quickActions = [
+            { title: 'Yeni Rezervasyon', icon: 'add', url: '/Admin/Booking/AddBooking', color: 'bg-green-500' },
+            { title: 'Yeni Personel', icon: 'person_add', url: '/Admin/Staff/AddStaff', color: 'bg-blue-500' },
+            { title: 'Yeni Oda', icon: 'add', url: '/Admin/Room/AddRoom', color: 'bg-purple-500' },
+            { title: 'Mesajlar', icon: 'mail', url: '/Admin/Contact/Inbox', color: 'bg-orange-500' }
+        ];
+
+        // Hızlı erişim butonlarını oluştur
+        function createQuickActions() {
+            const container = document.getElementById('quickActions');
+            if (container) {
+                quickActions.forEach(action => {
+                    const button = document.createElement('a');
+                    button.href = action.url;
+                    button.className = `inline-flex items-center gap-2 ${action.color} hover:opacity-90 text-white font-medium py-2 px-4 rounded-lg transition-all duration-200`;
+                    button.innerHTML = `
+                        <span class="material-symbols-outlined text-sm">${action.icon}</span>
+                        <span>${action.title}</span>
+                    `;
+                    container.appendChild(button);
+                });
+            }
+        }
+
+        // Sayfa yüklendiğinde çalıştır
+        document.addEventListener('DOMContentLoaded', function() {
+            createQuickActions();
+        });
+    </script>
+}

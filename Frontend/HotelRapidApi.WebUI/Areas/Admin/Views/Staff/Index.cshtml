@@ -1,32 +1,167 @@
-﻿
-@model List<ResultStaffDto>
-
+﻿@model List<ResultStaffDto>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Personel Yönetimi";
+    ViewData["Description"] = "Sistemde kayıtlı personeller";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
     int count = 0;
 }
 
-<table class="table table-bordered">
-    <tr>
-        <th>#</th>
-        <th>Personel Adı</th>
-        <th>Personel Ünvan</th>
-        <th>Sil</th>
-        <th>Güncelle</th>
-        <th>Detaylar</th>
-    </tr>
-    @foreach (var item in Model)
-    {
-        count++;
-        <tr>
-            <th>@count</th>
-            <td>@item.Name</td>
-            <td>@item.Title</td>
-            <td><a href="/Admin/Staff/DeleteStaff/@item.Id" class="btn mb-1 btn-rounded btn-outline-danger">Sil</a></td>
-            <td><a href="/Admin/Staff/UpdateStaff/@item.Id" class="btn mb-1 btn-rounded btn-outline-success">Güncelle</a></td>
-            <td><a href="#" class="btn mb-1 btn-rounded btn-outline-dark">Detaylar</a></td>
-        </tr>
-    }
-</table>
-<a href="/Admin/Staff/AddStaff/" class="btn mb-1 btn-rounded btn-outline-info">Yeni Personel Girişi</a>
+<div class="flex flex-col space-y-6">
+    <!-- Page Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between">
+        <div>
+            <h1 class="text-2xl font-bold text-text-main dark:text-white">Personel Yönetimi</h1>
+            <p class="text-text-sub dark:text-gray-400 mt-1">Sistemde kayıtlı personelleri buradan yönetebilirsiniz.</p>
+        </div>
+        <a href="/Admin/Staff/AddStaff/"
+           class="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white font-medium py-3 px-5 rounded-lg transition-all duration-200 mt-4 sm:mt-0">
+            <span class="material-symbols-outlined text-sm">person_add</span>
+            Yeni Personel Ekle
+        </a>
+    </div>
+
+    <!-- Content Area -->
+    <div class="bg-surface-light dark:bg-surface-dark rounded-2xl shadow overflow-hidden">
+        <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+            <h2 class="text-lg font-semibold text-text-main dark:text-white">Personel Listesi</h2>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                <thead class="bg-gray-50 dark:bg-gray-800">
+                    <tr>
+                        <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                            #
+                        </th>
+                        <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                            Personel
+                        </th>
+                        <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                            Ünvan
+                        </th>
+                        <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                            Sosyal Medya
+                        </th>
+                        <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                            İşlemler
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var item in Model)
+                        {
+                            count++;
+                            var socialMediaCount = 0;
+                            if (!string.IsNullOrEmpty(item.SocialMedia1)) socialMediaCount++;
+                            if (!string.IsNullOrEmpty(item.SocialMedia2)) socialMediaCount++;
+                            if (!string.IsNullOrEmpty(item.SocialMedia3)) socialMediaCount++;
+
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="w-8 h-8 bg-primary/10 text-primary rounded-lg flex items-center justify-center font-semibold">
+                                        @count
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 bg-blue-50 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
+                                            <span class="material-symbols-outlined text-blue-600 dark:text-blue-400">
+                                                person
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <div class="text-sm font-medium text-text-main dark:text-white">@item.Name</div>
+                                            <div class="text-xs text-text-sub dark:text-gray-400">ID: @item.Id</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="inline-flex items-center gap-1 bg-purple-50 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400 px-3 py-1 rounded-full text-xs font-medium">
+                                        <span class="material-symbols-outlined text-xs">badge</span>
+                                        @item.Title
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-2">
+                                        @if (socialMediaCount > 0)
+                                        {
+                                            <span class="text-sm text-text-sub dark:text-gray-400">
+                                                @socialMediaCount hesap
+                                            </span>
+                                            <div class="flex -space-x-2">
+                                                @if (!string.IsNullOrEmpty(item.SocialMedia1))
+                                                {
+                                                    <div class="w-6 h-6 bg-blue-100 dark:bg-blue-900 rounded-full border-2 border-white dark:border-gray-800 flex items-center justify-center">
+                                                        <span class="material-symbols-outlined text-blue-600 dark:text-blue-400 text-xs">
+                                                            link
+                                                        </span>
+                                                    </div>
+                                                }
+                                                @if (!string.IsNullOrEmpty(item.SocialMedia2))
+                                                {
+                                                    <div class="w-6 h-6 bg-green-100 dark:bg-green-900 rounded-full border-2 border-white dark:border-gray-800 flex items-center justify-center">
+                                                        <span class="material-symbols-outlined text-green-600 dark:text-green-400 text-xs">
+                                                            link
+                                                        </span>
+                                                    </div>
+                                                }
+                                                @if (!string.IsNullOrEmpty(item.SocialMedia3))
+                                                {
+                                                    <div class="w-6 h-6 bg-pink-100 dark:bg-pink-900 rounded-full border-2 border-white dark:border-gray-800 flex items-center justify-center">
+                                                        <span class="material-symbols-outlined text-pink-600 dark:text-pink-400 text-xs">
+                                                            link
+                                                        </span>
+                                                    </div>
+                                                }
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-sm text-gray-400 dark:text-gray-500">Yok</span>
+                                        }
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center space-x-2">
+                                        <a href="/Admin/Staff/UpdateStaff/@item.Id"
+                                           class="inline-flex items-center gap-1 bg-blue-50 hover:bg-blue-100 text-blue-600 hover:text-blue-800 dark:bg-blue-900/30 dark:text-blue-400 dark:hover:text-blue-300 font-medium py-2 px-3 rounded-lg transition-all duration-200"
+                                           title="Güncelle">
+                                            <span class="material-symbols-outlined text-sm">edit</span>
+                                        </a>
+                                        <a href="/Admin/Staff/DeleteStaff/@item.Id"
+                                           class="inline-flex items-center gap-1 bg-red-50 hover:bg-red-100 text-red-600 hover:text-red-800 dark:bg-red-900/30 dark:text-red-400 dark:hover:text-red-300 font-medium py-2 px-3 rounded-lg transition-all duration-200"
+                                           title="Sil"
+                                           onclick="return confirm('Bu personeli silmek istediğinize emin misiniz?')">
+                                            <span class="material-symbols-outlined text-sm">delete</span>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5" class="px-6 py-12 text-center">
+                                <div class="flex flex-col items-center justify-center">
+                                    <div class="w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mb-4">
+                                        <span class="material-symbols-outlined text-gray-400 dark:text-gray-500">group</span>
+                                    </div>
+                                    <h3 class="text-lg font-medium text-text-main dark:text-white mb-2">Henüz personel bulunmuyor</h3>
+                                    <p class="text-text-sub dark:text-gray-400 mb-6">Yeni bir personel eklemek için butona tıklayın</p>
+                                    <a href="/Admin/Staff/AddStaff/"
+                                       class="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white font-medium py-2.5 px-5 rounded-lg transition-all duration-200">
+                                        <span class="material-symbols-outlined text-sm">person_add</span>
+                                        Yeni Personel Ekle
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

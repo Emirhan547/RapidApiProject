@@ -1,26 +1,164 @@
-﻿@using HotelRapidApi.WebUI.DTOs.TestimonialDtos
-@model CreateTestimonialDto
+﻿@model CreateTestimonialDto
 @{
-    ViewData["Title"] = "AddTestimonial";
+    ViewData["Title"] = "Yeni Referans Ekle";
+    ViewData["Description"] = "Yeni müşteri referansı ekleyin";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<form method="post">
-    <label>Referans Adı</label>
-    <input type="text" asp-for="Name" class="form-control" />
-    <span asp-validation-for="Name" class="text-danger"></span>
-    <br />
-    <label>Referans Ünvanı</label>
-    <input type="text" asp-for="Title" class="form-control" />
-    <span asp-validation-for="Title" class="text-danger"></span>
-    <br />
-    <label>Açıklama</label>
-    <input type="text" asp-for="Description" class="form-control" />
-    <span asp-validation-for="Description" class="text-danger"></span>
-    <br />
-    <label>Görsel Url</label>
-    <input type="text" asp-for="Image" class="form-control" />
-    <span asp-validation-for="Image" class="text-danger"></span>
-    <br />
-    <button class="btn btn-primary">Referansı Ekle</button>
-</form>
+<div class="flex flex-col space-y-6">
+    <!-- Page Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between">
+        <div>
+            <h1 class="text-2xl font-bold text-text-main dark:text-white">Yeni Referans Ekle</h1>
+            <p class="text-text-sub dark:text-gray-400 mt-1">Yeni müşteri referansını aşağıdaki formu doldurarak ekleyebilirsiniz.</p>
+        </div>
+        <a href="/Admin/Testimonial/Index"
+           class="inline-flex items-center justify-center gap-2 border border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-text-main dark:text-gray-300 hover:text-text-main dark:hover:text-white font-medium py-3 px-5 rounded-lg transition-all duration-200 mt-4 sm:mt-0">
+            <span class="material-symbols-outlined text-sm">arrow_back</span>
+            Listeye Dön
+        </a>
+    </div>
+
+    <!-- Content Area -->
+    <div class="bg-surface-light dark:bg-surface-dark rounded-2xl shadow p-6">
+        <div class="flex items-center gap-3 mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
+            <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
+                <span class="material-symbols-outlined text-primary">add_comment</span>
+            </div>
+            <div>
+                <h2 class="text-lg font-semibold text-text-main dark:text-white">Yeni Referans Formu</h2>
+                <p class="text-sm text-text-sub dark:text-gray-400">Tüm alanları doldurun</p>
+            </div>
+        </div>
+
+        <form method="post">
+            <!-- Referans Bilgileri -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <label class="block text-sm font-medium text-text-main dark:text-gray-300 mb-2">
+                        Referans Adı *
+                    </label>
+                    <input type="text" asp-for="Name"
+                           class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-text-main dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-200"
+                           placeholder="Müşteri adı ve soyadı..." required />
+                    <span asp-validation-for="Name" class="text-sm text-red-500 mt-1 block"></span>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-text-main dark:text-gray-300 mb-2">
+                        Referans Ünvanı *
+                    </label>
+                    <input type="text" asp-for="Title"
+                           class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-text-main dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-200"
+                           placeholder="Örn: CEO, Pazarlama Müdürü..." required />
+                    <span asp-validation-for="Title" class="text-sm text-red-500 mt-1 block"></span>
+                </div>
+            </div>
+
+            <!-- Görsel URL -->
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-text-main dark:text-gray-300 mb-2">
+                    Görsel URL
+                </label>
+                <input type="text" asp-for="Image"
+                       class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-text-main dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-200"
+                       placeholder="Profil resmi URL'si (isteğe bağlı)" />
+                <p class="text-xs text-text-sub dark:text-gray-400 mt-2">
+                    Önerilen: 200x200 piksel boyutunda, kare formatında profil resmi
+                </p>
+                <span asp-validation-for="Image" class="text-sm text-red-500 mt-1 block"></span>
+
+                <!-- Görsel Önizleme -->
+                <div id="imagePreview" class="mt-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg hidden">
+                    <p class="text-sm font-medium text-text-main dark:text-white mb-2">Görsel Önizleme</p>
+                    <div class="flex items-center gap-3">
+                        <img id="previewImage"
+                             class="w-16 h-16 rounded-full object-cover border-2 border-white dark:border-gray-700 shadow-sm"
+                             src=""
+                             alt="Önizleme"
+                             onerror="this.style.display='none';">
+                        <div id="noPreview" class="hidden">
+                            <div class="w-16 h-16 bg-purple-50 dark:bg-purple-900/30 rounded-full flex items-center justify-center">
+                                <span class="material-symbols-outlined text-purple-600 dark:text-purple-400">
+                                    person
+                                </span>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="text-xs text-text-sub dark:text-gray-400">Girilen URL yükleniyor...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Açıklama (Yorum) -->
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-text-main dark:text-gray-300 mb-2">
+                    Açıklama (Yorum) *
+                </label>
+                <textarea asp-for="Description" rows="5"
+                          class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-text-main dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-200"
+                          placeholder="Müşteri yorumu veya referans metni..."
+                          required></textarea>
+                <p class="text-xs text-text-sub dark:text-gray-400 mt-2">
+                    Müşterinin hizmetiniz hakkındaki yorumunu veya referans metnini yazın.
+                </p>
+                <span asp-validation-for="Description" class="text-sm text-red-500 mt-1 block"></span>
+            </div>
+
+            <!-- Form Actions -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-6 border-t border-gray-200 dark:border-gray-700">
+                <a href="/Admin/Testimonial/Index"
+                   class="inline-flex items-center justify-center gap-2 border border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-text-main dark:text-gray-300 hover:text-text-main dark:hover:text-white font-medium py-3 px-6 rounded-lg transition-all duration-200">
+                    <span class="material-symbols-outlined">close</span>
+                    Vazgeç
+                </a>
+                <button type="submit"
+                        class="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white font-medium py-3 px-6 rounded-lg transition-all duration-200">
+                    <span class="material-symbols-outlined">save</span>
+                    Referansı Ekle
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Görsel önizleme fonksiyonu
+    document.addEventListener('DOMContentLoaded', function() {
+        const imageInput = document.querySelector('input[name="Image"]');
+        const imagePreview = document.getElementById('imagePreview');
+        const previewImage = document.getElementById('previewImage');
+        const noPreview = document.getElementById('noPreview');
+
+        if (imageInput) {
+            imageInput.addEventListener('input', function() {
+                const url = this.value.trim();
+
+                if (url) {
+                    imagePreview.classList.remove('hidden');
+
+                    // Geçici bir resim oluşturarak kontrol et
+                    const tempImage = new Image();
+                    tempImage.onload = function() {
+                        previewImage.src = url;
+                        previewImage.style.display = 'block';
+                        noPreview.classList.add('hidden');
+                    };
+                    tempImage.onerror = function() {
+                        previewImage.style.display = 'none';
+                        noPreview.classList.remove('hidden');
+                    };
+                    tempImage.src = url;
+                } else {
+                    imagePreview.classList.add('hidden');
+                }
+            });
+
+            // Sayfa yüklendiğinde varsayılan değer için önizleme
+            if (imageInput.value.trim()) {
+                imageInput.dispatchEvent(new Event('input'));
+            }
+        }
+    });
+</script>

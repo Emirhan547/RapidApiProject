@@ -1,29 +1,114 @@
-﻿
-
-
-@model UpdateStaffDto
+﻿@model UpdateStaffDto
 @{
-    ViewData["Title"] = "UpdateStaff";
+    ViewData["Title"] = "Personel Güncelle";
+    ViewData["Description"] = "Personel bilgisini güncelleyin";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<form method="post">
-    <input type="hidden" asp-for="Id" />
-    <label>Personel Adı</label>
-    <input type="text" asp-for="Name" class="form-control" />
-    <br />
-    <label>Personel Unvanı</label>
-    <input type="text" asp-for="Title" class="form-control" />
-    <br />
-    <label>Sosyal Medya 1</label>
-    <input type="text" asp-for="SocialMedia1" class="form-control" />
-    <br />
-    <label>Sosyal Medya 2</label>
-    <input type="text" asp-for="SocialMedia2" class="form-control" />
-    <br />
-    <label>Sosyal Medya 3</label>
-    <input type="text" asp-for="SocialMedia3" class="form-control" />
-    <br />
-    <button class="btn btn-outline-success">Personeli Güncelle</button>
-</form>
+<div class="flex flex-col space-y-6">
+    <!-- Page Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between">
+        <div>
+            <h1 class="text-2xl font-bold text-text-main dark:text-white">Personel Güncelle</h1>
+            <p class="text-text-sub dark:text-gray-400 mt-1">Personel bilgisini aşağıdaki form üzerinden güncelleyebilirsiniz.</p>
+        </div>
+        <a href="/Admin/Staff/Index"
+           class="inline-flex items-center justify-center gap-2 border border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-text-main dark:text-gray-300 hover:text-text-main dark:hover:text-white font-medium py-3 px-5 rounded-lg transition-all duration-200 mt-4 sm:mt-0">
+            <span class="material-symbols-outlined text-sm">arrow_back</span>
+            Listeye Dön
+        </a>
+    </div>
 
+    <!-- Content Area -->
+    <div class="bg-surface-light dark:bg-surface-dark rounded-2xl shadow p-6">
+        <div class="flex items-center gap-3 mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
+            <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
+                <span class="material-symbols-outlined text-primary">edit</span>
+            </div>
+            <div>
+                <h2 class="text-lg font-semibold text-text-main dark:text-white">Personel Güncelleme Formu</h2>
+                <p class="text-sm text-text-sub dark:text-gray-400">Değişiklikleri kaydedin</p>
+            </div>
+        </div>
+
+        <form method="post">
+            <input type="hidden" asp-for="Id" />
+
+            <!-- Temel Bilgiler -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <label class="block text-sm font-medium text-text-main dark:text-gray-300 mb-2">
+                        Personel Adı
+                    </label>
+                    <input type="text" asp-for="Name"
+                           class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-text-main dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-200" />
+                    <span asp-validation-for="Name" class="text-sm text-red-500 mt-1 block"></span>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-text-main dark:text-gray-300 mb-2">
+                        Personel Ünvanı
+                    </label>
+                    <input type="text" asp-for="Title"
+                           class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-text-main dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-200" />
+                    <span asp-validation-for="Title" class="text-sm text-red-500 mt-1 block"></span>
+                </div>
+            </div>
+
+            <!-- Sosyal Medya -->
+            <div class="mb-6">
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="material-symbols-outlined text-text-sub dark:text-gray-400">share</span>
+                    <h3 class="text-lg font-semibold text-text-main dark:text-white">Sosyal Medya Hesapları</h3>
+                </div>
+                <p class="text-sm text-text-sub dark:text-gray-400 mb-4">Sosyal medya linklerini girebilirsiniz</p>
+
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-text-main dark:text-gray-300 mb-2">
+                            Sosyal Medya 1
+                        </label>
+                        <input type="text" asp-for="SocialMedia1"
+                               class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-text-main dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-200"
+                               placeholder="https://linkedin.com/in/kullanici" />
+                        <span asp-validation-for="SocialMedia1" class="text-sm text-red-500 mt-1 block"></span>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-text-main dark:text-gray-300 mb-2">
+                            Sosyal Medya 2
+                        </label>
+                        <input type="text" asp-for="SocialMedia2"
+                               class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-text-main dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-200"
+                               placeholder="https://twitter.com/kullanici" />
+                        <span asp-validation-for="SocialMedia2" class="text-sm text-red-500 mt-1 block"></span>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-text-main dark:text-gray-300 mb-2">
+                            Sosyal Medya 3
+                        </label>
+                        <input type="text" asp-for="SocialMedia3"
+                               class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-text-main dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-200"
+                               placeholder="https://instagram.com/kullanici" />
+                        <span asp-validation-for="SocialMedia3" class="text-sm text-red-500 mt-1 block"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Actions -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-6 border-t border-gray-200 dark:border-gray-700">
+                <a href="/Admin/Staff/Index"
+                   class="inline-flex items-center justify-center gap-2 border border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-text-main dark:text-gray-300 hover:text-text-main dark:hover:text-white font-medium py-3 px-6 rounded-lg transition-all duration-200">
+                    <span class="material-symbols-outlined">close</span>
+                    İptal
+                </a>
+                <button type="submit"
+                        class="inline-flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-6 rounded-lg transition-all duration-200">
+                    <span class="material-symbols-outlined">check</span>
+                    Personeli Güncelle
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

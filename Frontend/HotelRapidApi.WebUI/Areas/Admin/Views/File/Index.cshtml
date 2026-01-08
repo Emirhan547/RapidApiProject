@@ -1,13 +1,69 @@
 ﻿@{
-
     ViewData["Title"] = "Dosya Yükle";
+    ViewData["Description"] = "Sisteme dosya yükleyin";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<form method="post" enctype="multipart/form-data">
-   
-    <div class="form-group mb-4">
-        <input type="file" name="file" class="form-control" />
+<div class="flex flex-col space-y-6">
+    <!-- Page Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between">
+        <div>
+            <h1 class="text-2xl font-bold text-text-main dark:text-white">Dosya Yükle</h1>
+            <p class="text-text-sub dark:text-gray-400 mt-1">Sisteme yeni bir dosya yükleyin.</p>
+        </div>
     </div>
-    <button class="btn btn-primary">Dosyayı Yükle</button>
-</form>
+
+    <!-- Upload Form -->
+    <div class="max-w-2xl mx-auto">
+        <div class="bg-surface-light dark:bg-surface-dark rounded-2xl shadow p-6">
+            <div class="flex items-center gap-3 mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
+                <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
+                    <span class="material-symbols-outlined text-primary">upload_file</span>
+                </div>
+                <div>
+                    <h2 class="text-lg font-semibold text-text-main dark:text-white">Dosya Yükleme</h2>
+                    <p class="text-sm text-text-sub dark:text-gray-400">PDF, DOC, XLS, PPT, TXT formatları desteklenir</p>
+                </div>
+            </div>
+
+            <form method="post" enctype="multipart/form-data" class="space-y-6">
+                <!-- File Upload -->
+                <div class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-xl p-8 text-center hover:border-primary transition-colors duration-300">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="material-symbols-outlined text-primary text-2xl">cloud_upload</span>
+                    </div>
+
+                    <h3 class="text-base font-semibold text-text-main dark:text-white mb-2">Dosya Seçin</h3>
+                    <p class="text-sm text-text-sub dark:text-gray-400 mb-4">Maksimum dosya boyutu: 25MB</p>
+
+                    <div class="relative">
+                        <input type="file" name="file"
+                               class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                               accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt"
+                               required />
+
+                        <button type="button"
+                                class="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white font-medium py-2.5 px-5 rounded-lg transition-all duration-200">
+                            <span class="material-symbols-outlined text-sm">folder_open</span>
+                            Dosya Seç
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="flex items-center justify-end gap-3 pt-6 border-t border-gray-200 dark:border-gray-700">
+                    <a href="/Admin/Dashboard/Index"
+                       class="inline-flex items-center justify-center gap-2 border border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-text-main dark:text-gray-300 hover:text-text-main dark:hover:text-white font-medium py-2.5 px-5 rounded-lg transition-all duration-200">
+                        <span class="material-symbols-outlined text-sm">close</span>
+                        İptal
+                    </a>
+                    <button type="submit"
+                            class="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white font-medium py-2.5 px-5 rounded-lg transition-all duration-200">
+                        <span class="material-symbols-outlined text-sm">upload</span>
+                        Yükle
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

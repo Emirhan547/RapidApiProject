@@ -1,89 +1,99 @@
 ﻿@using HotelRapidApi.WebUI.DTOs.FollowerDtos
 @model ResultInstagramFollowerDto
-<div class="row">
-    <div class="col-lg-3 col-sm-6">
-        <div class="card">
-            <div class="social-graph-wrapper widget-facebook">
-                <span class="s-icon"><i class="fa fa-facebook"></i></span>
-            </div>
-            <div class="row">
-                <div class="col-6 border-right">
-                    <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                        <h4 class="m-1">5800</h4>
-                        <p class="m-0">Takipçiler</p>
-                    </div>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <!-- Instagram -->
+    <div class="bg-gradient-to-r from-pink-500 to-purple-600 rounded-xl p-4 text-white">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+                    <span class="material-symbols-outlined text-white">
+                        photo_camera
+                    </span>
                 </div>
-                <div class="col-6">
-                    <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                        <h4 class="m-1">196</h4>
-                        <p class="m-0">Takip Ettiklerin</p>
-                    </div>
-                </div>
+                <span class="font-medium">Instagram</span>
             </div>
         </div>
-    </div>
-    <div class="col-lg-3 col-sm-6">
-        <div class="card">
-            <div class="social-graph-wrapper widget-linkedin">
-                <span class="s-icon"><i class="fa fa-linkedin"></i></span>
+        <div class="grid grid-cols-2 gap-3">
+            <div class="text-center">
+                <h3 class="text-2xl font-bold">@ViewBag.v1</h3>
+                <p class="text-pink-100 text-sm">Takipçi</p>
             </div>
-            <div class="row">
-                <div class="col-6 border-right">
-                    <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                        <h4 class="m-1">@ViewBag.v5</h4>
-                        <p class="m-0">Takipçiler</p>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                        <h4 class="m-1">500++</h4>
-                        <p class="m-0">Takip Ettiklerin</p>
-                    </div>
-                </div>
+            <div class="text-center">
+                <h3 class="text-2xl font-bold">@ViewBag.v2</h3>
+                <p class="text-pink-100 text-sm">Takip Edilen</p>
             </div>
         </div>
     </div>
 
-    <div class="col-lg-3 col-sm-6">
-        <div class="card">
-            <div class="social-graph-wrapper widget-googleplus">
-                <span class="s-icon">Instagram</span>
+    <!-- Twitter -->
+    <div class="bg-gradient-to-r from-blue-400 to-blue-500 rounded-xl p-4 text-white">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+                    <span class="material-symbols-outlined text-white">
+                        chat
+                    </span>
+                </div>
+                <span class="font-medium">Twitter</span>
             </div>
-            <div class="row">
-                <div class="col-6 border-right">
-                    <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                        <h4 class="m-1">@ViewBag.v1</h4>
-                        <p class="m-0">Takipçiler</p>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                        <h4 class="m-1">@ViewBag.v2</h4>
-                        <p class="m-0">Takip Ettiklerin</p>
-                    </div>
-                </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+            <div class="text-center">
+                <h3 class="text-2xl font-bold">@ViewBag.v3</h3>
+                <p class="text-blue-100 text-sm">Takipçi</p>
+            </div>
+            <div class="text-center">
+                <h3 class="text-2xl font-bold">@ViewBag.v4</h3>
+                <p class="text-blue-100 text-sm">Takip Edilen</p>
             </div>
         </div>
     </div>
 
-    <div class="col-lg-3 col-sm-6">
-        <div class="card">
-            <div class="social-graph-wrapper widget-twitter">
-                <span class="s-icon"><i class="fa fa-twitter"></i></span>
+    <!-- LinkedIn -->
+    <div class="bg-gradient-to-r from-blue-700 to-blue-800 rounded-xl p-4 text-white">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+                    <span class="material-symbols-outlined text-white">
+                        business_center
+                    </span>
+                </div>
+                <span class="font-medium">LinkedIn</span>
             </div>
-            <div class="row">
-                <div class="col-6 border-right">
-                    <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                        <h4 class="m-1">@ViewBag.v3</h4>
-                        <p class="m-0">Takipçiler</p>
-                    </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+            <div class="text-center">
+                <h3 class="text-2xl font-bold">@ViewBag.v5</h3>
+                <p class="text-blue-100 text-sm">Takipçi</p>
+            </div>
+            <div class="text-center">
+                <h3 class="text-2xl font-bold">500+</h3>
+                <p class="text-blue-100 text-sm">Takip Edilen</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Facebook -->
+    <div class="bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl p-4 text-white">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+                    <span class="material-symbols-outlined text-white">
+                        thumb_up
+                    </span>
                 </div>
-                <div class="col-6">
-                    <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                        <h4 class="m-1">@ViewBag.v4</h4>
-                        <p class="m-0">Takip Ettiklerin</p>
-                    </div>
-                </div>
+                <span class="font-medium">Facebook</span>
+            </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+            <div class="text-center">
+                <h3 class="text-2xl font-bold">5,800</h3>
+                <p class="text-blue-100 text-sm">Takipçi</p>
+            </div>
+            <div class="text-center">
+                <h3 class="text-2xl font-bold">196</h3>
+                <p class="text-blue-100 text-sm">Takip Edilen</p>
             </div>
         </div>
     </div>

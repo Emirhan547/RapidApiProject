@@ -1,25 +1,139 @@
 ﻿@using HotelRapidApi.WebUI.Models
 @model MailViewModel
 @{
-
     ViewData["Title"] = "Mail Gönder";
+    ViewData["Description"] = "Yeni mail gönderin";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<form method="post">
-   
-    <div class="form-group mb-3">
-        <label>Alıcı Mail Adresi</label>
-        <input type="text" class="form-control" asp-for="ReceiverMail" />
+<div class="flex flex-col space-y-6">
+    <!-- Page Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between">
+        <div>
+            <h1 class="text-2xl font-bold text-text-main dark:text-white">Mail Gönder</h1>
+            <p class="text-text-sub dark:text-gray-400 mt-1">Yeni bir mail gönderin.</p>
+        </div>
+        <a href="/Admin/Dashboard/Index"
+           class="inline-flex items-center justify-center gap-2 border border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-text-main dark:text-gray-300 hover:text-text-main dark:hover:text-white font-medium py-3 px-5 rounded-lg transition-all duration-200 mt-4 sm:mt-0">
+            <span class="material-symbols-outlined text-sm">arrow_back</span>
+            Dashboard'a Dön
+        </a>
     </div>
-    <div class="form-group mb-3">
-        <label>Mesaj Konusu</label>
-        <input type="text" class="form-control" asp-for="Subject" />
+
+    <!-- Mail Form - Full Width -->
+    <div class="bg-surface-light dark:bg-surface-dark rounded-2xl shadow p-6">
+        <div class="flex items-center gap-3 mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
+            <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
+                <span class="material-symbols-outlined text-primary">mail</span>
+            </div>
+            <div>
+                <h2 class="text-lg font-semibold text-text-main dark:text-white">Yeni Mail Oluştur</h2>
+                <p class="text-sm text-text-sub dark:text-gray-400">Alıcı bilgilerini ve mesajınızı girin</p>
+            </div>
+        </div>
+
+        <form method="post" class="space-y-6">
+            <!-- Receiver Email -->
+            <div class="max-w-2xl">
+                <label class="block text-sm font-medium text-text-main dark:text-gray-300 mb-2">
+                    <span class="material-symbols-outlined text-sm align-middle mr-1">person</span>
+                    Alıcı Mail Adresi
+                </label>
+                <input type="email" asp-for="ReceiverMail"
+                       class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-text-main dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-200"
+                       placeholder="ornek@email.com" />
+                <span asp-validation-for="ReceiverMail" class="text-sm text-red-500 mt-1 block"></span>
+            </div>
+
+            <!-- Subject -->
+            <div class="max-w-2xl">
+                <label class="block text-sm font-medium text-text-main dark:text-gray-300 mb-2">
+                    <span class="material-symbols-outlined text-sm align-middle mr-1">title</span>
+                    Mesaj Konusu
+                </label>
+                <input type="text" asp-for="Subject"
+                       class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-text-main dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-200"
+                       placeholder="Mail konusu" />
+                <span asp-validation-for="Subject" class="text-sm text-red-500 mt-1 block"></span>
+            </div>
+
+            <!-- Message Body -->
+            <div>
+                <label class="block text-sm font-medium text-text-main dark:text-gray-300 mb-2">
+                    <span class="material-symbols-outlined text-sm align-middle mr-1">description</span>
+                    Mesajınız
+                </label>
+                <textarea asp-for="Body" rows="12"
+                          class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-text-main dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-200 resize-y min-h-[300px]"
+                          placeholder="Mesajınızı buraya yazın..."></textarea>
+                <span asp-validation-for="Body" class="text-sm text-red-500 mt-1 block"></span>
+            </div>
+
+            <!-- Additional Options -->
+            <div class="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-6">
+                <h4 class="text-sm font-semibold text-text-main dark:text-white mb-4">Ek Seçenekler</h4>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <label class="flex items-center gap-3 p-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                        <input type="checkbox" name="isUrgent" class="rounded border-gray-300 text-primary focus:ring-primary/20" />
+                        <div>
+                            <div class="font-medium text-text-main dark:text-white">Acil</div>
+                            <div class="text-xs text-text-sub dark:text-gray-400">Maili acil olarak işaretle</div>
+                        </div>
+                    </label>
+
+                    <label class="flex items-center gap-3 p-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                        <input type="checkbox" name="requestReply" class="rounded border-gray-300 text-primary focus:ring-primary/20" />
+                        <div>
+                            <div class="font-medium text-text-main dark:text-white">Yanıt İsteniyor</div>
+                            <div class="text-xs text-text-sub dark:text-gray-400">Alıcıdan yanıt bekleniyor</div>
+                        </div>
+                    </label>
+
+                    <label class="flex items-center gap-3 p-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                        <input type="checkbox" name="saveCopy" class="rounded border-gray-300 text-primary focus:ring-primary/20" checked />
+                        <div>
+                            <div class="font-medium text-text-main dark:text-white">Kopyasını Kaydet</div>
+                            <div class="text-xs text-text-sub dark:text-gray-400">Giden kutusuna kopyasını kaydet</div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Attachment Options -->
+            <div class="flex items-center gap-4">
+                <button type="button" class="inline-flex items-center gap-2 text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-primary transition-colors">
+                    <span class="material-symbols-outlined">attach_file</span>
+                    <span class="text-sm font-medium">Dosya Ekle</span>
+                </button>
+                <button type="button" class="inline-flex items-center gap-2 text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-primary transition-colors">
+                    <span class="material-symbols-outlined">insert_photo</span>
+                    <span class="text-sm font-medium">Resim Ekle</span>
+                </button>
+                <div class="text-xs text-text-sub dark:text-gray-400 ml-auto">
+                    Maksimum dosya boyutu: 10MB
+                </div>
+            </div>
+
+            <!-- Form Actions -->
+            <div class="flex items-center justify-between gap-4 pt-6 border-t border-gray-200 dark:border-gray-700">
+                <a href="/Admin/Dashboard/Index"
+                   class="inline-flex items-center justify-center gap-2 border border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-text-main dark:text-gray-300 hover:text-text-main dark:hover:text-white font-medium py-3 px-6 rounded-lg transition-all duration-200">
+                    <span class="material-symbols-outlined">close</span>
+                    Vazgeç
+                </a>
+                <div class="flex items-center gap-3">
+                    <button type="button"
+                            class="inline-flex items-center justify-center gap-2 border border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-text-main dark:text-gray-300 hover:text-text-main dark:hover:text-white font-medium py-3 px-6 rounded-lg transition-all duration-200">
+                        <span class="material-symbols-outlined">draft</span>
+                        Taslak Olarak Kaydet
+                    </button>
+                    <button type="submit"
+                            class="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white font-medium py-3 px-6 rounded-lg transition-all duration-200">
+                        <span class="material-symbols-outlined">send</span>
+                        Gönder
+                    </button>
+                </div>
+            </div>
+        </form>
     </div>
-    <div class="form-group mb-4">
-        <label>Mesajınız</label>
-        <textarea class="form-control h-150px" rows="6" id="comment" asp-for="Body"></textarea>
-    </div>
-    <button type="submit" class="btn btn-primary">Gönder</button>
-    <a href="/Admin/Dashboard/Index" class="btn btn-outline-secondary ml-2">Vazgeç</a>
-</form>
+</div>

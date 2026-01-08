@@ -1,80 +1,95 @@
 ﻿@using HotelRapidApi.WebUI.DTOs.BookingDtos
 @model List<ResultLast6BookingDto>
-<div class="row">
-    <div class="col-lg-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="active-member">
-                    <div class="table-responsive">
-                        <table class="table table-xs mb-0">
-                            <thead>
-                                <tr>
-                                    <th>Müşteri</th>
-                                    <th>Şehir</th>
-                                    <th>Ülke</th>
-                                    <th>Durum</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model)
-                                {
-                                    <tr>
-                                        <td>@item.Name</td>
-                                        <td>@item.City</td>
-                                        <td>
-                                            <span>@item.Country</span>
-                                        </td>
-                                        @if (item.Status == "Onaylandı")
-                                        {
-                                            <td>
-                                                <div>
-                                                    <div class="progress" style="height: 6px">
-                                                        <div class="progress-bar bg-success" style="width: 100%"></div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td><i class="fa fa-circle-o text-success  mr-2"></i> @item.Status</td>
-                                        }
-                                        @if (item.Status == "Müşteri Aranacak")
-                                        {
-                                            <td>
-                                                <div>
-                                                    <div class="progress" style="height: 6px">
-                                                        <div class="progress-bar bg-warning" style="width: 100%"></div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td><i class="fa fa-circle-o text-warning  mr-2"></i> @item.Status</td>
-                                        }
-                                        @if (item.Status == "İptal Edildi")
-                                        {
-                                            <td>
-                                                <div>
-                                                    <div class="progress" style="height: 6px">
-                                                        <div class="progress-bar bg-danger" style="width: 100%"></div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td><i class="fa fa-circle-o text-danger  mr-2"></i> @item.Status</td>
-                                        }
-                                        @if (item.Status == "Onay Bekliyor")
-                                        {
-                                            <td>
-                                                <div>
-                                                    <div class="progress" style="height: 6px">
-                                                        <div class="progress-bar bg-info" style="width: 100%"></div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td><i class="fa fa-circle-o text-info  mr-2"></i> @item.Status</td>
-                                        }
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
+
+<table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+    <thead class="bg-gray-50 dark:bg-gray-800">
+        <tr>
+            <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                Müşteri
+            </th>
+            <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                Şehir
+            </th>
+            <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                Ülke
+            </th>
+            <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                Durum
+            </th>
+        </tr>
+
+
+
+    </thead>
+    <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var item in Model)
+            {
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                    <td class="px-6 py-4">
+                        <div class="text-sm font-medium text-text-main dark:text-white">@item.Name</div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="text-sm text-text-sub dark:text-gray-400">@item.City</span>
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="text-sm text-text-sub dark:text-gray-400">@item.Country</span>
+                    </td>
+                    <td class="px-6 py-4">
+                        @if (item.Status == "Onaylandı")
+                        {
+                            <span class="inline-flex items-center gap-1 bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-400 px-3 py-1 rounded-full text-xs font-medium">
+                                <span class="material-symbols-outlined text-xs">check_circle</span>
+                                @item.Status
+                            </span>
+                        }
+                        else if (item.Status == "Müşteri Aranacak")
+                        {
+                            <span class="inline-flex items-center gap-1 bg-yellow-50 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400 px-3 py-1 rounded-full text-xs font-medium">
+                                <span class="material-symbols-outlined text-xs">schedule</span>
+                                @item.Status
+                            </span>
+                        }
+                        else if (item.Status == "İptal Edildi")
+                        {
+                            <span class="inline-flex items-center gap-1 bg-red-50 text-red-700 dark:bg-red-900/30 dark:text-red-400 px-3 py-1 rounded-full text-xs font-medium">
+                                <span class="material-symbols-outlined text-xs">cancel</span>
+                                @item.Status
+                            </span>
+                        }
+                        else if (item.Status == "Onay Bekliyor")
+                        {
+                            <span class="inline-flex items-center gap-1 bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 px-3 py-1 rounded-full text-xs font-medium">
+                                <span class="material-symbols-outlined text-xs">hourglass_empty</span>
+                                @item.Status
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="inline-flex items-center gap-1 bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300 px-3 py-1 rounded-full text-xs font-medium">
+                                <span class="material-symbols-outlined text-xs">help</span>
+                                @item.Status
+                            </span>
+                        }
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4" class="px-6 py-8 text-center">
+                    <div class="flex flex-col items-center justify-center">
+                        <div class="w-12 h-12 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mb-3">
+                            <span class="material-symbols-outlined text-gray-400 dark:text-gray-500">
+                                calendar_month
+                            </span>
+                        </div>
+                        <p class="text-text-sub dark:text-gray-400">Henüz rezervasyon bulunmuyor</p>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

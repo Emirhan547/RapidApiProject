@@ -1,48 +1,140 @@
-﻿
-
-@model CreateRoomDto
-
+﻿@model CreateRoomDto
 @{
-    ViewData["Title"] = "AddRoom";
+    ViewData["Title"] = "Yeni Oda Ekle";
+    ViewData["Description"] = "Yeni oda ekleyin";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h3>Yeni Oda Ekle</h3>
+<div class="flex flex-col space-y-6">
+    <!-- Page Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between">
+        <div>
+            <h1 class="text-2xl font-bold text-text-main dark:text-white">Yeni Oda Ekle</h1>
+            <p class="text-text-sub dark:text-gray-400 mt-1">Yeni odayı aşağıdaki formu doldurarak ekleyebilirsiniz.</p>
+        </div>
+        <a href="/Admin/Room/Index"
+           class="inline-flex items-center justify-center gap-2 border border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-text-main dark:text-gray-300 hover:text-text-main dark:hover:text-white font-medium py-3 px-5 rounded-lg transition-all duration-200 mt-4 sm:mt-0">
+            <span class="material-symbols-outlined text-sm">arrow_back</span>
+            Listeye Dön
+        </a>
+    </div>
 
-<form method="post">
-    <div asp-validation-summary="All" class="text-danger"></div>
+    <!-- Content Area -->
+    <div class="bg-surface-light dark:bg-surface-dark rounded-2xl shadow p-6">
+        <div class="flex items-center gap-3 mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
+            <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
+                <span class="material-symbols-outlined text-primary">add</span>
+            </div>
+            <div>
+                <h2 class="text-lg font-semibold text-text-main dark:text-white">Yeni Oda Formu</h2>
+                <p class="text-sm text-text-sub dark:text-gray-400">Tüm alanları doldurun</p>
+            </div>
+        </div>
 
-    <label>Oda Numarası</label>
-    <input asp-for="RoomNumber" class="form-control" />
-    <br />
+        <form method="post">
+            <!-- Oda Numarası ve Başlık -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <label class="block text-sm font-medium text-text-main dark:text-gray-300 mb-2">
+                        Oda Numarası
+                    </label>
+                    <input type="text" asp-for="RoomNumber"
+                           class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-text-main dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-200"
+                           placeholder="Oda numarası giriniz..." />
+                    <span asp-validation-for="RoomNumber" class="text-sm text-red-500 mt-1 block"></span>
+                </div>
 
-    <label>Oda Başlığı</label>
-    <input asp-for="Title" class="form-control" />
-    <br />
+                <div>
+                    <label class="block text-sm font-medium text-text-main dark:text-gray-300 mb-2">
+                        Oda Başlığı
+                    </label>
+                    <input type="text" asp-for="Title"
+                           class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-text-main dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-200"
+                           placeholder="Oda başlığı giriniz..." />
+                    <span asp-validation-for="Title" class="text-sm text-red-500 mt-1 block"></span>
+                </div>
+            </div>
 
-    <label>Fiyat</label>
-    <input type="number" asp-for="Price" class="form-control" />
-    <br />
+            <!-- Fiyat ve Detaylar -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                <div>
+                    <label class="block text-sm font-medium text-text-main dark:text-gray-300 mb-2">
+                        Fiyat (₺)
+                    </label>
+                    <input type="number" asp-for="Price"
+                           class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-text-main dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-200"
+                           placeholder="Fiyat giriniz..." />
+                    <span asp-validation-for="Price" class="text-sm text-red-500 mt-1 block"></span>
+                </div>
 
-    <label>Yatak Odası Sayısı</label>
-    <input type="number" asp-for="BedCount" class="form-control" />
-    <br />
+                <div>
+                    <label class="block text-sm font-medium text-text-main dark:text-gray-300 mb-2">
+                        Yatak Odası Sayısı
+                    </label>
+                    <input type="number" asp-for="BedCount"
+                           class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-text-main dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-200"
+                           placeholder="Yatak sayısı..." />
+                    <span asp-validation-for="BedCount" class="text-sm text-red-500 mt-1 block"></span>
+                </div>
 
-    <label>Banyo Sayısı</label>
-    <input type="number" asp-for="BathCount" class="form-control" />
-    <br />
+                <div>
+                    <label class="block text-sm font-medium text-text-main dark:text-gray-300 mb-2">
+                        Banyo Sayısı
+                    </label>
+                    <input type="number" asp-for="BathCount"
+                           class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-text-main dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-200"
+                           placeholder="Banyo sayısı..." />
+                    <span asp-validation-for="BathCount" class="text-sm text-red-500 mt-1 block"></span>
+                </div>
+            </div>
 
-    <label>Oda Kapak Fotoğrafı</label>
-    <input asp-for="RoomCoverImage" class="form-control" />
-    <br />
+            <!-- Resim ve Wifi -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <label class="block text-sm font-medium text-text-main dark:text-gray-300 mb-2">
+                        Oda Kapak Fotoğrafı
+                    </label>
+                    <input type="text" asp-for="RoomCoverImage"
+                           class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-text-main dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-200"
+                           placeholder="Resim URL'si..." />
+                    <span asp-validation-for="RoomCoverImage" class="text-sm text-red-500 mt-1 block"></span>
+                </div>
 
-    <label>Wifi</label>
-    <input asp-for="Wifi" class="form-control" />
-    <br />
+                <div>
+                    <label class="block text-sm font-medium text-text-main dark:text-gray-300 mb-2">
+                        Wifi Şifresi
+                    </label>
+                    <input type="text" asp-for="Wifi"
+                           class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-text-main dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-200"
+                           placeholder="Wifi şifresi..." />
+                    <span asp-validation-for="Wifi" class="text-sm text-red-500 mt-1 block"></span>
+                </div>
+            </div>
 
-    <label>Açıklama</label>
-    <textarea asp-for="Description" class="form-control" rows="3"></textarea>
-    <br />
+            <!-- Açıklama -->
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-text-main dark:text-gray-300 mb-2">
+                    Açıklama
+                </label>
+                <textarea asp-for="Description" rows="4"
+                          class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-text-main dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-200"
+                          placeholder="Oda açıklaması..."></textarea>
+                <span asp-validation-for="Description" class="text-sm text-red-500 mt-1 block"></span>
+            </div>
 
-    <button type="submit" class="btn btn-primary">Odayı Ekle</button>
-</form>
+            <!-- Form Actions -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-6 border-t border-gray-200 dark:border-gray-700">
+                <a href="/Admin/Room/Index"
+                   class="inline-flex items-center justify-center gap-2 border border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-text-main dark:text-gray-300 hover:text-text-main dark:hover:text-white font-medium py-3 px-6 rounded-lg transition-all duration-200">
+                    <span class="material-symbols-outlined">close</span>
+                    Vazgeç
+                </a>
+                <button type="submit"
+                        class="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white font-medium py-3 px-6 rounded-lg transition-all duration-200">
+                    <span class="material-symbols-outlined">save</span>
+                    Odayı Ekle
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

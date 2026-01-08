@@ -1,31 +1,109 @@
-﻿
-@model List<ResultAppUserListDto>
-
+﻿@model List<ResultAppUserListDto>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Kullanıcı Yönetimi";
+    ViewData["Description"] = "Sistemde kayıtlı kullanıcılar";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    int count = 0;
 }
 
+<div class="flex flex-col space-y-6">
+    <!-- Page Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between">
+        <div>
+            <h1 class="text-2xl font-bold text-text-main dark:text-white">Kullanıcı Yönetimi</h1>
+            <p class="text-text-sub dark:text-gray-400 mt-1">Sistemde kayıtlı kullanıcıları görüntüleyebilirsiniz.</p>
+        </div>
+    </div>
 
-<table class="table table-xs mb-0">
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>Ad Soyad</th>
-            <th>Şehir</th>
-            <th>Durum</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td><img src="@item.ImageUrl" class=" rounded-circle mr-3" alt=""></td>
-                <td>@item.Name @item.Surname</td>
-                <td>@item.City</td>
-                <td><i class="fa fa-circle-o text-success  mr-2"></i> Aktif</td>
-            </tr>
-        }
-    </tbody>
-</table>
-<br />
+    <!-- Content Area -->
+    <div class="bg-surface-light dark:bg-surface-dark rounded-2xl shadow overflow-hidden">
+        <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+            <h2 class="text-lg font-semibold text-text-main dark:text-white">Kullanıcı Listesi</h2>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                <thead class="bg-gray-50 dark:bg-gray-800">
+                    <tr>
+                        <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                            #
+                        </th>
+                        <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                            Kullanıcı
+                        </th>
+                        <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                            Şehir
+                        </th>
+                        <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                            Durum
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var item in Model)
+                        {
+                            count++;
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="w-8 h-8 bg-primary/10 text-primary rounded-lg flex items-center justify-center font-semibold">
+                                        @count
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-3">
+                                        @if (!string.IsNullOrEmpty(item.ImageUrl))
+                                        {
+                                            <img src="@item.ImageUrl"
+                                                 alt="@item.Name @item.Surname"
+                                                 class="w-10 h-10 rounded-full object-cover border-2 border-white dark:border-gray-700 shadow-sm">
+                                        }
+                                        else
+                                        {
+                                            <div class="w-10 h-10 bg-blue-50 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
+                                                <span class="material-symbols-outlined text-blue-600 dark:text-blue-400">
+                                                    person
+                                                </span>
+                                            </div>
+                                        }
+                                        <div>
+                                            <div class="text-sm font-medium text-text-main dark:text-white">@item.Name @item.Surname</div>
+                                            <div class="text-xs text-text-sub dark:text-gray-400">ID: @item.Id</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="inline-flex items-center gap-1 bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300 px-3 py-1 rounded-full text-xs font-medium">
+                                        <span class="material-symbols-outlined text-xs">location_on</span>
+                                        @item.City
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="inline-flex items-center gap-1 bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-400 px-3 py-1 rounded-full text-xs font-medium">
+                                        <span class="material-symbols-outlined text-xs">check_circle</span>
+                                        Aktif
+                                    </span>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="4" class="px-6 py-12 text-center">
+                                <div class="flex flex-col items-center justify-center">
+                                    <div class="w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mb-4">
+                                        <span class="material-symbols-outlined text-gray-400 dark:text-gray-500">group</span>
+                                    </div>
+                                    <h3 class="text-lg font-medium text-text-main dark:text-white mb-2">Henüz kullanıcı bulunmuyor</h3>
+                                    <p class="text-text-sub dark:text-gray-400">Sistemde kayıtlı kullanıcı bulunamadı.</p>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

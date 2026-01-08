@@ -1,62 +1,249 @@
 ﻿@model UpdateBookingDto
 @{
     ViewData["Title"] = "Rezervasyon Güncelle";
+    ViewData["Description"] = "Rezervasyon bilgilerini güncelleyin";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
+<div class="flex flex-col space-y-6">
+    <!-- Page Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between">
+        <div>
+            <h1 class="text-2xl font-bold text-text-main dark:text-white">Rezervasyon Güncelle</h1>
+            <p class="text-text-sub dark:text-gray-400 mt-1">Rezervasyon bilgilerini aşağıdaki form üzerinden güncelleyebilirsiniz.</p>
+        </div>
+        <a href="/Admin/Booking/Index"
+           class="inline-flex items-center justify-center gap-2 border border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-text-main dark:text-gray-300 hover:text-text-main dark:hover:text-white font-medium py-3 px-5 rounded-lg transition-all duration-200 mt-4 sm:mt-0">
+            <span class="material-symbols-outlined text-sm">arrow_back</span>
+            Listeye Dön
+        </a>
+    </div>
 
+    <!-- Content Area -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Form Section -->
+        <div class="lg:col-span-2">
+            <div class="bg-surface-light dark:bg-surface-dark rounded-2xl shadow-card p-6">
+                <div class="flex items-center gap-3 mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
+                    <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary">edit_calendar</span>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-semibold text-text-main dark:text-white">Rezervasyon Güncelleme Formu</h2>
+                        <p class="text-sm text-text-sub dark:text-gray-400">ID: #@Model.Id</p>
+                    </div>
+                </div>
 
-<form method="post">
-    <input type="hidden" asp-for="Id" />
-   
-    <div class="form-group mb-3">
-        <label>Misafir Adı Soyadı</label>
-        <input type="text" asp-for="Name" class="form-control" />
+                <form method="post" class="space-y-6">
+                    <input type="hidden" asp-for="Id" />
+
+                    <!-- Misafir Bilgileri -->
+                    <div class="bg-gradient-to-r from-blue-50 to-transparent dark:from-blue-900/10 p-5 rounded-xl">
+                        <h3 class="text-lg font-semibold text-text-main dark:text-white mb-4">Misafir Bilgileri</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-text-main dark:text-gray-300 mb-2">
+                                    <span class="material-symbols-outlined text-sm align-middle mr-1">person</span>
+                                    Adı Soyadı
+                                </label>
+                                <input type="text" asp-for="Name"
+                                       class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-text-main dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-200" />
+                                <span asp-validation-for="Name" class="text-sm text-red-500 mt-1 block"></span>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-text-main dark:text-gray-300 mb-2">
+                                    <span class="material-symbols-outlined text-sm align-middle mr-1">mail</span>
+                                    E-posta Adresi
+                                </label>
+                                <input type="email" asp-for="Mail"
+                                       class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-text-main dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-200" />
+                                <span asp-validation-for="Mail" class="text-sm text-red-500 mt-1 block"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tarih Bilgileri -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-text-main dark:text-gray-300 mb-2">
+                                <span class="material-symbols-outlined text-sm align-middle mr-1">login</span>
+                                Giriş Tarihi
+                            </label>
+                            <input type="date" asp-for="Checkin"
+                                   class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-text-main dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-200" />
+                            <span asp-validation-for="Checkin" class="text-sm text-red-500 mt-1 block"></span>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-text-main dark:text-gray-300 mb-2">
+                                <span class="material-symbols-outlined text-sm align-middle mr-1">logout</span>
+                                Çıkış Tarihi
+                            </label>
+                            <input type="date" asp-for="CheckOut"
+                                   class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-text-main dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-200" />
+                            <span asp-validation-for="CheckOut" class="text-sm text-red-500 mt-1 block"></span>
+                        </div>
+                    </div>
+
+                    <!-- Kişi ve Oda Bilgileri -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-text-main dark:text-gray-300 mb-2">
+                                <span class="material-symbols-outlined text-sm align-middle mr-1">person</span>
+                                Yetişkin Sayısı
+                            </label>
+                            <input type="number" asp-for="AdultCount" min="1"
+                                   class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-text-main dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-200" />
+                            <span asp-validation-for="AdultCount" class="text-sm text-red-500 mt-1 block"></span>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-text-main dark:text-gray-300 mb-2">
+                                <span class="material-symbols-outlined text-sm align-middle mr-1">child_care</span>
+                                Çocuk Sayısı
+                            </label>
+                            <input type="number" asp-for="ChildCount" min="0"
+                                   class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-text-main dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-200" />
+                            <span asp-validation-for="ChildCount" class="text-sm text-red-500 mt-1 block"></span>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-text-main dark:text-gray-300 mb-2">
+                                <span class="material-symbols-outlined text-sm align-middle mr-1">door_front</span>
+                                Oda Sayısı
+                            </label>
+                            <input type="number" asp-for="RoomCount" min="1"
+                                   class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-text-main dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-200" />
+                            <span asp-validation-for="RoomCount" class="text-sm text-red-500 mt-1 block"></span>
+                        </div>
+                    </div>
+
+                    <!-- Konum Bilgileri -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-text-main dark:text-gray-300 mb-2">
+                                <span class="material-symbols-outlined text-sm align-middle mr-1">location_city</span>
+                                Şehir
+                            </label>
+                            <input type="text" asp-for="City"
+                                   class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-text-main dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-200" />
+                            <span asp-validation-for="City" class="text-sm text-red-500 mt-1 block"></span>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-text-main dark:text-gray-300 mb-2">
+                                <span class="material-symbols-outlined text-sm align-middle mr-1">public</span>
+                                Ülke
+                            </label>
+                            <input type="text" asp-for="Country"
+                                   class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-text-main dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-200" />
+                            <span asp-validation-for="Country" class="text-sm text-red-500 mt-1 block"></span>
+                        </div>
+                    </div>
+
+                    <!-- Durum ve Açıklamalar -->
+                    <div class="bg-gradient-to-r from-gray-50 to-transparent dark:from-gray-800/10 p-5 rounded-xl">
+                        <h3 class="text-lg font-semibold text-text-main dark:text-white mb-4">Rezervasyon Detayları</h3>
+
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-text-main dark:text-gray-300 mb-2">
+                                <span class="material-symbols-outlined text-sm align-middle mr-1">info</span>
+                                Durum
+                            </label>
+                            <select asp-for="Status"
+                                    class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-text-main dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-200">
+                                <option value="Bekliyor">Bekliyor</option>
+                                <option value="Onaylandı">Onaylandı</option>
+                                <option value="İptal Edildi">İptal Edildi</option>
+                                <option value="Tamamlandı">Tamamlandı</option>
+                            </select>
+                            <span asp-validation-for="Status" class="text-sm text-red-500 mt-1 block"></span>
+                        </div>
+
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-text-main dark:text-gray-300 mb-2">
+                                <span class="material-symbols-outlined text-sm align-middle mr-1">request_quote</span>
+                                Özel İstekler
+                            </label>
+                            <textarea asp-for="SpecialRequest" rows="3"
+                                      class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-text-main dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-200"></textarea>
+                            <span asp-validation-for="SpecialRequest" class="text-sm text-red-500 mt-1 block"></span>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-text-main dark:text-gray-300 mb-2">
+                                <span class="material-symbols-outlined text-sm align-middle mr-1">description</span>
+                                Açıklama
+                            </label>
+                            <textarea asp-for="Description" rows="3"
+                                      class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-text-main dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-200"></textarea>
+                            <span asp-validation-for="Description" class="text-sm text-red-500 mt-1 block"></span>
+                        </div>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-6 border-t border-gray-200 dark:border-gray-700">
+                        <a href="/Admin/Booking/Index"
+                           class="inline-flex items-center justify-center gap-2 border border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-text-main dark:text-gray-300 hover:text-text-main dark:hover:text-white font-medium py-3 px-6 rounded-lg transition-all duration-200">
+                            <span class="material-symbols-outlined">close</span>
+                            Vazgeç
+                        </a>
+                        <button type="submit"
+                                class="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white font-medium py-3 px-6 rounded-lg shadow-soft hover:shadow-card transition-all duration-200">
+                            <span class="material-symbols-outlined">save</span>
+                            Rezervasyonu Güncelle
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Info Card -->
+        <div class="lg:col-span-1">
+            <div class="bg-gradient-to-br from-primary/5 to-primary/10 border border-primary/20 rounded-2xl p-6">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary">lightbulb</span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-text-main dark:text-white">Rezervasyon İpuçları</h3>
+                </div>
+
+                <ul class="space-y-3">
+                    <li class="flex items-start gap-2">
+                        <span class="material-symbols-outlined text-primary text-sm mt-0.5">check_circle</span>
+                        <span class="text-sm text-text-sub dark:text-gray-300">Tarihlerin doğruluğunu kontrol edin</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="material-symbols-outlined text-primary text-sm mt-0.5">check_circle</span>
+                        <span class="text-sm text-text-sub dark:text-gray-300">Misafir iletişim bilgilerini güncelleyin</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="material-symbols-outlined text-primary text-sm mt-0.5">check_circle</span>
+                        <span class="text-sm text-text-sub dark:text-gray-300">Durum değişikliklerini dikkatli yapın</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="material-symbols-outlined text-primary text-sm mt-0.5">check_circle</span>
+                        <span class="text-sm text-text-sub dark:text-gray-300">Özel istekleri detaylı not alın</span>
+                    </li>
+                </ul>
+
+                <div class="mt-6 p-4 bg-white/50 dark:bg-gray-800/50 rounded-lg">
+                    <h4 class="text-sm font-semibold text-text-main dark:text-white mb-2">Hızlı İşlemler</h4>
+                    <div class="space-y-2">
+                        <a href="/Admin/Booking/ApprovedReservation2/@Model.Id"
+                           class="inline-flex items-center justify-center gap-2 bg-green-100 hover:bg-green-200 text-green-800 dark:bg-green-900/30 dark:text-green-400 dark:hover:bg-green-900/50 w-full py-2 px-3 rounded-lg text-sm font-medium transition-all duration-200">
+                            <span class="material-symbols-outlined text-sm">check</span>
+                            Hemen Onayla
+                        </a>
+                        <a href="/Admin/Booking/CancelReservation/@Model.Id"
+                           class="inline-flex items-center justify-center gap-2 bg-red-100 hover:bg-red-200 text-red-800 dark:bg-red-900/30 dark:text-red-400 dark:hover:bg-red-900/50 w-full py-2 px-3 rounded-lg text-sm font-medium transition-all duration-200">
+                            <span class="material-symbols-outlined text-sm">close</span>
+                            Hemen İptal Et
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="form-group mb-3">
-        <label>Misafir Mail Adresi</label>
-        <input type="email" asp-for="Mail" class="form-control" />
-    </div>
-    <div class="form-group mb-3">
-        <label>Misafir Giriş Tarihi</label>
-        <input type="date" asp-for="Checkin" class="form-control" />
-    </div>
-    <div class="form-group mb-3">
-        <label>Misafir Çıkış Tarihi</label>
-        <input type="date" asp-for="CheckOut" class="form-control" />
-    </div>
-    <div class="form-group mb-3">
-        <label>Yetişkin Sayısı</label>
-        <input type="text" asp-for="AdultCount" class="form-control" />
-    </div>
-    <div class="form-group mb-3">
-        <label>Çocuk Sayısı</label>
-        <input type="text" asp-for="ChildCount" class="form-control" />
-    </div>
-    <div class="form-group mb-3">
-        <label>Oda Sayısı</label>
-        <input type="text" asp-for="RoomCount" class="form-control" />
-    </div>
-    <div class="form-group mb-3">
-        <label>Şehir</label>
-        <input type="text" asp-for="City" class="form-control" />
-    </div>
-    <div class="form-group mb-3">
-        <label>Ülke</label>
-        <input type="text" asp-for="Country" class="form-control" />
-    </div>
-    <div class="form-group mb-3">
-        <label>Durum</label>
-        <input type="text" asp-for="Status" class="form-control" />
-    </div>
-    <div class="form-group mb-3">
-        <label>Özel İstekler</label>
-        <textarea class="form-control" rows="4" asp-for="SpecialRequest"></textarea>
-    </div>
-    <div class="form-group mb-4">
-        <label>Açıklama</label>
-        <textarea class="form-control" rows="4" asp-for="Description"></textarea>
-    </div>
-    <button class="btn btn-primary">Rezervasyonu Güncelle</button>
-    <a href="/Admin/Booking/Index" class="btn btn-outline-secondary ml-2">Vazgeç</a>
-</form>
+</div>

@@ -1,76 +1,201 @@
-﻿
-@model CreateSendMessageDto
+﻿@model CreateSendMessageDto
 @{
-    ViewData["Title"] = "SendMessage";
+    ViewData["Title"] = "Yeni Mesaj";
+    ViewData["Description"] = "Yeni mesaj oluştur ve gönder";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-
-<div class="email-left-box">
-    <a href="email-compose.html" class="btn btn-primary btn-block">Yeni Mesaj Oluştur</a>
-    @await Component.InvokeAsync("_ContactSideBar")
-    <h5 class="mt-5 m-b-10">Categories</h5>
-    @await Component.InvokeAsync("_ContactSideBarCategory")
-</div>
-<div class="email-right-box">
-    <div class="toolbar" role="toolbar">
-        <div class="btn-group m-b-20">
-            <button type="button" class="btn btn-light">
-                <i class="fa fa-archive"></i>
-            </button>
-            <button type="button" class="btn btn-light">
-                <i class="fa fa-exclamation-circle"></i>
-            </button>
-            <button type="button" class="btn btn-light">
-                <i class="fa fa-trash"></i>
-            </button>
+<div class="flex flex-col space-y-6">
+    <!-- Page Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between">
+        <div>
+            <h1 class="text-2xl font-bold text-text-main dark:text-white">Yeni Mesaj</h1>
+            <p class="text-text-sub dark:text-gray-400 mt-1">Yeni bir mesaj oluşturun ve gönderin.</p>
         </div>
-        <div class="btn-group m-b-20">
-            <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown">
-                <i class="fa fa-folder"></i>  <b class="caret m-l-5"></b>
-            </button>
-            <div class="dropdown-menu">
-                <span class="dropdown-header">Taşı</span>  <a class="dropdown-item" href="javascript: void(0);">Social</a>  <a class="dropdown-item" href="javascript: void(0);">Promosyon</a>  <a class="dropdown-item" href="javascript: void(0);">Güncellem</a>
-                <a class="dropdown-item" href="javascript: void(0);">Forum</a>
-            </div>
-        </div>
-        <div class="btn-group m-b-20">
-            <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown">
-                <i class="fa fa-tag"></i>  <b class="caret m-l-5"></b>
-            </button>
-            <div class="dropdown-menu">
-                <span class="dropdown-header">Kategoriler:</span>  <a class="dropdown-item" href="javascript: void(0);">Updates</a>  <a class="dropdown-item" href="javascript: void(0);">Sosyak</a>  <a class="dropdown-item" href="javascript: void(0);">Promosyon</a>
-                <a class="dropdown-item" href="javascript: void(0);">Forum</a>
-            </div>
-        </div>
-        <div class="btn-group m-b-20">
-            <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown">
-                Daha Fazla <span class="caret m-l-5"></span>
-            </button>
-            <div class="dropdown-menu">
-                <span class="dropdown-header">More Option :</span>  <a class="dropdown-item" href="javascript: void(0);">Mark as Unread</a>  <a class="dropdown-item" href="javascript: void(0);">Add to Tasks</a>  <a class="dropdown-item"
-                                                                                                                                                                                                                       href="javascript: void(0);">Add Star</a>  <a class="dropdown-item" href="javascript: void(0);">Mute</a>
-            </div>
-        </div>
+        <a href="/Admin/Contact/Inbox/"
+           class="inline-flex items-center justify-center gap-2 border border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-text-main dark:text-gray-300 hover:text-text-main dark:hover:text-white font-medium py-3 px-5 rounded-lg transition-all duration-200 mt-4 sm:mt-0">
+            <span class="material-symbols-outlined text-sm">arrow_back</span>
+            Gelen Kutusu
+        </a>
     </div>
-    <div class="compose-content mt-5">
-        <form method="post">
-            <div class="form-group">
-                <input type="text" class="form-control bg-transparent" asp-for="ReceiverMail" placeholder=" Alıcı Mail Adresi">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control bg-transparent" asp-for="Title" placeholder=" Konu">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control bg-transparent" asp-for="ReceiverName" placeholder=" Alıcı Adı Soyadı">
-            </div>
-            <div class="form-group">
-                <textarea class="textarea_editor form-control bg-light" rows="15" placeholder="Mesajınızı Yazınız..." asp-for="Content"></textarea>
-            </div>
 
-            <div class="text-left m-t-15">
-                <button class="btn btn-primary m-b-30 m-t-15 f-s-14 p-l-20 p-r-20 m-r-10"><i class="fa fa-paper-plane m-r-5"></i> Gönder</button>
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <!-- Sidebar -->
+        <div class="lg:col-span-1">
+            <div class="bg-surface-light dark:bg-surface-dark rounded-2xl shadow-card p-5">
+                <!-- Quick Actions -->
+                <div class="space-y-3 mb-6">
+                    <button class="w-full flex items-center gap-3 p-3 rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-all duration-200">
+                        <span class="material-symbols-outlined">edit</span>
+                        <span class="font-medium">Yeni Mesaj</span>
+                    </button>
+                    <a href="/Admin/Contact/Inbox/"
+                       class="flex items-center gap-3 p-3 rounded-lg text-text-main dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200">
+                        <span class="material-symbols-outlined">inbox</span>
+                        <span class="font-medium">Gelen Kutusu</span>
+                    </a>
+                    <a href="/Admin/Contact/Sendbox/"
+                       class="flex items-center gap-3 p-3 rounded-lg text-text-main dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200">
+                        <span class="material-symbols-outlined">send</span>
+                        <span class="font-medium">Giden Kutusu</span>
+                    </a>
+                </div>
+
+                <!-- Quick Contacts -->
+                <div>
+                    <h3 class="text-sm font-semibold text-text-main dark:text-white mb-3 uppercase tracking-wider">Hızlı Kişiler</h3>
+                    <div class="space-y-2">
+                        <button type="button" class="w-full text-left flex items-center gap-2 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                            <div class="w-8 h-8 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
+                                <span class="material-symbols-outlined text-blue-600 dark:text-blue-400 text-sm">person</span>
+                            </div>
+                            <div class="text-sm">
+                                <div class="font-medium text-text-main dark:text-white">Ahmet Yılmaz</div>
+                                <div class="text-xs text-text-sub dark:text-gray-400">ahmet@example.com</div>
+                            </div>
+                        </button>
+                        <button type="button" class="w-full text-left flex items-center gap-2 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                            <div class="w-8 h-8 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center">
+                                <span class="material-symbols-outlined text-green-600 dark:text-green-400 text-sm">person</span>
+                            </div>
+                            <div class="text-sm">
+                                <div class="font-medium text-text-main dark:text-white">Mehmet Demir</div>
+                                <div class="text-xs text-text-sub dark:text-gray-400">mehmet@example.com</div>
+                            </div>
+                        </button>
+                        <button type="button" class="w-full text-left flex items-center gap-2 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                            <div class="w-8 h-8 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center">
+                                <span class="material-symbols-outlined text-purple-600 dark:text-purple-400 text-sm">person</span>
+                            </div>
+                            <div class="text-sm">
+                                <div class="font-medium text-text-main dark:text-white">Ayşe Kaya</div>
+                                <div class="text-xs text-text-sub dark:text-gray-400">ayse@example.com</div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tips -->
+                <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                    <h3 class="text-sm font-semibold text-text-main dark:text-white mb-3">İpuçları</h3>
+                    <ul class="space-y-2 text-xs text-text-sub dark:text-gray-400">
+                        <li class="flex items-start gap-2">
+                            <span class="material-symbols-outlined text-primary text-sm mt-0.5">check_circle</span>
+                            <span>Birden fazla alıcı için virgül kullanın</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="material-symbols-outlined text-primary text-sm mt-0.5">check_circle</span>
+                            <span>Önemli mesajları yıldızla işaretleyin</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="material-symbols-outlined text-primary text-sm mt-0.5">check_circle</span>
+                            <span>Dosya eklemek için ataç simgesini kullanın</span>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </form>
+        </div>
+
+        <!-- Compose Form -->
+        <div class="lg:col-span-3">
+            <div class="bg-surface-light dark:bg-surface-dark rounded-2xl shadow-card overflow-hidden">
+                <!-- Form Header -->
+                <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-primary/5 to-transparent">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center">
+                            <span class="material-symbols-outlined text-primary">edit</span>
+                        </div>
+                        <div>
+                            <h2 class="text-lg font-semibold text-text-main dark:text-white">Yeni Mesaj Oluştur</h2>
+                            <p class="text-sm text-text-sub dark:text-gray-400">Mesajınızı aşağıdaki formu doldurarak gönderin</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Compose Form -->
+                <div class="p-6">
+                    <form method="post" class="space-y-6">
+                        <!-- Recipient Info -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-text-main dark:text-gray-300 mb-2">
+                                    <span class="material-symbols-outlined text-sm align-middle mr-1">person</span>
+                                    Alıcı Adı Soyadı
+                                </label>
+                                <input type="text" asp-for="ReceiverName"
+                                       class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-text-main dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-200"
+                                       placeholder="Alıcının adı soyadı" />
+                                <span asp-validation-for="ReceiverName" class="text-sm text-red-500 mt-1 block"></span>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-text-main dark:text-gray-300 mb-2">
+                                    <span class="material-symbols-outlined text-sm align-middle mr-1">mail</span>
+                                    Alıcı E-posta Adresi
+                                </label>
+                                <input type="email" asp-for="ReceiverMail"
+                                       class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-text-main dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-200"
+                                       placeholder="ornek@email.com" />
+                                <span asp-validation-for="ReceiverMail" class="text-sm text-red-500 mt-1 block"></span>
+                            </div>
+                        </div>
+
+                        <!-- Subject -->
+                        <div>
+                            <label class="block text-sm font-medium text-text-main dark:text-gray-300 mb-2">
+                                <span class="material-symbols-outlined text-sm align-middle mr-1">title</span>
+                                Konu
+                            </label>
+                            <input type="text" asp-for="Title"
+                                   class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-text-main dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-200"
+                                   placeholder="Mesaj konusu" />
+                            <span asp-validation-for="Title" class="text-sm text-red-500 mt-1 block"></span>
+                        </div>
+
+                        <!-- Message Content -->
+                        <div>
+                            <label class="block text-sm font-medium text-text-main dark:text-gray-300 mb-2">
+                                <span class="material-symbols-outlined text-sm align-middle mr-1">description</span>
+                                Mesaj İçeriği
+                            </label>
+                            <textarea asp-for="Content" rows="12"
+                                      class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-text-main dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-200 resize-y"
+                                      placeholder="Mesajınızı buraya yazın..."></textarea>
+                            <span asp-validation-for="Content" class="text-sm text-red-500 mt-1 block"></span>
+                        </div>
+
+                        <!-- Attachment & Actions -->
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-6 border-t border-gray-200 dark:border-gray-700">
+                            <div class="flex items-center gap-2">
+                                <button type="button" class="p-2 text-gray-500 hover:text-primary rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                                    <span class="material-symbols-outlined">attach_file</span>
+                                </button>
+                                <button type="button" class="p-2 text-gray-500 hover:text-primary rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                                    <span class="material-symbols-outlined">insert_photo</span>
+                                </button>
+                                <button type="button" class="p-2 text-gray-500 hover:text-primary rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                                    <span class="material-symbols-outlined">link</span>
+                                </button>
+                                <div class="text-xs text-text-sub dark:text-gray-400 ml-2">
+                                    Maksimum dosya boyutu: 10MB
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <button type="button"
+                                        class="inline-flex items-center justify-center gap-2 border border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-text-main dark:text-gray-300 hover:text-text-main dark:hover:text-white font-medium py-2.5 px-5 rounded-lg transition-all duration-200">
+                                    <span class="material-symbols-outlined">draft</span>
+                                    Taslak Olarak Kaydet
+                                </button>
+                                <button type="submit"
+                                        class="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white font-medium py-2.5 px-5 rounded-lg shadow-soft hover:shadow-card transition-all duration-200">
+                                    <span class="material-symbols-outlined">send</span>
+                                    Gönder
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

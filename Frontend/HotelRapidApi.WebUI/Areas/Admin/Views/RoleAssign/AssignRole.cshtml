@@ -1,24 +1,101 @@
 ﻿@using HotelRapidApi.WebUI.Models
 @model List<RoleAssignViewModel>
-
 @{
-
     ViewData["Title"] = "Rol Ata";
+    ViewData["Description"] = "Kullanıcıya rol atayın";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+    var userId = ViewContext.RouteData.Values["id"]?.ToString();
+    var userName = ViewBag.userName;
 }
 
-<form method="post">
-    @for (int i = 0; i < Model.Count; i++)
-    {
-        <div class="form-check mb-2">
-            <input type="hidden" asp-for="@Model[i].RoleId" />
-            <input type="hidden" asp-for="@Model[i].RoleName" />
-            <input type="checkbox" asp-for="@Model[i].RoleExist" class="form-check-input" />
-            <label class="form-check-label" for="@Model[i].RoleExist">@Model[i].RoleName</label>
+<div class="flex flex-col space-y-6">
+    <!-- Page Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between">
+        <div>
+            <h1 class="text-2xl font-bold text-text-main dark:text-white">Rol Ata</h1>
+            <p class="text-text-sub dark:text-gray-400 mt-1">Kullanıcıya rol atamak için aşağıdaki formu kullanın.</p>
         </div>
-    }
-    <div class="mt-4">
-    <button class="btn btn-success">Kullanıcı İçin Rolleri Güncelle</button>
-        <a href="/Admin/RoleAssign/Index" class="btn btn-outline-secondary ml-2">Vazgeç</a>
+        <a href="/Admin/RoleAssign/Index"
+           class="inline-flex items-center justify-center gap-2 border border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-text-main dark:text-gray-300 hover:text-text-main dark:hover:text-white font-medium py-3 px-5 rounded-lg transition-all duration-200 mt-4 sm:mt-0">
+            <span class="material-symbols-outlined text-sm">arrow_back</span>
+            Listeye Dön
+        </a>
     </div>
-</form>
+
+    <!-- User Info -->
+    <div class="bg-gradient-to-r from-blue-50 to-transparent dark:from-blue-900/10 p-6 rounded-2xl">
+        <div class="flex items-center gap-4">
+            <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
+                <span class="material-symbols-outlined text-primary text-2xl">person</span>
+            </div>
+            <div>
+                <h2 class="text-xl font-bold text-text-main dark:text-white">@userName</h2>
+                <p class="text-text-sub dark:text-gray-400">Kullanıcı ID: #@userId</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Role Assignment Form -->
+    <div class="bg-surface-light dark:bg-surface-dark rounded-2xl shadow p-6">
+        <div class="flex items-center gap-3 mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
+            <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
+                <span class="material-symbols-outlined text-primary">admin_panel_settings</span>
+            </div>
+            <div>
+                <h2 class="text-lg font-semibold text-text-main dark:text-white">Rol Atama Formu</h2>
+                <p class="text-sm text-text-sub dark:text-gray-400">Kullanıcı için uygun rolleri seçin</p>
+            </div>
+        </div>
+
+        <form method="post" class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <div class="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-4">
+                        <label class="flex items-start gap-3 cursor-pointer">
+                            <input type="hidden" asp-for="@Model[i].RoleId" />
+                            <input type="hidden" asp-for="@Model[i].RoleName" />
+                            <input type="checkbox" asp-for="@Model[i].RoleExist"
+                                   class="mt-1 rounded border-gray-300 text-primary focus:ring-primary/20" />
+                            <div class="flex-1">
+                                <div class="font-medium text-text-main dark:text-white mb-1">@Model[i].RoleName</div>
+                                <div class="text-xs text-text-sub dark:text-gray-400">
+                                    @(Model[i].RoleExist ? "✓ Atanmış" : "Atanmamış")
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                }
+            </div>
+
+            @if (!Model.Any())
+            {
+                <div class="text-center py-8">
+                    <div class="w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="material-symbols-outlined text-gray-400 dark:text-gray-500">security</span>
+                    </div>
+                    <h3 class="text-lg font-medium text-text-main dark:text-white mb-2">Henüz rol bulunmuyor</h3>
+                    <p class="text-text-sub dark:text-gray-400">Önce sistemde rol oluşturmalısınız.</p>
+                </div>
+            }
+
+            <!-- Form Actions -->
+            <div class="flex items-center justify-between gap-4 pt-6 border-t border-gray-200 dark:border-gray-700">
+                <a href="/Admin/RoleAssign/Index"
+                   class="inline-flex items-center justify-center gap-2 border border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-text-main dark:text-gray-300 hover:text-text-main dark:hover:text-white font-medium py-3 px-6 rounded-lg transition-all duration-200">
+                    <span class="material-symbols-outlined">close</span>
+                    İptal
+                </a>
+                @if (Model.Any())
+                {
+                    <button type="submit"
+                            class="inline-flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-6 rounded-lg transition-all duration-200">
+                        <span class="material-symbols-outlined">check</span>
+                        Rolleri Güncelle
+                    </button>
+                }
+            </div>
+        </form>
+    </div>
+</div>

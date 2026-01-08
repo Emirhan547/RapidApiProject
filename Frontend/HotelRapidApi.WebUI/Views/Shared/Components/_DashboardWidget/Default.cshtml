@@ -1,50 +1,337 @@
-﻿<div class="row">
-    <div class="col-lg-3 col-sm-6">
-        <div class="card gradient-1">
-            <div class="card-body">
-                <h3 class="card-title text-white">Personel Sayısı</h3>
-                <div class="d-inline-block">
-                    <h2 class="text-white">@ViewBag.staffCount</h2>
-                    <p class="text-white mb-0">@DateTime.Now.ToString("MMMM") - @DateTime.Now.Year</p>
+﻿@* _DashboardWidget/Default.cshtml *@
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+    <!-- Sol: Hızlı İşlemler ve Kısa İstatistikler -->
+    <div class="bg-surface-light dark:bg-surface-dark rounded-2xl shadow p-6">
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="text-lg font-semibold text-text-main dark:text-white">Hızlı İşlemler</h2>
+            <span class="material-symbols-outlined text-text-sub dark:text-gray-400">bolt</span>
+        </div>
+
+        <!-- Hızlı İşlem Butonları -->
+        <div id="quickActionsContainer" class="grid grid-cols-2 gap-3 mb-6">
+            <!-- JavaScript ile doldurulacak -->
+        </div>
+
+        <!-- Kısa İstatistikler -->
+        <div class="grid grid-cols-2 gap-4">
+            <div class="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-text-sub dark:text-gray-400">Bugünkü Rezervasyon</p>
+                        <h3 class="text-xl font-bold text-text-main dark:text-white mt-1">12</h3>
+                    </div>
+                    <span class="material-symbols-outlined text-blue-500 dark:text-blue-400">
+                        trending_up
+                    </span>
                 </div>
-                <span class="float-right display-5 opacity-5"><i class="fa fa-shopping-cart"></i></span>
+                <div class="text-xs text-green-600 dark:text-green-400 mt-2">
+                    <span>+%15</span> dün ile karşılaştırıldığında
+                </div>
+            </div>
+
+            <div class="bg-green-50 dark:bg-green-900/20 rounded-xl p-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-text-sub dark:text-gray-400">Müsait Oda</p>
+                        <h3 class="text-xl font-bold text-text-main dark:text-white mt-1">24</h3>
+                    </div>
+                    <span class="material-symbols-outlined text-green-500 dark:text-green-400">
+                        hotel
+                    </span>
+                </div>
+                <div class="text-xs text-red-600 dark:text-red-400 mt-2">
+                    <span>-%5</span> dün ile karşılaştırıldığında
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-lg-3 col-sm-6">
-        <div class="card gradient-2">
-            <div class="card-body">
-                <h3 class="card-title text-white">Rezervasyon Sayısı</h3>
-                <div class="d-inline-block">
-                    <h2 class="text-white">@ViewBag.bookingCount</h2>
-                    <p class="text-white mb-0">@DateTime.Now.ToString("MMMM") - @DateTime.Now.Year</p>
-                </div>
-                <span class="float-right display-5 opacity-5"><i class="fa fa-money"></i></span>
-            </div>
+
+    <!-- Sağ: Son Aktivite -->
+    <div class="bg-surface-light dark:bg-surface-dark rounded-2xl shadow p-6">
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="text-lg font-semibold text-text-main dark:text-white">Son Aktivite</h2>
+            <a href="/Admin/ActivityLog" class="text-sm text-primary hover:text-primary-dark">Tümünü Gör</a>
         </div>
-    </div>
-    <div class="col-lg-3 col-sm-6">
-        <div class="card gradient-3">
-            <div class="card-body">
-                <h3 class="card-title text-white">Toplam Müşteri Sayısı</h3>
-                <div class="d-inline-block">
-                    <h2 class="text-white">@ViewBag.appUserCount</h2>
-                    <p class="text-white mb-0">@DateTime.Now.ToString("MMMM") - @DateTime.Now.Year</p>
+
+        <div class="space-y-4">
+            <!-- Activity 1 -->
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center">
+                    <span class="material-symbols-outlined text-green-600 dark:text-green-400">
+                        check_circle
+                    </span>
                 </div>
-                <span class="float-right display-5 opacity-5"><i class="fa fa-users"></i></span>
+                <div class="flex-1">
+                    <p class="text-sm font-medium text-text-main dark:text-white">Yeni rezervasyon onaylandı</p>
+                    <p class="text-xs text-text-sub dark:text-gray-400">Ahmet Yılmaz, Oda #101</p>
+                </div>
+                <span class="text-xs text-text-sub dark:text-gray-400">5 dk önce</span>
             </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-sm-6">
-        <div class="card gradient-4">
-            <div class="card-body">
-                <h3 class="card-title text-white">Toplam Oda Sayısı</h3>
-                <div class="d-inline-block">
-                    <h2 class="text-white">@ViewBag.roomCount</h2>
-                    <p class="text-white mb-0">@DateTime.Now.ToString("MMMM") - @DateTime.Now.Year</p>
+
+            <!-- Activity 2 -->
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center">
+                    <span class="material-symbols-outlined text-blue-600 dark:text-blue-400">
+                        person_add
+                    </span>
                 </div>
-                <span class="float-right display-5 opacity-5"><i class="fa fa-heart"></i></span>
+                <div class="flex-1">
+                    <p class="text-sm font-medium text-text-main dark:text-white">Yeni personel eklendi</p>
+                    <p class="text-xs text-text-sub dark:text-gray-400">Ayşe Demir, Resepsiyon</p>
+                </div>
+                <span class="text-xs text-text-sub dark:text-gray-400">15 dk önce</span>
+            </div>
+
+            <!-- Activity 3 -->
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center">
+                    <span class="material-symbols-outlined text-purple-600 dark:text-purple-400">
+                        mail
+                    </span>
+                </div>
+                <div class="flex-1">
+                    <p class="text-sm font-medium text-text-main dark:text-white">Yeni mesaj alındı</p>
+                    <p class="text-xs text-text-sub dark:text-gray-400">Mehmet Kaya'dan</p>
+                </div>
+                <span class="text-xs text-text-sub dark:text-gray-400">30 dk önce</span>
+            </div>
+
+            <!-- Activity 4 -->
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-orange-100 dark:bg-orange-900/30 rounded-lg flex items-center justify-center">
+                    <span class="material-symbols-outlined text-orange-600 dark:text-orange-400">
+                        star
+                    </span>
+                </div>
+                <div class="flex-1">
+                    <p class="text-sm font-medium text-text-main dark:text-white">Yeni referans eklendi</p>
+                    <p class="text-xs text-text-sub dark:text-gray-400">Zeynep Şahin tarafından</p>
+                </div>
+                <span class="text-xs text-text-sub dark:text-gray-400">1 saat önce</span>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Orta: Aylık Grafik -->
+<div class="bg-surface-light dark:bg-surface-dark rounded-2xl shadow p-6 mb-6">
+    <div class="flex items-center justify-between mb-6">
+        <div>
+            <h2 class="text-lg font-semibold text-text-main dark:text-white">Aylık Rezervasyon İstatistikleri</h2>
+            <p class="text-sm text-text-sub dark:text-gray-400 mt-1">@DateTime.Now.ToString("MMMM yyyy")</p>
+        </div>
+        <div class="flex items-center gap-2">
+            <button class="px-3 py-1 text-sm bg-primary text-white rounded-lg">Bu Ay</button>
+            <button class="px-3 py-1 text-sm bg-gray-100 dark:bg-gray-800 text-text-main dark:text-gray-300 rounded-lg">Geçen Ay</button>
+        </div>
+    </div>
+
+    <!-- Basit Chart Container (Gerçek chart için Chart.js veya başka bir kütüphane eklenebilir) -->
+    <div class="h-64 flex items-end gap-2 pt-4">
+        @{
+            var monthlyData = new int[] { 65, 59, 80, 81, 56, 55, 40, 70, 85, 90, 75, 65 };
+            var maxValue = monthlyData.Max();
+        }
+
+        @foreach (var value in monthlyData)
+        {
+            var heightPercentage = (value * 100) / maxValue;
+            <div class="flex-1 flex flex-col items-center">
+                <div class="w-full bg-gradient-to-t from-blue-500 to-blue-600 rounded-t-lg"
+                     style="height: @(heightPercentage)%"></div>
+                <span class="text-xs text-text-sub dark:text-gray-400 mt-2">@value</span>
+            </div>
+        }
+    </div>
+
+    <!-- Aylar -->
+    <div class="flex justify-between mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+        @{
+            var months = new string[] { "Oca", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Ağu", "Eyl", "Eki", "Kas", "Ara" };
+        }
+        @foreach (var month in months)
+        {
+            <span class="text-xs text-text-sub dark:text-gray-400">@month</span>
+        }
+    </div>
+</div>
+
+<!-- Alt: Duyurular ve Sistem Durumu -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <!-- Sol: Duyurular -->
+    <div class="bg-surface-light dark:bg-surface-dark rounded-2xl shadow p-6">
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="text-lg font-semibold text-text-main dark:text-white">Duyurular</h2>
+            <span class="material-symbols-outlined text-text-sub dark:text-gray-400">campaign</span>
+        </div>
+
+        <div class="space-y-4">
+            <div class="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4">
+                <div class="flex items-start gap-3">
+                    <span class="material-symbols-outlined text-blue-500 dark:text-blue-400">info</span>
+                    <div>
+                        <h4 class="font-medium text-text-main dark:text-white">Sistem Bakımı</h4>
+                        <p class="text-sm text-text-sub dark:text-gray-400 mt-1">
+                            15 Ocak Pazar gecesi 02:00 - 04:00 saatleri arasında sistem bakımı yapılacaktır.
+                        </p>
+                        <span class="text-xs text-text-sub dark:text-gray-400 mt-2 block">2 gün önce</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-green-50 dark:bg-green-900/20 rounded-xl p-4">
+                <div class="flex items-start gap-3">
+                    <span class="material-symbols-outlined text-green-500 dark:text-green-400">celebration</span>
+                    <div>
+                        <h4 class="font-medium text-text-main dark:text-white">Yeni Yıl Kampanyası</h4>
+                        <p class="text-sm text-text-sub dark:text-gray-400 mt-1">
+                            Yeni yıla özel %20 indirim kampanyası başladı. Tüm odalarda geçerlidir.
+                        </p>
+                        <span class="text-xs text-text-sub dark:text-gray-400 mt-2 block">1 hafta önce</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sağ: Sistem Durumu -->
+    <div class="bg-surface-light dark:bg-surface-dark rounded-2xl shadow p-6">
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="text-lg font-semibold text-text-main dark:text-white">Sistem Durumu</h2>
+            <div class="flex items-center gap-2">
+                <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                <span class="text-sm text-green-600 dark:text-green-400">Çalışıyor</span>
+            </div>
+        </div>
+
+        <div class="space-y-4">
+            <!-- Service Status -->
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center">
+                        <span class="material-symbols-outlined text-green-600 dark:text-green-400 text-sm">
+                            check
+                        </span>
+                    </div>
+                    <span class="text-sm font-medium text-text-main dark:text-white">Veritabanı</span>
+                </div>
+                <span class="text-xs px-2 py-1 bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400 rounded-full">Aktif</span>
+            </div>
+
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center">
+                        <span class="material-symbols-outlined text-green-600 dark:text-green-400 text-sm">
+                            check
+                        </span>
+                    </div>
+                    <span class="text-sm font-medium text-text-main dark:text-white">API Servisleri</span>
+                </div>
+                <span class="text-xs px-2 py-1 bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400 rounded-full">Aktif</span>
+            </div>
+
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center">
+                        <span class="material-symbols-outlined text-green-600 dark:text-green-400 text-sm">
+                            check
+                        </span>
+                    </div>
+                    <span class="text-sm font-medium text-text-main dark:text-white">Email Servisi</span>
+                </div>
+                <span class="text-xs px-2 py-1 bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400 rounded-full">Aktif</span>
+            </div>
+
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-yellow-100 dark:bg-yellow-900/30 rounded-lg flex items-center justify-center">
+                        <span class="material-symbols-outlined text-yellow-600 dark:text-yellow-400 text-sm">
+                            schedule
+                        </span>
+                    </div>
+                    <span class="text-sm font-medium text-text-main dark:text-white">Yedekleme</span>
+                </div>
+                <span class="text-xs px-2 py-1 bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400 rounded-full">Devam Ediyor</span>
+            </div>
+        </div>
+
+        <!-- Sistem Bilgileri -->
+        <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <p class="text-xs text-text-sub dark:text-gray-400">Sistem Sürümü</p>
+                    <p class="text-sm font-medium text-text-main dark:text-white">v2.1.0</p>
+                </div>
+                <div>
+                    <p class="text-xs text-text-sub dark:text-gray-400">Son Güncelleme</p>
+                    <p class="text-sm font-medium text-text-main dark:text-white">@DateTime.Now.AddDays(-3).ToString("dd.MM.yyyy")</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript for Dashboard Widget -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Chart data için mock data
+        const chartData = {
+            labels: ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara'],
+            datasets: [{
+                label: 'Rezervasyon Sayısı',
+                data: [65, 59, 80, 81, 56, 55, 40, 70, 85, 90, 75, 65],
+                backgroundColor: 'rgba(59, 130, 246, 0.5)',
+                borderColor: 'rgb(59, 130, 246)',
+                borderWidth: 1
+            }]
+        };
+
+        // Chart.js implementasyonu için hazırlık
+        // Bu kısım Chart.js kütüphanesi eklendiğinde aktif edilebilir
+        /*
+        const ctx = document.getElementById('monthlyChart').getContext('2d');
+        const monthlyChart = new Chart(ctx, {
+            type: 'bar',
+            data: chartData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        */
+
+        // Quick actions butonlarına hover efekti
+        const quickActionBtns = document.querySelectorAll('.quick-action-btn');
+        quickActionBtns.forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-2px)';
+                this.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
+            });
+
+            btn.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = 'none';
+            });
+        });
+
+        // Sistem durumu güncelleme
+        function updateSystemStatus() {
+            // Bu kısım API'den sistem durumunu kontrol edebilir
+            console.log('System status updated');
+        }
+
+        // Her 30 saniyede bir sistem durumunu güncelle
+        setInterval(updateSystemStatus, 30000);
+    });
+</script>

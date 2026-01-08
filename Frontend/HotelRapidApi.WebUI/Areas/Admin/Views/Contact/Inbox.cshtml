@@ -1,53 +1,174 @@
 ﻿@using HotelRapidApi.DtoLayer.DTOs.ContactMessageDtos
 @model List<ResultContactMessageDto>
 @{
-    ViewData["Title"] = "Inbox";
+    ViewData["Title"] = "Gelen Kutusu";
+    ViewData["Description"] = "Gelen mesajları görüntüle ve yönet";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div class="email-left-box">
-    <a href="/Admin/Contact/SendMessage/" class="btn btn-primary btn-block">Yeni Mesaj Oluştur</a>
-
-    <div class="mail-list mt-4">
-        <a href="/Admin/Contact/Inbox/" class="list-group-item border-0 text-primary p-r-0"><i class="fa fa-inbox font-18 align-middle mr-2"></i> <b>Gelen Kutusu</b> <span class="badge badge-primary badge-sm float-right m-t-5">@ViewBag.contactCount</span> </a>
-
-        <a href="/Admin/Contact/Sendbox/" class="list-group-item border-0 text-info p-r-0"><i class="fa fa-paper-plane font-18 align-middle mr-2"></i><b> Giden Kutusu</b><span class="badge badge-info badge-sm float-right m-t-5">@ViewBag.sendMessageCount</span> </a>
-
-        <a href="#" class="list-group-item border-0 text-danger p-r-0"><i class="fa fa-star-o font-18 align-middle mr-2"></i><b> Önemli</b> <span class="badge badge-danger badge-sm float-right m-t-5">50</span> </a>
-
-        <a href="#" class="list-group-item border-0 text-warning p-r-0"><i class="mdi mdi-file-document-box font-18 align-middle mr-2"></i><b>Taslaklar</b> <span class="badge badge-warning badge-sm float-right m-t-5">18</span> </a>
-
-        <a href="#" class="list-group-item border-0 text-dark p-r-0"><i class="fa fa-trash font-18 align-middle mr-2"></i><b>Çöp Kutusu</b><span class="badge badge-dark badge-sm float-right m-t-5">36</span></a>
+<div class="flex flex-col space-y-6">
+    <!-- Page Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between">
+        <div>
+            <h1 class="text-2xl font-bold text-text-main dark:text-white">Gelen Kutusu</h1>
+            <p class="text-text-sub dark:text-gray-400 mt-1">Sistemdeki tüm gelen mesajları buradan yönetebilirsiniz.</p>
+        </div>
+        <a href="/Admin/Contact/SendMessage/"
+           class="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white font-medium py-3 px-5 rounded-lg transition-all duration-200 mt-4 sm:mt-0">
+            <span class="material-symbols-outlined text-sm">edit</span>
+            Yeni Mesaj Oluştur
+        </a>
     </div>
 
-    <h5 class="mt-5 m-b-10">Kategoriler</h5>
-    @await Component.InvokeAsync("_ContactSideBarCategory")
-</div>
-<div class="email-right-box">
-    <div role="toolbar" class="toolbar">
-        <div class="btn-group">
-            <button aria-expanded="false" data-toggle="dropdown" class="btn btn-dark dropdown-toggle" type="button">
-                Gelen Mesajlar <span class="caret m-l-5"></span>
-            </button>
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <!-- Sidebar -->
+        <div class="lg:col-span-1">
+            <div class="bg-surface-light dark:bg-surface-dark rounded-2xl shadow-card p-5">
+                <!-- Mail Actions -->
+                <div class="space-y-3 mb-6">
+                    <a href="/Admin/Contact/Inbox/"
+                       class="flex items-center justify-between p-3 rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-all duration-200">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined">inbox</span>
+                            <span class="font-medium">Gelen Kutusu</span>
+                        </div>
+                        <span class="bg-primary text-white text-xs font-bold px-2 py-1 rounded-full">@ViewBag.contactCount</span>
+                    </a>
+
+                    <a href="/Admin/Contact/Sendbox/"
+                       class="flex items-center justify-between p-3 rounded-lg text-text-main dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined">send</span>
+                            <span class="font-medium">Giden Kutusu</span>
+                        </div>
+                        <span class="bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400 text-xs font-bold px-2 py-1 rounded-full">@ViewBag.sendMessageCount</span>
+                    </a>
+
+                    <a href="#"
+                       class="flex items-center justify-between p-3 rounded-lg text-text-main dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined">star</span>
+                            <span class="font-medium">Önemli</span>
+                        </div>
+                        <span class="bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400 text-xs font-bold px-2 py-1 rounded-full">50</span>
+                    </a>
+                </div>
+
+                <!-- Categories -->
+                <div>
+                    <h3 class="text-sm font-semibold text-text-main dark:text-white mb-3 uppercase tracking-wider">Kategoriler</h3>
+                    @await Component.InvokeAsync("_ContactSideBarCategory")
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                    <h3 class="text-sm font-semibold text-text-main dark:text-white mb-3">İstatistikler</h3>
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-text-sub dark:text-gray-400">Toplam Mesaj</span>
+                            <span class="font-medium text-text-main dark:text-white">@ViewBag.contactCount</span>
+                        </div>
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-text-sub dark:text-gray-400">Bugün Gelen</span>
+                            <span class="font-medium text-text-main dark:text-white">@(Model.Count(x => x.Date.Date == DateTime.Today))</span>
+                        </div>
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-text-sub dark:text-gray-400">Okunmamış</span>
+                            <span class="font-medium text-text-main dark:text-white">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Messages List -->
+        <div class="lg:col-span-3">
+            <div class="bg-surface-light dark:bg-surface-dark rounded-2xl shadow-card overflow-hidden">
+                <!-- Toolbar -->
+                <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between">
+                        <h2 class="text-lg font-semibold text-text-main dark:text-white">Mesajlar</h2>
+                        <div class="flex items-center gap-2 mt-2 sm:mt-0">
+                            <div class="relative">
+                                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">search</span>
+                                <input type="text"
+                                       class="pl-10 pr-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                                       placeholder="Mesajlarda ara...">
+                            </div>
+                            <button class="p-2 text-gray-500 hover:text-primary rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+                                <span class="material-symbols-outlined">filter_list</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Messages -->
+                <div class="divide-y divide-gray-200 dark:divide-gray-700">
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var item in Model)
+                        {
+                            <a href="/Admin/Contact/MessageDetailsByInbox/@item.Id"
+                               class="block p-6 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                                <div class="flex items-start gap-4">
+                                    <!-- Avatar -->
+                                    <div class="w-12 h-12 bg-gradient-to-br from-blue-100 to-blue-50 dark:from-blue-900/30 dark:to-blue-800/10 rounded-full flex items-center justify-center">
+                                        <span class="material-symbols-outlined text-blue-600 dark:text-blue-400">person</span>
+                                    </div>
+
+                                    <!-- Content -->
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex items-center justify-between mb-1">
+                                            <div class="flex items-center gap-2">
+                                                <span class="font-medium text-text-main dark:text-white truncate">@item.Name</span>
+                                                <span class="text-xs text-text-sub dark:text-gray-400 truncate">@item.Mail</span>
+                                            </div>
+                                            <div class="flex items-center gap-3">
+                                                <span class="text-xs text-text-sub dark:text-gray-400 whitespace-nowrap">
+                                                    @(((DateTime)item.Date).ToString("dd.MM.yyyy HH:mm"))
+                                                </span>
+                                                <span class="material-symbols-outlined text-gray-300 dark:text-gray-600 text-sm">chevron_right</span>
+                                            </div>
+                                        </div>
+
+                                        <h4 class="text-base font-semibold text-text-main dark:text-white mb-1 truncate">
+                                            @item.Subject
+                                        </h4>
+
+                                        <p class="text-sm text-text-sub dark:text-gray-400 line-clamp-2">
+                                            @(item.Message.Length > 150 ? item.Message.Substring(0, 150) + "..." : item.Message)
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        }
+                    }
+                    else
+                    {
+                        <div class="p-12 text-center">
+                            <div class="w-20 h-20 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <span class="material-symbols-outlined text-gray-400 dark:text-gray-500 text-3xl">inbox</span>
+                            </div>
+                            <h3 class="text-lg font-medium text-text-main dark:text-white mb-2">Gelen kutunuz boş</h3>
+                            <p class="text-text-sub dark:text-gray-400 mb-6">Gelen mesajlar burada görünecektir.</p>
+                            <a href="/Admin/Contact/SendMessage/"
+                               class="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white font-medium py-2.5 px-5 rounded-lg transition-all duration-200">
+                                <span class="material-symbols-outlined text-sm">edit</span>
+                                İlk Mesajınızı Gönderin
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
         </div>
     </div>
-    <div class="email-list m-t-15">
-        @foreach (var item in Model)
-        {
-            <div class="message">
-                <a href="/Admin/Contact/MessageDetailsByInbox/@item.Id">
-                    <div class="col-mail col-mail-1">
-                        <div class="email-checkbox">
-                            <input type="checkbox" id="chk2">
-                            <label class="toggle" for="chk2"></label>
-                        </div><span class="star-toggle ti-star"></span>
-                    </div>
-                    <div class="col-mail col-mail-2">
-                        <div class="subject">@item.Message.Substring(0, 100)</div>
-                        <div class="date">11:49 am</div>
-                    </div>
-                </a>
-            </div>
-        }
-    </div>
 </div>
+
+<style>
+    .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+</style>
