@@ -75,5 +75,11 @@ namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
             }
             return View();
         }
+        public async Task<IActionResult> DeleteRoom(int id)
+        {
+            var client = _httpClientFactory.CreateClient();
+            await client.DeleteAsync($"http://localhost:5196/api/Abouts/{id}");
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

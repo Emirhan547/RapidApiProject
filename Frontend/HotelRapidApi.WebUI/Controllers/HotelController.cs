@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using HotelRapidApi.WebUI.DTOs.RapidApiDtos;
+﻿using HotelRapidApi.WebUI.DTOs.RapidApiDtos;
+using HotelRapidApi.WebUI.DTOs.RoomDtos;
 using HotelRapidApi.WebUI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace HotelRapidApi.WebUI.Controllers
@@ -22,7 +24,13 @@ namespace HotelRapidApi.WebUI.Controllers
         {
 
             var client = new HttpClient();
-
+            var rooms = new List<ResultRoomDto>();
+            var roomResponse = await client.GetAsync("http://localhost:5196/api/Rooms");
+            if (roomResponse.IsSuccessStatusCode)
+            {
+                var roomJson = await roomResponse.Content.ReadAsStringAsync();
+                rooms = JsonConvert.DeserializeObject<List<ResultRoomDto>>(roomJson) ?? new List<ResultRoomDto>();
+            }
             var url = "https://booking-com15.p.rapidapi.com/api/v1/hotels/searchHotels?dest_id=-2092174&search_type=CITY&arrival_date=2026-01-07&departure_date=2026-01-15&adults=1&children_age=0%2C17&room_qty=1&page_number=1&units=metric&temperature_unit=c&languagecode=en-us&currency_code=TRY&location=TR";
 
             var request = new HttpRequestMessage(HttpMethod.Get, url);
@@ -35,7 +43,7 @@ namespace HotelRapidApi.WebUI.Controllers
             if (!response.IsSuccessStatusCode)
             {
                 Console.WriteLine(json);
-                return View(new HotelListViewModel());
+                return View(new HotelListViewModel { Rooms = rooms });
             }
 
             var root = JObject.Parse(json);
@@ -46,7 +54,7 @@ namespace HotelRapidApi.WebUI.Controllers
             if (hotelArray == null)
             {
                 Console.WriteLine("HOTEL ARRAY NULL");
-                return View(new HotelListViewModel());
+                return View(new HotelListViewModel { Rooms = rooms });
             }
 
             var allHotels = hotelArray
@@ -142,6 +150,7 @@ namespace HotelRapidApi.WebUI.Controllers
             var viewModel = new HotelListViewModel
             {
                 Hotels = pagedHotels,
+                Rooms = rooms,
                 AvailableCurrencies = allHotels
                     .Select(hotel => hotel.Currency)
                     .Where(currencyValue => !string.IsNullOrWhiteSpace(currencyValue))

@@ -24,6 +24,12 @@ namespace HotelRapidApi.WebUI.Controllers
         public async Task<IActionResult> Create(CreateBookingDto createBookingDto)
         {
             createBookingDto.Status = "Onay Bekliyor";
+            createBookingDto.City = string.IsNullOrWhiteSpace(createBookingDto.City)
+               ? "Bilinmiyor"
+               : createBookingDto.City;
+            createBookingDto.Country = string.IsNullOrWhiteSpace(createBookingDto.Country)
+                ? "Bilinmiyor"
+                : createBookingDto.Country;
             var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(createBookingDto);
             StringContent stringContent=new StringContent(jsonData,Encoding.UTF8, "application/json");

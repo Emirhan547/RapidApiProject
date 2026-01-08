@@ -1,4 +1,5 @@
 ﻿using HotelRapidApi.WebUI.DTOs.RapidApiDtos;
+using HotelRapidApi.WebUI.DTOs.RoomDtos;
 
 namespace HotelRapidApi.WebUI.Models
 {
@@ -6,7 +7,7 @@ namespace HotelRapidApi.WebUI.Models
     {
         public List<BookingApiResponseDto> Hotels { get; set; } = new();
         public List<string> AvailableCurrencies { get; set; } = new();
-
+        public List<ResultRoomDto> Rooms { get; set; } = new();
         public string SearchTerm { get; set; }
         public float? MinScore { get; set; }
         public float? MaxScore { get; set; }

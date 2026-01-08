@@ -1,28 +1,36 @@
-﻿﻿@using HotelRapidApi.WebUI.DTOs.ServiceDtos
+﻿﻿﻿@using HotelRapidApi.WebUI.DTOs.ServiceDtos
 @model List<ResultServiceDto>
 <div class="container-xxl py-5">
     <div class="container">
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
             <h6 class="section-title text-center text-primary text-uppercase">Hizmetlerimiz</h6>
-            <h1 class="mb-5">Hizmetlerimizi <span class="text-primary">Tanıyın</span></h1>
+          
+            <h1 class="mb-4">Konforu <span class="text-primary">Deneyimleyin</span></h1>
+            <p class="text-muted mb-5">Sizi özel hissettiren ayrıcalıklı hizmetlerimizi keşfedin.</p>
         </div>
         <div class="row g-4">
-            @foreach(var item in Model)
+
+            @foreach (var item in Model)
             {
                 
-            
-            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-              
-                <a class="service-item rounded-3 shadow-sm h-100" href="#">
-                    <div class="service-icon bg-transparent border rounded-3 p-1">
-                        <div class="w-100 h-100 border rounded-3 d-flex align-items-center justify-content-center">
-                            <i class="@item.ServiceIcon"></i>
+           
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="service-item rounded-4 shadow-sm h-100 p-4 d-flex flex-column">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="service-icon bg-transparent border rounded-3 p-1 me-3">
+                                <div class="w-100 h-100 border rounded-3 d-flex align-items-center justify-content-center">
+                                    <i class="@item.ServiceIcon"></i>
+                                </div>
+                            </div>
+                            <h5 class="mb-0">@item.Title</h5>
                         </div>
+                        <p class="text-body mb-4">@item.Description</p>
+                        <a class="text-primary fw-semibold mt-auto" href="#">
+                            Detayları Gör <i class="fa fa-arrow-right ms-2"></i>
+                        </a>
                     </div>
-                    <h5 class="mb-3">@item.Title</h5>
-                    <p class="text-body mb-0">@item.Description</p>
-                </a>
-            </div>
+                    
+                </div>
             }
         </div>
     </div>

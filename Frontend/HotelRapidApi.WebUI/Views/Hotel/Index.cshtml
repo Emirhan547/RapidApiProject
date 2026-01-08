@@ -11,7 +11,7 @@
      style="background-image: url('/hotel-theme/img/carousel-1.jpg');">
     <div class="container-fluid page-header-inner py-5">
         <div class="container text-center">
-            <h1 class="display-3 text-white mb-3">Tüm Oteller</h1>
+            <h1 class="display-4 text-white mb-3">Tüm Oteller</h1>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb justify-content-center text-uppercase">
                     <li class="breadcrumb-item">
@@ -28,192 +28,222 @@
 
 <div class="container-xxl py-5">
     <div class="container">
-        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-            <h6 class="section-title text-center text-primary text-uppercase">RapidAPI Otelleri</h6>
-            <h1 class="mb-5">Filtrelenebilir <span class="text-primary text-uppercase">Otel Listesi</span></h1>
-            <p class="text-muted">
-                Bu sayfada en fazla 50 otel listelenir ve her sayfada 10 otel gösterilir.
-            </p>
+
+        <!-- TOP BAR -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="h5 mb-0">
+                <span class="text-primary fw-bold">@Model.TotalCount</span> sonuç bulundu
+            </h2>
+
+            <button class="btn btn-outline-primary d-lg-none"
+                    data-bs-toggle="offcanvas"
+                    data-bs-target="#filterSidebar">
+                <i class="fa fa-filter me-1"></i> Filtrele
+            </button>
         </div>
 
-        <div class="row g-4 mb-4">
-            <div class="col-lg-12">
-                <div class="bg-light rounded p-4 shadow-sm">
-                    <h5 class="mb-3 text-primary">Detaylı Filtreleme</h5>
-                    <form method="get" class="row g-3">
-                        <div class="col-lg-4 col-md-6">
-                            <label class="form-label">Otel Adı</label>
-                            <input type="text" class="form-control" name="searchTerm" value="@Model.SearchTerm" placeholder="Örn: Palace, Resort..." />
-                        </div>
-                        <div class="col-lg-2 col-md-3">
-                            <label class="form-label">Min Puan</label>
-                            <input type="number" step="0.1" min="0" max="10" class="form-control" name="minScore" value="@Model.MinScore" />
-                        </div>
-                        <div class="col-lg-2 col-md-3">
-                            <label class="form-label">Max Puan</label>
-                            <input type="number" step="0.1" min="0" max="10" class="form-control" name="maxScore" value="@Model.MaxScore" />
-                        </div>
-                        <div class="col-lg-2 col-md-3">
-                            <label class="form-label">Min Yorum</label>
-                            <input type="number" min="0" class="form-control" name="minReviewCount" value="@Model.MinReviewCount" />
-                        </div>
-                        <div class="col-lg-2 col-md-3">
-                            <label class="form-label">Max Yorum</label>
-                            <input type="number" min="0" class="form-control" name="maxReviewCount" value="@Model.MaxReviewCount" />
-                        </div>
-                        <div class="col-lg-3 col-md-6">
-                            <label class="form-label">Para Birimi</label>
-                            <select class="form-select" name="currency">
-                                <option value="">Tümü</option>
-                                @foreach (var currency in Model.AvailableCurrencies)
-                                {
-                                    <option value="@currency" selected="@(currency == Model.Currency)">
-                                        @currency
-                                    </option>
-                                }
-                            </select>
+        <div class="row">
 
-                        </div>
-                        <div class="col-lg-3 col-md-6">
-                            <label class="form-label">Giriş Tarihi (en erken)</label>
-                            <input type="date" class="form-control" name="checkinFrom" value="@(Model.CheckinFrom?.ToString("yyyy-MM-dd"))" />
-                        </div>
-                        <div class="col-lg-3 col-md-6">
-                            <label class="form-label">Çıkış Tarihi (en geç)</label>
-                            <input type="date" class="form-control" name="checkoutTo" value="@(Model.CheckoutTo?.ToString("yyyy-MM-dd"))" />
-                        </div>
-                        <div class="col-lg-3 col-md-6 d-flex align-items-end gap-2">
-                            <button type="submit" class="btn btn-primary w-100">Filtrele</button>
-                            <a asp-controller="Hotel" asp-action="Index" class="btn btn-outline-secondary w-100">Temizle</a>
-                        </div>
-                    </form>
-                    <div class="mt-3 text-muted">
-                        Toplam sonuç: <strong>@Model.TotalCount</strong>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <!-- FILTER COLUMN -->
+            <div class="col-lg-3 d-none d-lg-block">
+                <div class="filter-sticky">
 
-        <div class="row g-4">
-            @if (Model.Hotels != null && Model.Hotels.Any())
-            {
-                foreach (var hotel in Model.Hotels)
-                {
-                    var imageUrl = !string.IsNullOrEmpty(hotel.ImageUrl)
-                        ? hotel.ImageUrl
-                        : "https://placehold.co/600x400?text=Hotel";
+                    <div class="card border-0 shadow-sm mb-4">
+                        <div class="card-header bg-primary text-white py-3">
+                            <h6 class="mb-0">
+                                <i class="fa fa-filter me-2"></i>Filtrele
+                            </h6>
+                        </div>
 
-                    <div class="col-lg-4 col-md-6">
-                        <div class="room-item shadow rounded overflow-hidden h-100">
-                            <div class="position-relative">
-                                <a asp-controller="Hotel" asp-action="Detail" asp-route-id="@hotel.HotelId">
-                                    <img class="img-fluid" src="@imageUrl" alt="@hotel.Name" />
-                                </a>
-                                <small class="position-absolute start-0 top-100 translate-middle-y
-                                               bg-primary text-white rounded py-1 px-3 ms-4">
-                                    @hotel.ReviewScore.ToString("0.0") @hotel.ReviewScoreWord
-                                </small>
-                            </div>
-                            <div class="p-4 mt-2 d-flex flex-column h-100">
-                                <div class="mb-2">
-                                    <h5 class="mb-0">
-                                        <a asp-controller="Hotel" asp-action="Detail" asp-route-id="@hotel.HotelId"
-                                           class="text-dark text-decoration-none">
-                                            @hotel.Name
-                                        </a>
-                                    </h5>
+                        <div class="card-body">
+                            <form method="get">
+
+                                <div class="mb-3">
+                                    <label class="form-label small fw-semibold">Otel Adı</label>
+                                    <input type="text"
+                                           class="form-control form-control-sm"
+                                           name="searchTerm"
+                                           value="@Model.SearchTerm"
+                                           placeholder="Otel adı..." />
                                 </div>
-                                <p class="text-body mb-3">
-                                    Konaklama tarihleri:<br />
-                                    @hotel.CheckinDate - @hotel.CheckoutDate
-                                </p>
-                                <div class="d-flex justify-content-between mb-3">
-                                    <span class="text-primary">
-                                        @hotel.ReviewCount yorum
-                                    </span>
-                                    <span class="text-muted">
-                                        @hotel.Currency
-                                    </span>
+
+                                <div class="mb-3">
+                                    <label class="form-label small fw-semibold">Puan</label>
+                                    <div class="row g-2">
+                                        <div class="col-6">
+                                            <input type="number" step="0.1"
+                                                   class="form-control form-control-sm"
+                                                   name="minScore"
+                                                   value="@Model.MinScore"
+                                                   placeholder="Min" />
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="number" step="0.1"
+                                                   class="form-control form-control-sm"
+                                                   name="maxScore"
+                                                   value="@Model.MaxScore"
+                                                   placeholder="Max" />
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="mt-auto text-end position-relative" style="z-index: 5;">
-                                    <a asp-controller="Hotel" asp-action="Detail" asp-route-id="@hotel.HotelId"
-                                       class="btn btn-outline-primary btn-sm">
-                                        Detayları Gör
+
+                                <div class="mb-3">
+                                    <label class="form-label small fw-semibold">Yorum Sayısı</label>
+                                    <div class="row g-2">
+                                        <div class="col-6">
+                                            <input type="number"
+                                                   class="form-control form-control-sm"
+                                                   name="minReviewCount"
+                                                   value="@Model.MinReviewCount"
+                                                   placeholder="Min" />
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="number"
+                                                   class="form-control form-control-sm"
+                                                   name="maxReviewCount"
+                                                   value="@Model.MaxReviewCount"
+                                                   placeholder="Max" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label small fw-semibold">Para Birimi</label>
+                                    <select class="form-select form-select-sm" name="currency">
+                                        <option value="">Tümü</option>
+                                        @foreach (var c in Model.AvailableCurrencies)
+                                        {
+                                            <option value="@c" selected="@(c == Model.Currency)">
+                                                @c
+                                            </option>
+                                        }
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label small fw-semibold">Tarih</label>
+                                    <input type="date" class="form-control form-control-sm mb-2"
+                                           name="checkinFrom"
+                                           value="@(Model.CheckinFrom?.ToString("yyyy-MM-dd"))" />
+                                    <input type="date" class="form-control form-control-sm"
+                                           name="checkoutTo"
+                                           value="@(Model.CheckoutTo?.ToString("yyyy-MM-dd"))" />
+                                </div>
+
+                                <div class="d-grid gap-2 mt-3">
+                                    <button class="btn btn-primary btn-sm">
+                                        Filtrele
+                                    </button>
+                                    <a asp-action="Index"
+                                       class="btn btn-outline-secondary btn-sm">
+                                        Temizle
                                     </a>
                                 </div>
-                            </div>
+
+                            </form>
                         </div>
+                    </div>
+
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body small text-muted">
+                            <i class="fa fa-info-circle text-primary me-2"></i>
+                            Filtreler yalnızca RapidAPI sonuçlarını etkiler.
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- CONTENT COLUMN -->
+            <div class="col-lg-9">
+
+                @if (Model.Rooms?.Any() == true)
+                {
+                    <h4 class="text-primary mb-3">
+                        <i class="fa fa-home me-2"></i>Sitemizdeki Odalar
+                    </h4>
+
+                    <div class="row g-4 mb-5">
+                        @foreach (var room in Model.Rooms)
+                        {
+                            <div class="col-xl-4 col-lg-6 col-md-6">
+                                <div class="card border-0 shadow-sm h-100">
+                                    <img src="@room.RoomCoverImage"
+                                         class="card-img-top"
+                                         style="height:220px; object-fit:cover;" />
+
+                                    <div class="card-body d-flex flex-column">
+                                        <h6 class="fw-bold">@room.Title</h6>
+
+                                        <p class="small text-muted flex-grow-1">
+                                            @room.Description
+                                        </p>
+
+                                        <div class="d-flex gap-2">
+                                            <a href="/Hotel/Detail"
+                                               class="btn btn-outline-primary btn-sm flex-fill">
+                                                Detay
+                                            </a>
+                                            <a href="/Booking/Create"
+                                               class="btn btn-primary btn-sm flex-fill">
+                                                Rezervasyon
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
                     </div>
                 }
-            }
-            else
-            {
-                <div class="col-12">
-                    <div class="alert alert-warning text-center mb-0">
-                        Seçilen filtrelerle eşleşen otel bulunamadı.
-                    </div>
-                </div>
-            }
-        </div>
 
-        @if (Model.TotalPages > 1)
-        {
-            <div class="row mt-5">
-                <div class="col-12">
-                    <nav aria-label="Hotel pagination">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
-                                <a class="page-link"
-                                   asp-action="Index"
-                                   asp-route-page="@(Model.CurrentPage - 1)"
-                                   asp-route-searchTerm="@Model.SearchTerm"
-                                   asp-route-minScore="@Model.MinScore"
-                                   asp-route-maxScore="@Model.MaxScore"
-                                   asp-route-minReviewCount="@Model.MinReviewCount"
-                                   asp-route-maxReviewCount="@Model.MaxReviewCount"
-                                   asp-route-currency="@Model.Currency"
-                                   asp-route-checkinFrom="@(Model.CheckinFrom?.ToString("yyyy-MM-dd"))"
-                                   asp-route-checkoutTo="@(Model.CheckoutTo?.ToString("yyyy-MM-dd"))">
-                                    Önceki
-                                </a>
-                            </li>
-                            @for (var i = 1; i <= Model.TotalPages; i++)
-                            {
-                                <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
-                                    <a class="page-link"
-                                       asp-action="Index"
-                                       asp-route-page="@i"
-                                       asp-route-searchTerm="@Model.SearchTerm"
-                                       asp-route-minScore="@Model.MinScore"
-                                       asp-route-maxScore="@Model.MaxScore"
-                                       asp-route-minReviewCount="@Model.MinReviewCount"
-                                       asp-route-maxReviewCount="@Model.MaxReviewCount"
-                                       asp-route-currency="@Model.Currency"
-                                       asp-route-checkinFrom="@(Model.CheckinFrom?.ToString("yyyy-MM-dd"))"
-                                       asp-route-checkoutTo="@(Model.CheckoutTo?.ToString("yyyy-MM-dd"))">
-                                        @i
-                                    </a>
-                                </li>
-                            }
-                            <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">
-                                <a class="page-link"
-                                   asp-action="Index"
-                                   asp-route-page="@(Model.CurrentPage + 1)"
-                                   asp-route-searchTerm="@Model.SearchTerm"
-                                   asp-route-minScore="@Model.MinScore"
-                                   asp-route-maxScore="@Model.MaxScore"
-                                   asp-route-minReviewCount="@Model.MinReviewCount"
-                                   asp-route-maxReviewCount="@Model.MaxReviewCount"
-                                   asp-route-currency="@Model.Currency"
-                                   asp-route-checkinFrom="@(Model.CheckinFrom?.ToString("yyyy-MM-dd"))"
-                                   asp-route-checkoutTo="@(Model.CheckoutTo?.ToString("yyyy-MM-dd"))">
-                                    Sonraki
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
+                <hr class="my-5">
+
+                <h4 class="text-primary mb-3">
+                    <i class="fa fa-globe me-2"></i>RapidAPI Otelleri
+                </h4>
+
+                @if (Model.Hotels?.Any() == true)
+                {
+                    <div class="row g-4">
+                        @foreach (var hotel in Model.Hotels)
+                        {
+                            <div class="col-xl-4 col-lg-6 col-md-6">
+                                <div class="card border-0 shadow-sm h-100">
+                                    <img src="@hotel.ImageUrl"
+                                         class="card-img-top"
+                                         style="height:220px; object-fit:cover;" />
+
+                                    <div class="card-body d-flex flex-column">
+                                        <h6 class="fw-bold">@hotel.Name</h6>
+
+                                        <div class="small text-muted mb-3">
+                                            <i class="fa fa-star text-warning me-1"></i>
+                                            @hotel.ReviewScore
+                                        </div>
+
+                                        <a asp-action="Detail"
+                                           asp-route-id="@hotel.HotelId"
+                                           class="btn btn-primary btn-sm mt-auto">
+                                            Detayları Gör
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="text-center py-4">
+                        <i class="fa fa-search fa-3x text-muted mb-3"></i>
+                        <p class="text-muted">Sonuç bulunamadı</p>
+                        <a asp-action="Index" class="btn btn-primary btn-sm">
+                            Filtreleri Temizle
+                        </a>
+                    </div>
+                }
+
             </div>
-        }
+        </div>
     </div>
 </div>

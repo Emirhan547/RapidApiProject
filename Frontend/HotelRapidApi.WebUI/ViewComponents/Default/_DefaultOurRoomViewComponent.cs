@@ -1,4 +1,4 @@
-﻿using HotelRapidApi.WebUI.DTOs.AboutDtos;
+﻿
 using HotelRapidApi.WebUI.DTOs.RoomDtos;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -22,6 +22,7 @@ namespace HotelRapidApi.WebUI.ViewComponents.Default
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
                 var values = JsonConvert.DeserializeObject<List<ResultRoomDto>>(jsonData);
+                values = values?.Take(6).ToList();
                 return View(values);
             }
             return View();
