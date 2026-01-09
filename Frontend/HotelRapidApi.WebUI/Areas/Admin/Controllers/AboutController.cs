@@ -75,7 +75,7 @@ namespace HotelRapidApi.WebUI.Areas.Admin.Controllers
             }
             return View();
         }
-        public async Task<IActionResult> DeleteRoom(int id)
+        public async Task<IActionResult> DeleteAbout(int id)
         {
             var client = _httpClientFactory.CreateClient();
             await client.DeleteAsync($"http://localhost:5196/api/Abouts/{id}");

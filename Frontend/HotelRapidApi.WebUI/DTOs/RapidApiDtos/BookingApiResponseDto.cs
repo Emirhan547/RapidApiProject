@@ -2,7 +2,7 @@
 {
     public class BookingApiResponseDto
     {
-        public int HotelId { get; set; }
+        public string HotelId { get; set; }
         public string Name { get; set; }
         public float ReviewScore { get; set; }
         public string ReviewScoreWord { get; set; }

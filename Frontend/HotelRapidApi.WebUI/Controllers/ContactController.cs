@@ -22,7 +22,7 @@ namespace HotelRapidApi.WebUI.Controllers
         private async Task LoadMessageCategories()
         {
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("http://localhost:5196/api/MessageCategory");
+            var responseMessage = await client.GetAsync("http://localhost:5196/api/MessageCategories");
 
             var values = new List<ResultMessageCategoryDto>();
 
