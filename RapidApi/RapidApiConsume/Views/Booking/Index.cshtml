@@ -1,4 +1,5 @@
-﻿@model List<BookingApiViewModel.Property1>
+﻿@using System.Linq
+@model List<PropertySearchListing>
 @{
     Layout = null;
     int count = 0;
@@ -12,18 +13,30 @@
         <tr>
             <th>#</th>
             <th>Otel Adı</th>
+            <th>Görsel</th>
             <th>Otel Puanı</th>
+            <th>Fiyat</th>
             <th>Otel Detayları</th>
 
         </tr>
         @foreach (var item in Model)
         {
+            var imageUrl = item.mediaSection?.gallery?.media?.FirstOrDefault()?.media?.url;
+            var priceText = item.priceSection?.priceSummary?.optionsV2?.FirstOrDefault()?.formattedDisplayPrice
+                ?? item.priceSection?.priceSummary?.optionsV2?.FirstOrDefault()?.displayPrice?.formatted;
             count++;
             <tr>
                 <td>@count</td>
-                <td>@item.name</td>
-                <td>@item.reviewScore</td>
-                <td><a gref="#"class="btn btn-outline-dark">Detaylar</a></td>
+                <td>@item.headingSection?.heading</td>
+                <td>
+                    @if (!string.IsNullOrWhiteSpace(imageUrl))
+                    {
+                        <img src="@imageUrl" alt="@item.headingSection?.heading" style="max-width:140px;" />
+                    }
+                </td>
+                <td>@item.summarySections?.FirstOrDefault()?.guestRatingSectionV2?.badge?.text</td>
+                <td>@priceText</td>
+                <td><a href="#" class="btn btn-outline-dark">Detaylar</a></td>
 
 
             </tr>

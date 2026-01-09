@@ -12,11 +12,11 @@ namespace RapidApiConsume.Controllers
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
-                RequestUri = new Uri("https://booking-com15.p.rapidapi.com/api/v1/hotels/searchHotels?dest_id=-1456928&search_type=CITY&arrival_date=2025-12-27&departure_date=2026-01-01&adults=1&children_age=0%2C17&room_qty=1&page_number=1&units=metric&temperature_unit=c&languagecode=en-us&location=US"),
+                RequestUri = new Uri("https://hotels-com6.p.rapidapi.com/hotels/search?locationId=6241295&checkinDate=2026-01-17&checkoutDate=2026-01-25&rooms=%5B%7B%22adults%22%3A%201%7D%5D"),
                 Headers =
                 {
-                    { "x-rapidapi-key", "047a17087bmsh5d1af7361331700p13e5fdjsne8c480915cd5" },
-                    { "x-rapidapi-host", "booking-com15.p.rapidapi.com" },
+                    { "x-rapidapi-key", "867d760a88msh85865aa894d49d4p1a89b4jsn7c3d8f0c5eb6" },
+                    { "x-rapidapi-host", "hotels-com6.p.rapidapi.com" },
                 },
             };
             using (var response = await client.SendAsync(request))
@@ -24,14 +24,8 @@ namespace RapidApiConsume.Controllers
                 response.EnsureSuccessStatusCode();
                 var body = await response.Content.ReadAsStringAsync();
                 var values = JsonConvert.DeserializeObject<BookingApiViewModel>(body);
-                if (values?.property1 != null)
-                {
-                    return View(values.property1.ToList());
-                }
-                else
-                {
-                    return View(new List<BookingApiViewModel.Property1>());
-                }
+                var listings = values?.data?.propertySearchListings?.ToList() ?? new List<PropertySearchListing>();
+                return View(listings);
             }
         }
     }

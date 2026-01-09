@@ -8,6 +8,7 @@
         public string ReviewScoreWord { get; set; }
         public int ReviewCount { get; set; }
         public string ImageUrl { get; set; }
+        public string PriceText { get; set; }
         public string CheckinDate { get; set; }
         public string CheckoutDate { get; set; }
         public string Currency { get; set; }
