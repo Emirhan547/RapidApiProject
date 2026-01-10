@@ -17,4 +17,12 @@ public class EfContactMessageDal : GenericRepository<ContactMessage>, IContactMe
     {
         return await _context.ContactMessages.CountAsync();
     }
+
+    public async Task<List<ContactMessage>> GetInboxMessagesAsync()
+    {
+        return await _context.ContactMessages
+            .AsNoTracking()
+            .Include(x => x.MessageCategory)
+            .ToListAsync();
+    }
 }

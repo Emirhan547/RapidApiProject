@@ -22,7 +22,7 @@ namespace HotelRapidApi.WebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> InboxListContact()
         {
-            var values = await _contactMessageService.GetListAsync();
+            var values = await _contactMessageService.GetInboxMessagesAsync();
             return Ok(values);
         }
         [HttpGet("{id}")]

@@ -1,31 +1,82 @@
-﻿@using HotelRapidApi.WebUI.Models
- @model UserEditViewModel
+﻿﻿@using HotelRapidApi.WebUI.Models
+
+@model UserEditViewModel
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Profil Bilgileri ve Şifre Güncelleme</h1>
+<div class="bg-surface-light dark:bg-surface-dark rounded-2xl shadow-sm p-6 md:p-8">
+    <div class="flex items-center gap-3 border-b border-slate-200/60 dark:border-slate-700/60 pb-4">
+        <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
+            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path d="M10 10a3 3 0 1 0-3-3 3 3 0 0 0 3 3Zm0 2c-3.33 0-6 1.79-6 4v1h12v-1c0-2.21-2.67-4-6-4Z" />
+            </svg>
+        </span>
+        <div>
+            <h1 class="text-xl font-semibold text-slate-900 dark:text-slate-100">Profil Bilgileri</h1>
+            <p class="text-sm text-slate-500 dark:text-slate-400">Hesap bilgilerinizi güncelleyin.</p>
+        </div>
+    </div>
 
-<form method="post">
-    <label>Adınız</label>
-    <input type="text" class="form-control" asp-for="Name" />
-    <br />
-    <label>Soyadınız</label>
-    <input type="text" class="form-control" asp-for="Surname" />
-    <br />
-    <label>Kullanıcı Adınız</label>
-    <input type="text" class="form-control" asp-for="Username" readonly />
-    <br />
-    <label>Email Adresiniz</label>
-    <input type="text" class="form-control" asp-for="Email" />
-    <br />
-    <label>Şifreniz</label>
-    <input type="password" class="form-control" asp-for="Password" />
-    <br />
-    <label>Şifreniz Tekrar</label>
-    <input type="password" class="form-control" asp-for="ConfirmPassword" />
-    <br />
-    <button class="btn btn-success">Bilgileri Güncelle</button>
-</form>
 
+    <form method="post" class="mt-6 space-y-6">
+        <div asp-validation-summary="ModelOnly" class="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600 dark:border-red-500/40 dark:bg-red-500/10 dark:text-red-200"></div>
+
+        <div class="grid gap-6 md:grid-cols-2">
+            <div>
+                <label class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200" asp-for="Name">Adınız</label>
+                <input type="text" class="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 dark:border-slate-700 dark:bg-slate-900/40 dark:text-slate-100" asp-for="Name" />
+                <span asp-validation-for="Name" class="mt-2 block text-xs text-red-500"></span>
+            </div>
+            <div>
+                <label class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200" asp-for="Surname">Soyadınız</label>
+                <input type="text" class="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 dark:border-slate-700 dark:bg-slate-900/40 dark:text-slate-100" asp-for="Surname" />
+                <span asp-validation-for="Surname" class="mt-2 block text-xs text-red-500"></span>
+            </div>
+            <div>
+                <label class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200" asp-for="Username">Kullanıcı Adınız</label>
+                <input type="text" class="w-full rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 dark:border-slate-700 dark:bg-slate-900/60 dark:text-slate-100" asp-for="Username" readonly />
+                <span asp-validation-for="Username" class="mt-2 block text-xs text-red-500"></span>
+            </div>
+            <div>
+                <label class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200" asp-for="Email">Email Adresiniz</label>
+                <input type="text" class="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 dark:border-slate-700 dark:bg-slate-900/40 dark:text-slate-100" asp-for="Email" />
+                <span asp-validation-for="Email" class="mt-2 block text-xs text-red-500"></span>
+            </div>
+        </div>
+
+        <div class="rounded-xl border border-slate-200/70 bg-white/60 p-5 dark:border-slate-700/60 dark:bg-slate-900/30">
+            <div class="flex items-center gap-3 border-b border-slate-200/60 pb-3 dark:border-slate-700/60">
+                <span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-primary/10 text-primary">
+                    <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M10 2a4 4 0 0 0-4 4v2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2h-1V6a4 4 0 0 0-4-4Zm2 6V6a2 2 0 1 0-4 0v2h4Z" clip-rule="evenodd" />
+                    </svg>
+                </span>
+                <div>
+                    <h2 class="text-base font-semibold text-slate-900 dark:text-slate-100">Şifre Güncelleme</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Yeni şifrenizi girin.</p>
+                </div>
+            </div>
+            <div class="mt-4 grid gap-6 md:grid-cols-2">
+                <div>
+                    <label class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200" asp-for="Password">Şifreniz</label>
+                    <input type="password" class="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 dark:border-slate-700 dark:bg-slate-900/40 dark:text-slate-100" asp-for="Password" />
+                    <span asp-validation-for="Password" class="mt-2 block text-xs text-red-500"></span>
+                </div>
+                <div>
+                    <label class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200" asp-for="ConfirmPassword">Şifreniz Tekrar</label>
+                    <input type="password" class="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 dark:border-slate-700 dark:bg-slate-900/40 dark:text-slate-100" asp-for="ConfirmPassword" />
+                    <span asp-validation-for="ConfirmPassword" class="mt-2 block text-xs text-red-500"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-3">
+            <button class="inline-flex items-center justify-center rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/30">
+                Bilgileri Güncelle
+            </button>
+            <a href="/Admin/Dashboard/Index" class="text-sm font-medium text-slate-500 transition hover:text-primary dark:text-slate-400">Vazgeç</a>
+        </div>
+    </form>
+</div>

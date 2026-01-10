@@ -10,6 +10,6 @@ namespace HotelRapidApi.DataAccessLayer.Abstract
     public interface IContactMessageDal : IGenericDal<ContactMessage>
     {
         Task <int> GetContactCount();
-
+        Task<List<ContactMessage>> GetInboxMessagesAsync();
     }
 }

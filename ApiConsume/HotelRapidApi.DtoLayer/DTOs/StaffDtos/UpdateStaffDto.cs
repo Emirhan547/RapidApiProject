@@ -15,5 +15,6 @@ namespace HotelRapidApi.DtoLayer.DTOs.StaffDtos
         public string SocialMedia2 { get; set; }
         public string SocialMedia3 { get; set; }
 
+
     }
 }

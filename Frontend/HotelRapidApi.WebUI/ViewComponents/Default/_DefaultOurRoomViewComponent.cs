@@ -22,7 +22,7 @@ namespace HotelRapidApi.WebUI.ViewComponents.Default
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
                 var values = JsonConvert.DeserializeObject<List<ResultRoomDto>>(jsonData);
-                values = values?.Take(6).ToList();
+                values = values?.Take(3).ToList();
                 return View(values);
             }
             return View();

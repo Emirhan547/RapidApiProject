@@ -10,6 +10,6 @@ namespace HotelRapidApi.BusinessLayer.Abstract
     public interface IContactMessageService : IGenericService<ResultContactMessageDto, CreateContactMessageDto, UpdateContactMessageDto>
     {
         Task<int> TGetContactCount();
-
+        Task<List<ResultContactMessageDto>> GetInboxMessagesAsync();
     }
 }

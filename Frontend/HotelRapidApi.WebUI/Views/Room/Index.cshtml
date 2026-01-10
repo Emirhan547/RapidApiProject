@@ -1,0 +1,141 @@
+﻿@using HotelRapidApi.WebUI.Models
+@model RoomListViewModel
+@{
+    ViewData["Title"] = "Odalar";
+    Layout = "~/Views/Shared/_UILayout.cshtml";
+}
+
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <h6 class="section-title text-center text-primary text-uppercase">Konaklama Seçenekleri</h6>
+            <h1 class="mb-3">
+                Size En Uygun <span class="text-primary text-uppercase">Odayı</span> Keşfedin
+            </h1>
+            <p class="text-muted mb-4">
+                Konfor, fiyat ve özelliklere göre odalarımızı kolayca filtreleyin ve size en uygun seçimi yapın.
+            </p>
+
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-3">
+                <div class="bg-light rounded-3 p-4 shadow-sm">
+                    <h5 class="mb-3">Filtrele</h5>
+                    <form method="get" asp-controller="Room" asp-action="Index">
+                        <div class="mb-3">
+                            <label class="form-label">Arama</label>
+                            <input class="form-control" type="text" name="search" value="@Model.Search" placeholder="Oda adı, açıklama" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Fiyat Aralığı</label>
+                            <div class="d-flex gap-2">
+                                <input class="form-control" type="number" name="minPrice" value="@Model.MinPrice" placeholder="Min @(Model.AvailableMinPrice ?? 0)" />
+                                <input class="form-control" type="number" name="maxPrice" value="@Model.MaxPrice" placeholder="Max @(Model.AvailableMaxPrice ?? 0)" />
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Yatak Sayısı</label>
+                            <select class="form-select" name="bedCount">
+                                <option value="">Seçiniz</option>
+                                @foreach (var bed in Model.AvailableBedCounts)
+                                {
+                                    <option value="@bed" selected="@(Model.BedCount == bed ? "selected" : null)">@bed+</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Banyo Sayısı</label>
+                            <select class="form-select" name="bathCount">
+                                <option value="">Seçiniz</option>
+                                @foreach (var bath in Model.AvailableBathCounts)
+                                {
+                                    <option value="@bath" selected="@(Model.BathCount == bath ? "selected" : null)">@bath+</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-check mb-4">
+                            <input class="form-check-input" type="checkbox" name="wifiOnly" value="true" id="wifiOnly" @(Model.WifiOnly ? "checked" : "") />
+                            <label class="form-check-label" for="wifiOnly">Sadece Wi-Fi</label>
+                        </div>
+                        <button class="btn btn-primary w-100" type="submit">Filtrele</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-lg-9">
+                <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
+                    <div>
+                        <h5 class="mb-1">@Model.Rooms.Count Oda Bulundu</h5>
+                        <span class="text-muted">Odanızı sepete ekliyormuş gibi seçin.</span>
+                    </div>
+                    <form method="get" asp-controller="Room" asp-action="Index" class="d-flex align-items-center gap-2">
+                        <input type="hidden" name="search" value="@Model.Search" />
+                        <input type="hidden" name="minPrice" value="@Model.MinPrice" />
+                        <input type="hidden" name="maxPrice" value="@Model.MaxPrice" />
+                        <input type="hidden" name="bedCount" value="@Model.BedCount" />
+                        <input type="hidden" name="bathCount" value="@Model.BathCount" />
+                        <input type="hidden" name="wifiOnly" value="@(Model.WifiOnly ? "true" : "")" />
+                        <label class="text-muted">Sırala:</label>
+                        <select class="form-select" name="sort" onchange="this.form.submit()" style="width: 180px;">
+                            <option value="">Varsayılan</option>
+                            <option value="price_asc" selected="@(Model.Sort == "price_asc" ? "selected" : null)">Fiyat (Artan)</option>
+                            <option value="price_desc" selected="@(Model.Sort == "price_desc" ? "selected" : null)">Fiyat (Azalan)</option>
+                            <option value="bed_desc" selected="@(Model.Sort == "bed_desc" ? "selected" : null)">Yatak (Çoktan)</option>
+                            <option value="bed_asc" selected="@(Model.Sort == "bed_asc" ? "selected" : null)">Yatak (Azdan)</option>
+                            <option value="title" selected="@(Model.Sort == "title" ? "selected" : null)">İsme Göre</option>
+                        </select>
+                    </form>
+                </div>
+
+                <div class="row g-4">
+                    @if (Model.Rooms.Any())
+                    {
+                        foreach (var room in Model.Rooms)
+                        {
+                            <div class="col-md-6 col-xl-4">
+                                <div class="room-item shadow-sm rounded-3 overflow-hidden h-100">
+                                    <div class="position-relative">
+                                        <div class="ratio ratio-4x3">
+                                            <a asp-controller="Room" asp-action="Detail" asp-route-id="@room.Id" class="w-100 h-100">
+                                                <img src="@room.RoomCoverImage"
+                                                     alt="@room.Title"
+                                                     class="img-fluid w-100 h-100 object-fit-cover" />
+                                            </a>
+                                        </div>
+
+                                        <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded-pill py-1 px-3 ms-4">
+                                            @room.Price $/Gece
+                                        </small>
+                                    </div>
+                                    <div class="p-4 mt-2 d-flex flex-column h-100">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h5 class="mb-0">@room.Title</h5>
+                                            <span class="badge bg-light text-primary">@room.RoomNumber</span>
+                                        </div>
+                                        <div class="d-flex mb-3">
+                                            <small class="border-end me-3 pe-3"><i class="fa fa-bed text-primary me-2"></i>@room.BedCount Yatak</small>
+                                            <small class="border-end me-3 pe-3"><i class="fa fa-bath text-primary me-2"></i>@room.BathCount Banyo</small>
+                                            <small><i class="fa fa-wifi text-primary me-2"></i>@(string.IsNullOrWhiteSpace(room.Wifi) ? "-" : room.Wifi)</small>
+                                        </div>
+                                        <p class="text-body mb-4">@room.Description</p>
+                                        <div class="d-flex justify-content-between mt-auto">
+                                            <a class="btn btn-sm btn-outline-primary rounded py-2 px-4" asp-controller="Room" asp-action="Detail" asp-route-id="@room.Id">Detaylar</a>
+                                            <a class="btn btn-sm btn-dark rounded py-2 px-4" href="/Booking/Create">Rezervasyon</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="col-12">
+                            <div class="alert alert-warning text-center">Filtrelere uygun oda bulunamadı.</div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

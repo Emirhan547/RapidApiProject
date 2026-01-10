@@ -32,6 +32,12 @@ namespace HotelRapidApi.BusinessLayer.Concrete
             return contact.Adapt<ResultContactMessageDto>();
         }
 
+        public async Task<List<ResultContactMessageDto>> GetInboxMessagesAsync()
+        {
+            var contacts = await _contactMessageDal.GetInboxMessagesAsync();
+            return contacts.Adapt<List<ResultContactMessageDto>>();
+        }
+
         public async Task<List<ResultContactMessageDto>> GetListAsync()
         {
             var contacts = await _contactMessageDal.GetListAsync();
