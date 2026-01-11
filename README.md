@@ -1,4 +1,4 @@
-# 🏨 ASP.NET Core 8 – Otel Rezervasyon Projesi
+# 🏨 ASP.NET Core 8 API & RapidAPI – Otel Rezervasyon Uygulaması
 
 Bu proje, **Murat Yücedağ** tarafından Udemy platformunda yayınlanan  
 ASP.NET Core tabanlı otel rezervasyon sistemi kursu referans alınarak geliştirilmiştir.
